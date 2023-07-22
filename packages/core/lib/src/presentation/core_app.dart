@@ -1,7 +1,9 @@
 import 'package:core/src/app_settings.dart';
 import 'package:core/src/external/extension.dart';
+import 'package:core/src/localization/localization_bloc.dart';
 import 'package:core/src/presentation/core_app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class CoreApp extends StatelessWidget {
@@ -15,31 +17,64 @@ class CoreApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: context.getIt.get<AppSettings>().appName,
-      navigatorKey: Get.key,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      getPages: coreAppSettings.pages,
-      initialRoute: coreAppSettings.pages.first.name,
-      unknownRoute: coreAppSettings.unknownRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => context.getIt.get<LocalizationBloc>()),
+      ],
+      child: _MaterialApp(coreAppSettings: coreAppSettings),
     );
+  }
+}
+
+class _MaterialApp extends StatefulWidget {
+  final CoreAppSettings coreAppSettings;
+
+  const _MaterialApp({required this.coreAppSettings, Key? key}) : super(key: key);
+
+  @override
+  State<_MaterialApp> createState() => _MaterialAppState();
+}
+
+class _MaterialAppState extends State<_MaterialApp> {
+  LocalizationBloc? localizationBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    localizationBloc = context.getIt.get<LocalizationBloc>();
+    localizationBloc?.add(const LocalizationEvent.changeLanguage());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LocalizationBloc, LocalizationState>(
+        builder: (context, state){
+          return GetMaterialApp(
+            title: context.getIt.get<AppSettings>().appName,
+            navigatorKey: Get.key,
+            theme: ThemeData(
+              // This is the theme of your application.
+              //
+              // TRY THIS: Try running your application with "flutter run". You'll see
+              // the application has a blue toolbar. Then, without quitting the app,
+              // try changing the seedColor in the colorScheme below to Colors.green
+              // and then invoke "hot reload" (save your changes or press the "hot
+              // reload" button in a Flutter-supported IDE, or press "r" if you used
+              // the command line to start the app).
+              //
+              // Notice that the counter didn't reset back to zero; the application
+              // state is not lost during the reload. To reset the state, use hot
+              // restart instead.
+              //
+              // This works for code too, not just values: Most code changes can be
+              // tested with just a hot reload.
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            getPages: widget.coreAppSettings.pages,
+            initialRoute: widget.coreAppSettings.pages.first.name,
+            unknownRoute: widget.coreAppSettings.unknownRoute,
+          );
+        });
   }
 }
