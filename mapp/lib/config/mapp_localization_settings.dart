@@ -4,7 +4,7 @@ import 'package:core/core.dart';
 class MappLocalizationSettings extends AppLocalizationSettings {
   @override
   Map<String, Map<String, String>> get keys => {
-    'id_ID': {
+    'ids_ID': {
       'hello_world': 'Halo Dunia',
     }, 'en_ID': {
       'hello_world': 'Hello World',

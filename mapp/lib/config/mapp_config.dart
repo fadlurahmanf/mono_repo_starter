@@ -12,6 +12,10 @@ final _devAppModules = <AppModule>[
   MappAppModule(settings: MappAppDevSettings()),
 ];
 
+final _devLocalizationModule = AppLocalizationModule(
+  appLocalizationSettings: MappLocalizationSettings(),
+);
+
 final _devRouteModules = <RouteModule>[
   MappOnBoardingRoutes(),
 ];
@@ -27,9 +31,7 @@ final devSetting = AppRunnerSetting(
   coreAppSettings: MappCoreAppSettings(),
   appModuleSettings: AppModuleSettings(
     appModules: _devAppModules,
-    localizationModule: AppLocalizationModule(
-      appLocalizationSettings: MappLocalizationSettings(),
-    ),
+    localizationModule: _devLocalizationModule,
     routeModules: _devRouteModules,
     childModules: _devModules,
   ),

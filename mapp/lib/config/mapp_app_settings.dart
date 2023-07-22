@@ -1,15 +1,13 @@
 import 'package:core/core.dart';
 
 class MappAppDevSettings extends MappAppSettings {
-  MappAppDevSettings() : super(useAlice: true);
+  MappAppDevSettings() : super(useLog: true, useAlice: true);
 }
 
 class MappAppStagingSettings extends MappAppSettings {
-  MappAppStagingSettings() : super(useAlice: false);
+  MappAppStagingSettings() : super(useLog: true, useAlice: false);
 }
 
 class MappAppSettings extends AppSettings {
-  bool useAlice;
-
-  MappAppSettings({required this.useAlice}) : super(appName: 'MAPP');
+  MappAppSettings({required super.useLog, required super.useAlice}) : super(appName: 'MAPP');
 }

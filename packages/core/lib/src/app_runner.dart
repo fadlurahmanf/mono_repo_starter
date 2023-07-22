@@ -18,10 +18,10 @@ Future<void> appRunner({required AppRunnerSetting settings}) async {
 
 Future<void> _registerModules({required GetIt c, required AppModuleSettings appModuleSettings}) async {
   for (var element in appModuleSettings.appModules) {
-    element.registerAppSettings(c);
+    element.registerDependency(c);
   }
 
-  appModuleSettings.localizationModule.checkSupportedLanguage();
+  appModuleSettings.localizationModule.checkSupportedLanguage(c);
   appModuleSettings.localizationModule.registerDependency(c);
 
   for (var element in appModuleSettings.childModules) {
