@@ -1,0 +1,6 @@
+name: mono_repo_starter
+
+packages:
+  - packages/**
+  - mapp
+  - sapp
