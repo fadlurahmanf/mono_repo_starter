@@ -1,3 +1,4 @@
+import 'package:alice/alice.dart';
 import 'package:core/src/app_settings.dart';
 import 'package:core/src/logger/app_logger.dart';
 import 'package:core/src/route/app_get_page.dart';
@@ -24,12 +25,21 @@ abstract class AppModule extends BaseModule {
       c.registerLazySingleton<Logger>(() => Logger(printer: PrettyPrinter()));
     }
 
+    if (appSettings.useLog == true) {
+      c.registerLazySingleton<Alice>(() => Alice(showInspectorOnShake: true));
+    }
+
     Logger? logger;
     if (c.isRegistered<Logger>()) {
       logger = c.get<Logger>();
     }
 
-    c.registerLazySingleton<AppLogger>(() => AppLogger(logger: logger));
+    Alice? alice;
+    if (c.isRegistered<Alice>()) {
+      alice = c.get<Alice>();
+    }
+
+    c.registerLazySingleton<AppLogger>(() => AppLogger(logger: logger, alice: alice));
   }
 }
 
