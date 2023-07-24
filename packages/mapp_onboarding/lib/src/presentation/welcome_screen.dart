@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:get/get.dart';
 import 'package:mapp_onboarding/src/presentation/tnc_screen.dart';
+import 'package:mapp_storage/mapp_storage.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -36,7 +37,25 @@ class _WelcomeLayoutState extends State<_WelcomeLayout> {
                 context.push(TNCScreen, transition: Transition.fadeIn);
               },
               child: Text("data"),
-            )
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await context.getIt.get<MappSqfliteRepository>().insert(
+                        mappEntity: MappEntity(
+                      deviceId: 'DEVICE_ID',
+                    ));
+              },
+              child: Text("INSERT"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final list = await context.getIt.get<MappSqfliteRepository>().getAll();
+                list.forEach((element) {
+                  print("masuk element: ${element.toJson()}");
+                });
+              },
+              child: Text("GET"),
+            ),
           ],
         ),
       ),

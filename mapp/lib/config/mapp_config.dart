@@ -7,6 +7,7 @@ import 'package:mapp/config/mapp_app_settings.dart';
 import 'package:mapp/config/mapp_core_app_settings.dart';
 import 'package:mapp/config/mapp_localization_settings.dart';
 import 'package:mapp_onboarding/mapp_onboarding.dart';
+import 'package:mapp_storage/mapp_storage.dart';
 
 final _devAppModules = MappAppModule(settings: MappAppDevSettings());
 
@@ -19,6 +20,8 @@ final _devRouteModules = <RouteModule>[
 ];
 
 final _devModules = <BaseModule>[
+  MappStorage(),
+
   MappApiModule(
     settings: MappApiDevSettings(),
   ),

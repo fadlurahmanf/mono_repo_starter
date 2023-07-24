@@ -43,6 +43,8 @@ dependencies:
 
   mapp_onboarding:
     path: ../packages/mapp_onboarding
+  mapp_storage:
+    path: ../packages/mapp_storage
 
 dev_dependencies:
   flutter_test:

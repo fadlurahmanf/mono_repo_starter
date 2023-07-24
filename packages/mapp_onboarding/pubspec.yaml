@@ -15,6 +15,9 @@ dependencies:
   core:
     path: ../core
 
+  mapp_storage:
+    path: ../mapp_storage
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
