@@ -25,4 +25,7 @@ class AppLocalizationModule extends LocalizationModule {
       }
     }
   }
+
+  @override
+  Map<String, Map<String, String>> getTranslationKeys() => appLocalizationSettings.keys;
 }

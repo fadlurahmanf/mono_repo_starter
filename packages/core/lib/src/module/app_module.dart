@@ -1,45 +1,38 @@
 import 'package:alice/alice.dart';
+import 'package:core/core.dart';
 import 'package:core/src/app_settings.dart';
-import 'package:core/src/logger/app_logger.dart';
+import 'package:core/src/external/app_utility.dart';
 import 'package:core/src/route/app_get_page.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
-abstract class AppModule extends BaseModule {
+abstract class AppModule {
   AppSettings appSettings;
 
   AppModule({required this.appSettings});
 
-  @override
-  void registerDependency(GetIt c) {
-    _registerAppSettings(c);
-    _registerLogger(c);
+  void setGlobalInjection(GetIt c) {
+    AppUtility.setInjection(c);
   }
 
-  void _registerAppSettings(GetIt c) {
+  void registerAppSettings(GetIt c) {
     c.registerLazySingleton<AppSettings>(() => appSettings);
   }
 
-  void _registerLogger(GetIt c) {
+  void setLoggerAndAlice(GetIt c) {
+    Logger? _logger;
     if (appSettings.useLog == true) {
-      c.registerLazySingleton<Logger>(() => Logger(printer: PrettyPrinter()));
+      _logger = Logger(printer: PrettyPrinter());
+      AppUtility.setLogger(_logger);
     }
 
-    if (appSettings.useLog == true) {
-      c.registerLazySingleton<Alice>(() => Alice(showInspectorOnShake: true));
+    Alice? _alice;
+    if (appSettings.useAlice == true) {
+      _alice = Alice(showInspectorOnShake: true);
+      AppUtility.setAlice(_alice);
     }
 
-    Logger? logger;
-    if (c.isRegistered<Logger>()) {
-      logger = c.get<Logger>();
-    }
-
-    Alice? alice;
-    if (c.isRegistered<Alice>()) {
-      alice = c.get<Alice>();
-    }
-
-    c.registerLazySingleton<AppLogger>(() => AppLogger(logger: logger, alice: alice));
+    c.registerLazySingleton(() => AppLogger(logger: _logger, alice: _alice));
   }
 }
 
@@ -49,6 +42,7 @@ abstract class RouteModule {
 
 abstract class LocalizationModule extends BaseModule {
   void checkSupportedLanguage(GetIt c);
+  Map<String, Map<String, String>> getTranslationKeys();
 }
 
 abstract class BaseModule {

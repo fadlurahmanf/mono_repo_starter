@@ -8,9 +8,7 @@ import 'package:mapp/config/mapp_core_app_settings.dart';
 import 'package:mapp/config/mapp_localization_settings.dart';
 import 'package:mapp_onboarding/mapp_onboarding.dart';
 
-final _devAppModules = <AppModule>[
-  MappAppModule(settings: MappAppDevSettings()),
-];
+final _devAppModules = MappAppModule(settings: MappAppDevSettings());
 
 final _devLocalizationModule = AppLocalizationModule(
   appLocalizationSettings: MappLocalizationSettings(),
@@ -30,7 +28,7 @@ final devSetting = AppRunnerSetting(
   c: GetIt.I,
   coreAppSettings: MappCoreAppSettings(),
   appModuleSettings: AppModuleSettings(
-    appModules: _devAppModules,
+    appModule: _devAppModules,
     localizationModule: _devLocalizationModule,
     routeModules: _devRouteModules,
     childModules: _devModules,

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 
 extension BuildContentX on BuildContext {
+
   GetIt get getIt {
     return AppUtility.getIt;
   }

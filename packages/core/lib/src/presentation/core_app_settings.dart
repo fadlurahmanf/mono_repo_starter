@@ -8,8 +8,13 @@ class CoreAppSettings {
   CoreAppSettings({required this.pages, required this.unknownRoute, required this.translationKeys});
 
   copyWith({
+    Map<String, Map<String, String>>? translationKeys,
     List<GetPage<dynamic>>? pages,
   }) {
-    return CoreAppSettings(pages: pages ?? this.pages, unknownRoute: unknownRoute, translationKeys: translationKeys);
+    return CoreAppSettings(
+      translationKeys: translationKeys ?? this.translationKeys,
+      pages: pages ?? this.pages,
+      unknownRoute: unknownRoute,
+    );
   }
 }

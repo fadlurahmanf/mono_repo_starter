@@ -1,7 +1,7 @@
 name: mono_repo_starter
 
 packages:
-  - packages/**
+  - packages/fln/**
   - mapp
 #  - sapp
 

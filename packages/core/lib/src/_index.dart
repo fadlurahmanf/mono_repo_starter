@@ -1,5 +1,6 @@
 export 'external/_index.dart';
 export 'localization/_index.dart';
+export 'logger/_index.dart';
 export 'module/_index.dart';
 export 'route/_index.dart';
 export 'app_module_settings.dart';

@@ -1,4 +1,7 @@
+import 'package:alice/alice.dart';
+import 'package:core/core.dart';
 import 'package:core/src/app_settings.dart';
+import 'package:core/src/external/app_utility.dart';
 import 'package:core/src/external/extension.dart';
 import 'package:core/src/localization/localization_bloc.dart';
 import 'package:core/src/presentation/core_app_settings.dart';
@@ -41,6 +44,13 @@ class _MaterialAppState extends State<_MaterialApp> {
   @override
   void initState() {
     super.initState();
+    if (context.getIt.get<AppSettings>().useAlice == true) {
+      if (AppUtility.alice == null) {
+        context.getIt.get<AppLogger>().wtf('USE ALICE TRUE BUT ALICE NULL');
+      }
+      AppUtility.addNavigatorKeyToAlice(Get.key);
+    }
+
     localizationBloc = context.getIt.get<LocalizationBloc>();
     localizationBloc?.add(const LocalizationEvent.changeLanguage());
   }
@@ -50,7 +60,9 @@ class _MaterialAppState extends State<_MaterialApp> {
     return BlocBuilder<LocalizationBloc, LocalizationState>(builder: (context, state) {
       return GetMaterialApp(
         title: context.getIt.get<AppSettings>().appName,
-        navigatorKey: Get.key,
+        navigatorKey: context.getIt.get<AppSettings>().useAlice == true && AppUtility.alice != null
+            ? AppUtility.alice!.getNavigatorKey()
+            : Get.key,
         theme: ThemeData(
           // This is the theme of your application.
           //
@@ -70,7 +82,7 @@ class _MaterialAppState extends State<_MaterialApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        // translationsKeys: widget.coreAppSettings.translationKeys,
+        translationsKeys: widget.coreAppSettings.translationKeys,
         getPages: widget.coreAppSettings.pages,
         initialRoute: widget.coreAppSettings.pages.first.name,
         unknownRoute: widget.coreAppSettings.unknownRoute,
