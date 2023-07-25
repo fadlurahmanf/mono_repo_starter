@@ -32,7 +32,9 @@ abstract class AppModule {
       AppUtility.setAlice(_alice);
     }
 
-    c.registerLazySingleton(() => AppLogger(logger: _logger, alice: _alice));
+    final appLogger = AppLogger(logger: _logger, alice: _alice);
+    AppUtility.setAppLogger(appLogger);
+    c.registerLazySingleton(() => appLogger);
   }
 }
 

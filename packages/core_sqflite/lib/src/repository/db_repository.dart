@@ -1,8 +1,10 @@
-import 'package:core_sqflite/src/model/db_model.dart';
+import 'package:core_sqflite/core_sqflite.dart';
+import 'package:core_sqflite/src/dto/model/sql_script.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class IDBRepository {
   SqfliteDBModel get dbModel;
+  Map<int, SQLScript> get scripts;
 
   Future<Database> openDB();
 
@@ -21,7 +23,8 @@ abstract class DBRepository implements IDBRepository {
     _database = await openDatabase('${await getDatabasesPath()}/${dbModel.databaseName}',
         version: dbModel.version,
         onCreate: (db, version) => onCreateDB(db, version),
-        onUpgrade: (db, oldVersion, newVersion) => onUpgradeDB(db, oldVersion, newVersion));
+        onUpgrade: (db, oldVersion, newVersion) => onUpgradeDB(db, oldVersion, newVersion),
+    );
     return _database!;
   }
 

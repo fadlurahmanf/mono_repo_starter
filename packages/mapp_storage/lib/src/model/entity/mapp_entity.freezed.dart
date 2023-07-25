@@ -22,6 +22,10 @@ MappEntity _$MappEntityFromJson(Map<String, dynamic> json) {
 mixin _$MappEntity {
   @JsonKey(name: 'cDeviceId')
   String get deviceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cGuestToken')
+  String? get guestToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cCreatedAt')
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +39,10 @@ abstract class $MappEntityCopyWith<$Res> {
           MappEntity value, $Res Function(MappEntity) then) =
       _$MappEntityCopyWithImpl<$Res, MappEntity>;
   @useResult
-  $Res call({@JsonKey(name: 'cDeviceId') String deviceId});
+  $Res call(
+      {@JsonKey(name: 'cDeviceId') String deviceId,
+      @JsonKey(name: 'cGuestToken') String? guestToken,
+      @JsonKey(name: 'cCreatedAt') String? createdAt});
 }
 
 /// @nodoc
@@ -52,12 +59,22 @@ class _$MappEntityCopyWithImpl<$Res, $Val extends MappEntity>
   @override
   $Res call({
     Object? deviceId = null,
+    Object? guestToken = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       deviceId: null == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
               as String,
+      guestToken: freezed == guestToken
+          ? _value.guestToken
+          : guestToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -70,7 +87,10 @@ abstract class _$$_MappEntityCopyWith<$Res>
       __$$_MappEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'cDeviceId') String deviceId});
+  $Res call(
+      {@JsonKey(name: 'cDeviceId') String deviceId,
+      @JsonKey(name: 'cGuestToken') String? guestToken,
+      @JsonKey(name: 'cCreatedAt') String? createdAt});
 }
 
 /// @nodoc
@@ -85,12 +105,22 @@ class __$$_MappEntityCopyWithImpl<$Res>
   @override
   $Res call({
     Object? deviceId = null,
+    Object? guestToken = freezed,
+    Object? createdAt = freezed,
   }) {
     return _then(_$_MappEntity(
       deviceId: null == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
               as String,
+      guestToken: freezed == guestToken
+          ? _value.guestToken
+          : guestToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -98,7 +128,10 @@ class __$$_MappEntityCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_MappEntity implements _MappEntity {
-  const _$_MappEntity({@JsonKey(name: 'cDeviceId') required this.deviceId});
+  const _$_MappEntity(
+      {@JsonKey(name: 'cDeviceId') required this.deviceId,
+      @JsonKey(name: 'cGuestToken') this.guestToken,
+      @JsonKey(name: 'cCreatedAt') this.createdAt});
 
   factory _$_MappEntity.fromJson(Map<String, dynamic> json) =>
       _$$_MappEntityFromJson(json);
@@ -106,10 +139,16 @@ class _$_MappEntity implements _MappEntity {
   @override
   @JsonKey(name: 'cDeviceId')
   final String deviceId;
+  @override
+  @JsonKey(name: 'cGuestToken')
+  final String? guestToken;
+  @override
+  @JsonKey(name: 'cCreatedAt')
+  final String? createdAt;
 
   @override
   String toString() {
-    return 'MappEntity(deviceId: $deviceId)';
+    return 'MappEntity(deviceId: $deviceId, guestToken: $guestToken, createdAt: $createdAt)';
   }
 
   @override
@@ -118,12 +157,16 @@ class _$_MappEntity implements _MappEntity {
         (other.runtimeType == runtimeType &&
             other is _$_MappEntity &&
             (identical(other.deviceId, deviceId) ||
-                other.deviceId == deviceId));
+                other.deviceId == deviceId) &&
+            (identical(other.guestToken, guestToken) ||
+                other.guestToken == guestToken) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, deviceId);
+  int get hashCode => Object.hash(runtimeType, deviceId, guestToken, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -141,8 +184,9 @@ class _$_MappEntity implements _MappEntity {
 
 abstract class _MappEntity implements MappEntity {
   const factory _MappEntity(
-          {@JsonKey(name: 'cDeviceId') required final String deviceId}) =
-      _$_MappEntity;
+      {@JsonKey(name: 'cDeviceId') required final String deviceId,
+      @JsonKey(name: 'cGuestToken') final String? guestToken,
+      @JsonKey(name: 'cCreatedAt') final String? createdAt}) = _$_MappEntity;
 
   factory _MappEntity.fromJson(Map<String, dynamic> json) =
       _$_MappEntity.fromJson;
@@ -150,6 +194,12 @@ abstract class _MappEntity implements MappEntity {
   @override
   @JsonKey(name: 'cDeviceId')
   String get deviceId;
+  @override
+  @JsonKey(name: 'cGuestToken')
+  String? get guestToken;
+  @override
+  @JsonKey(name: 'cCreatedAt')
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_MappEntityCopyWith<_$_MappEntity> get copyWith =>

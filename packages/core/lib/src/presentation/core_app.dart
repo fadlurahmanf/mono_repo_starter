@@ -48,6 +48,7 @@ class _MaterialAppState extends State<_MaterialApp> {
       if (AppUtility.alice == null) {
         context.getIt.get<AppLogger>().wtf('USE ALICE TRUE BUT ALICE NULL');
       }
+
       AppUtility.addNavigatorKeyToAlice(Get.key);
     }
 
@@ -61,7 +62,7 @@ class _MaterialAppState extends State<_MaterialApp> {
       return GetMaterialApp(
         title: context.getIt.get<AppSettings>().appName,
         navigatorKey: context.getIt.get<AppSettings>().useAlice == true && AppUtility.alice != null
-            ? AppUtility.alice!.getNavigatorKey()
+            ? AppUtility.alice?.getNavigatorKey()
             : Get.key,
         theme: ThemeData(
           // This is the theme of your application.

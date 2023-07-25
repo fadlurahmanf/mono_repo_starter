@@ -2,7 +2,9 @@ part of 'localization_bloc.dart';
 
 @freezed
 class LocalizationState with _$LocalizationState {
-  const factory LocalizationState({required ChangeLanguageState changeLanguageState}) = _LocalizationState;
+  const factory LocalizationState({
+    required ChangeLanguageState changeLanguageState,
+  }) = _LocalizationState;
   factory LocalizationState.initialize() => LocalizationState(changeLanguageState: ChangeLanguageIdle());
 }
 

@@ -13,6 +13,8 @@ dependencies:
 
   sqflite: ^2.2.8+4
 
+  core:
+    path: ../core
   mapp:
     path: ../../mapp
 
