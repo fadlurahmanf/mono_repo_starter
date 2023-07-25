@@ -20,15 +20,15 @@ Future<void> _registerModules({required GetIt c, required AppRunnerSetting setti
   settings.appModuleSettings.appModule.registerAppSettings(c);
   settings.appModuleSettings.appModule.setLoggerAndAlice(c);
 
-  settings.appModuleSettings.localizationModule.checkSupportedLanguage(c);
-  settings.appModuleSettings.localizationModule.registerDependency(c);
-  await _reInitLocalization(translationKeys: settings.appModuleSettings.localizationModule.getTranslationKeys());
-
   for (var element in settings.appModuleSettings.childModules) {
     element.registerDependency(c);
   }
 
   await _reInitPages(routeModules: settings.appModuleSettings.routeModules);
+
+  settings.appModuleSettings.localizationModule.checkSupportedLanguage(c);
+  settings.appModuleSettings.localizationModule.registerDependency(c);
+  await _reInitLocalization(translationKeys: settings.appModuleSettings.localizationModule.getTranslationKeys());
 
   c.registerLazySingleton<CoreAppSettings>(() => _newCoreAppSettings);
 }

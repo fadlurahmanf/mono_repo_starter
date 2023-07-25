@@ -12,9 +12,13 @@ class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
     on<LocalizationEvent>((event, emit) async {
       await event.map(
         changeLanguage: (event) => _changeLanguage(event, emit),
-        loadCurrentLanguage: (event) => _loadCurrentLanguage(event, emit),
+        initAppLanguage: (event) => _initAppLanguage(event, emit),
       );
     });
+  }
+
+  Future<void> _initAppLanguage(_InitAppLanguage event, Emitter<LocalizationState> emit) async {
+
   }
 
   Future<void> _changeLanguage(_ChangeLanguage event, Emitter<LocalizationState> emit) async {
@@ -23,9 +27,5 @@ class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
     emit(state.copyWith(changeLanguageState: ChangeLanguageLoading()));
     await Future.delayed(Duration(seconds: 2));
     emit(state.copyWith(changeLanguageState: ChangeLanguageSuccess()));
-  }
-
-  Future<void> _loadCurrentLanguage(_LoadCurrent event, Emitter<LocalizationState> emit) async {
-
   }
 }

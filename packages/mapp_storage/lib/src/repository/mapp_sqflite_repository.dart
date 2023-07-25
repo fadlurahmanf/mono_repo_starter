@@ -16,4 +16,12 @@ class MappSqfliteRepository {
     final lMap = await db.query(MappEntity.table);
     return lMap.map((e) => MappEntity.fromJson(e)).toList();
   }
+
+  Future<MappEntity?> getData() async {
+    final lMap = await getAll();
+    if (lMap.isNotEmpty) {
+      return lMap.first;
+    }
+    return null;
+  }
 }
