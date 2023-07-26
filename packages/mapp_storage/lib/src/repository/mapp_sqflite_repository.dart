@@ -1,6 +1,5 @@
-import 'package:core_sqflite/core_sqflite.dart';
-import 'package:mapp_storage/src/model/entity/_index.dart';
-import 'package:sqflite_common/sqlite_api.dart';
+import 'package:mapp_storage/mapp_storage.dart';
+import 'package:sqflite/sqflite.dart';
 
 class MappSqfliteRepository {
   Database db;

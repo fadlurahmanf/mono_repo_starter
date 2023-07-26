@@ -16,9 +16,9 @@ Future<void> appRunner({required AppRunnerSetting settings}) async {
 Future<void> _registerModules({required GetIt c, required AppRunnerSetting settings}) async {
   _newCoreAppSettings = settings.coreAppSettings;
 
-  settings.appModuleSettings.appModule.setGlobalInjection(c);
-  settings.appModuleSettings.appModule.registerAppSettings(c);
-  settings.appModuleSettings.appModule.setLoggerAndAlice(c);
+  // settings.appModuleSettings.appModule.setGlobalInjection(c);
+  // settings.appModuleSettings.appModule.registerAppSettings(c);
+  // settings.appModuleSettings.appModule.setLoggerAndAlice(c);
 
   for (var element in settings.appModuleSettings.childModules) {
     element.registerDependency(c);

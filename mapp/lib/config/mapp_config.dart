@@ -31,7 +31,7 @@ final devSetting = AppRunnerSetting(
   c: GetIt.I,
   coreAppSettings: MappCoreAppSettings(),
   appModuleSettings: AppModuleSettings(
-    appModule: _devAppModules,
+    // appModule: _devAppModules,
     routeModules: _devRouteModules,
     childModules: _devModules,
     localizationModule: _devLocalizationModule,
