@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   alice:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: alice
       sha256: "32a3fce0719be3a437f20b440c88dabc5f630b9573d9ba6af29e474fffa17d9e"
@@ -279,7 +279,7 @@ packages:
     source: hosted
     version: "2.1.1"
   logger:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logger
       sha256: "7ad7215c15420a102ec687bb320a7312afd449bac63bfb1c60d9787c27b9767f"
@@ -298,6 +298,13 @@ packages:
     dependency: "direct main"
     description:
       path: "../packages/mapp_onboarding"
+      relative: true
+    source: path
+    version: "0.0.1"
+  mapp_shared:
+    dependency: "direct main"
+    description:
+      path: "../packages/mapp_shared"
       relative: true
     source: path
     version: "0.0.1"

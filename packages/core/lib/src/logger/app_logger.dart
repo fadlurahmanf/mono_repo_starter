@@ -22,6 +22,13 @@ class AppLogger {
     }
   }
 
+  void i(String message, {bool logInAlice = false}) {
+    logger?.i(message);
+    if (logInAlice == true) {
+      alice?.addLog(AliceLog(message: message, level: DiagnosticLevel.info));
+    }
+  }
+
   void wtf(String message, {bool logInAlice = false}) {
     logger?.wtf(message);
     if (logInAlice == true) {

@@ -1,50 +1,81 @@
-import 'package:alice/alice.dart';
 import 'package:core/core.dart';
-import 'package:core/src/app_settings.dart';
-import 'package:core/src/external/app_utility.dart';
-import 'package:core/src/route/app_get_page.dart';
+import 'package:core/src/localization/localization_bloc.dart';
+import 'package:core/src/storage/core_sqflite_db_repository.dart';
+import 'package:core/src/storage/core_sqflite_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 
-abstract class AppModule {
-  AppSettings appSettings;
+abstract class AppModule extends BaseModule {
+  @override
+  void registerDependency(GetIt c) {
+    registerAppSettings(c);
+    _setGlobalInjection(c);
+    setGlobalLoggerAndAlice(c);
+    _registerAppStorage(c);
+  }
 
-  AppModule({required this.appSettings});
+  void registerAppSettings(GetIt c);
 
-  void setGlobalInjection(GetIt c) {
+  void _setGlobalInjection(GetIt c) {
     AppUtility.setInjection(c);
   }
 
-  void registerAppSettings(GetIt c) {
-    c.registerLazySingleton<AppSettings>(() => appSettings);
-  }
+  void setGlobalLoggerAndAlice(GetIt c);
 
-  void setLoggerAndAlice(GetIt c) {
-    Logger? _logger;
-    if (appSettings.useLog == true) {
-      _logger = Logger(printer: PrettyPrinter());
-      AppUtility.setLogger(_logger);
-    }
+  void setGlobalUnknownRoute();
 
-    Alice? _alice;
-    if (appSettings.useAlice == true) {
-      _alice = Alice(showInspectorOnShake: true);
-      AppUtility.setAlice(_alice);
-    }
-
-    final appLogger = AppLogger(logger: _logger, alice: _alice);
-    AppUtility.setAppLogger(appLogger);
-    c.registerLazySingleton(() => appLogger);
+  void _registerAppStorage(GetIt c) {
+    c
+      ..registerLazySingleton<CoreSqfliteDBRepository>(() => CoreSqfliteDBRepository())
+      ..registerSingletonAsync<CoreSqfliteStorage>(
+          () async => CoreSqfliteStorage(db: await c.get<CoreSqfliteDBRepository>().openDB()));
   }
 }
 
 abstract class RouteModule {
   List<AppGetPage> get pages;
+
+  void addPages() {
+    for (var page in pages) {
+      final pages = page.toGetPages();
+      AppUtility.addPages(pages);
+    }
+  }
 }
 
 abstract class LocalizationModule extends BaseModule {
-  void checkSupportedLanguage(GetIt c);
-  Map<String, Map<String, String>> getTranslationKeys();
+  void checkSupportedLanguage() {
+    for (var element in supportedLocales) {
+      if (!translationMap.containsKey('${element.languageCode}_${element.countryCode}')) {
+        AppUtility.appLogger.w("DIDN'T SUPPORT LANGUAGE -> ${element.languageCode}_${element.countryCode}");
+      }
+    }
+  }
+
+  @override
+  void registerDependency(GetIt c) {
+    c.registerLazySingleton<LocalizationBloc>(() => LocalizationBloc(coreStorage: c.get<CoreSqfliteStorage>()));
+    checkSupportedLanguage();
+    setGlobalTranslationMap();
+    setDefaultLocale();
+  }
+
+  void setGlobalTranslationMap() {
+    AppUtility.setTranslationMap(translationMap);
+    AppUtility.overrideSomeTranslationMap(overrideTranslationMap);
+  }
+
+  Map<String, Map<String, String>> get translationMap;
+
+  Map<String, Map<String, String>> get overrideTranslationMap => {};
+
+  List<Locale> get supportedLocales;
+
+  void setDefaultLocale() {
+    if (supportedLocales.isNotEmpty) {
+      AppUtility.setDefaultLocale(supportedLocales.first);
+    }
+  }
 }
 
 abstract class BaseModule {

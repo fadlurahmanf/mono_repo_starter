@@ -1,15 +1,11 @@
 import 'module/app_module.dart';
 
 class AppModuleSettings {
-  // final AppModule appModule;
-  final List<RouteModule> routeModules;
   final List<BaseModule> childModules;
-  final LocalizationModule localizationModule;
+  final List<RouteModule> routeModules;
 
   AppModuleSettings({
-    // required this.appModule,
-    required this.routeModules,
     required this.childModules,
-    required this.localizationModule,
+    required this.routeModules,
   });
 }

@@ -1,19 +1,14 @@
-import 'package:alice/alice.dart';
 import 'package:core/core.dart';
 import 'package:core/src/app_settings.dart';
 import 'package:core/src/external/app_utility.dart';
 import 'package:core/src/external/extension.dart';
 import 'package:core/src/localization/localization_bloc.dart';
-import 'package:core/src/presentation/core_app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class CoreApp extends StatelessWidget {
-  final CoreAppSettings coreAppSettings;
-
   const CoreApp({
-    required this.coreAppSettings,
     super.key,
   });
 
@@ -24,15 +19,13 @@ class CoreApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => context.getIt.get<LocalizationBloc>()),
       ],
-      child: _MaterialApp(coreAppSettings: coreAppSettings),
+      child: const _MaterialApp(),
     );
   }
 }
 
 class _MaterialApp extends StatefulWidget {
-  final CoreAppSettings coreAppSettings;
-
-  const _MaterialApp({required this.coreAppSettings, Key? key}) : super(key: key);
+  const _MaterialApp({Key? key}) : super(key: key);
 
   @override
   State<_MaterialApp> createState() => _MaterialAppState();
@@ -53,7 +46,9 @@ class _MaterialAppState extends State<_MaterialApp> {
     }
 
     localizationBloc = context.getIt.get<LocalizationBloc>();
-    localizationBloc?.add(const LocalizationEvent.changeLanguage());
+    localizationBloc?.add(LocalizationEvent.initAppLanguage(
+      defaultLocale: AppUtility.defaultLocale
+    ));
   }
 
   @override
@@ -83,10 +78,10 @@ class _MaterialAppState extends State<_MaterialApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        translationsKeys: widget.coreAppSettings.translationKeys,
-        getPages: widget.coreAppSettings.pages,
-        initialRoute: widget.coreAppSettings.pages.first.name,
-        unknownRoute: widget.coreAppSettings.unknownRoute,
+        translationsKeys: AppUtility.translationMap,
+        getPages: AppUtility.pages,
+        initialRoute: AppUtility.pages.first.name,
+        unknownRoute: AppUtility.unknownRoute,
       );
     });
   }

@@ -463,6 +463,9 @@
       <excludeFolder url="file://$MODULE_DIR$/mapp/ios/.symlinks/plugins/sqflite/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/mapp/ios/.symlinks/plugins/sqflite/build" />
       <excludeFolder url="file://$MODULE_DIR$/mapp/ios/.symlinks/plugins/sqflite/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_shared/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_shared/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_shared/.dart_tool" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

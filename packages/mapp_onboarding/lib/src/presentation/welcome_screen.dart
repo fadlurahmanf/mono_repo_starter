@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:get/get.dart';
 import 'package:mapp_onboarding/src/presentation/tnc_screen.dart';
+import 'package:mapp_shared/mapp_shared.dart';
 import 'package:mapp_storage/mapp_storage.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -32,6 +33,12 @@ class _WelcomeLayoutState extends State<_WelcomeLayout> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            ElevatedButton(
+              onPressed: () async {
+                context.push(TNCScreen, transition: Transition.fadeIn);
+              },
+              child: Text(MappConstant.helloWorld.tr),
+            ),
             ElevatedButton(
               onPressed: () async {
                 context.push(TNCScreen, transition: Transition.fadeIn);

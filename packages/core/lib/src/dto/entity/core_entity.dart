@@ -7,7 +7,7 @@ part 'core_entity.g.dart';
 @freezed
 class CoreEntity with _$CoreEntity {
   const factory CoreEntity({
-    @JsonKey(name: 'cLanguageCode') required String languageCode,
+    @JsonKey(name: 'cLanguageCode') String? languageCode,
   }) = _CoreEntity;
 
   factory CoreEntity.fromJson(Map<String, dynamic> json) => _$CoreEntityFromJson(json);
