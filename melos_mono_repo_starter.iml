@@ -466,6 +466,18 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp_shared/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp_shared/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp_shared/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/km/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/km/build" />
+      <excludeFolder url="file://$MODULE_DIR$/km/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_shared/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_shared/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_shared/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_oob/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_oob/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_oob/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_storage/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_storage/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_storage/.pub" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

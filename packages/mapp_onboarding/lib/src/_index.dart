@@ -1,1 +1,1 @@
-export 'mapp_onboarding_routes.dart';
+export 'mapp_onboarding_route_module.dart';
