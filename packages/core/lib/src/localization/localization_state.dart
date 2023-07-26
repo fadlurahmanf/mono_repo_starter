@@ -4,6 +4,7 @@ part of 'localization_bloc.dart';
 class LocalizationState with _$LocalizationState {
   const factory LocalizationState({
     required ChangeLanguageState changeLanguageState,
+    Locale? currentLocale,
   }) = _LocalizationState;
   factory LocalizationState.initialize() => LocalizationState(changeLanguageState: ChangeLanguageIdle());
 }

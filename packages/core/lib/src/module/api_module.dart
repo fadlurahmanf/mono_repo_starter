@@ -3,15 +3,15 @@ import 'package:get_it/get_it.dart';
 
 abstract class ApiModule extends BaseModule {
   @override
-  void registerDependency(GetIt c) {
-    registerApiSetting(c);
-    registerBaseOption(c);
-    registerDio(c);
+  Future<void> registerDependency(GetIt c) async {
+    await registerApiSetting(c);
+    await registerBaseOption(c);
+    await registerDio(c);
   }
 
-  void registerApiSetting(GetIt c);
+  Future<void> registerApiSetting(GetIt c);
 
-  void registerBaseOption(GetIt c);
+  Future<void> registerBaseOption(GetIt c);
 
-  void registerDio(GetIt c);
+  Future<void> registerDio(GetIt c);
 }

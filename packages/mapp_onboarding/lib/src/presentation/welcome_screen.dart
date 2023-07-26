@@ -33,11 +33,18 @@ class _WelcomeLayoutState extends State<_WelcomeLayout> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(MappConstant.helloWorld.tr),
             ElevatedButton(
               onPressed: () async {
-                context.push(TNCScreen, transition: Transition.fadeIn);
+                context.getIt.get<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: Locale('id', 'ID')));
               },
-              child: Text(MappConstant.helloWorld.tr),
+              child: Text('GANTI KE INDONESIA'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                context.getIt.get<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: Locale('en', 'ID')));
+              },
+              child: Text('GANTI KE ENGLISH'),
             ),
             ElevatedButton(
               onPressed: () async {

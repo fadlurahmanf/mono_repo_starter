@@ -1,3 +1,4 @@
+import 'package:core/src/dto/entity/core_entity.dart';
 import 'package:core/src/storage/core_sqflite_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,23 +16,34 @@ class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
   LocalizationBloc({required this.coreStorage}) : super(LocalizationState.initialize()) {
     on<LocalizationEvent>((event, emit) async {
       await event.map(
-        changeLanguage: (event) => _changeLanguage(event, emit),
         initAppLanguage: (event) => _initAppLanguage(event, emit),
+        setLanguage: (event) => _setLanguage(event, emit),
       );
     });
   }
 
   Future<void> _initAppLanguage(_InitAppLanguage event, Emitter<LocalizationState> emit) async {
     final first = await coreStorage.getFirstEntity();
-    if(first?.languageCode != null){}
-    coreStorage.getFirstEntity();
+    if (first != null) {
+      emit(state.copyWith(currentLocale: event.defaultLocale));
+    } else {
+      if (event.defaultLocale != null) {
+        await coreStorage.insertOrUpdateIfExist(
+            CoreEntity(languageCode: event.defaultLocale?.languageCode, countryCode: event.defaultLocale?.countryCode));
+        emit(state.copyWith(currentLocale: event.defaultLocale));
+      }
+    }
   }
 
-  Future<void> _changeLanguage(_ChangeLanguage event, Emitter<LocalizationState> emit) async {
-    emit(state.copyWith(changeLanguageState: ChangeLanguageIdle()));
-    await Future.delayed(Duration(seconds: 2));
-    emit(state.copyWith(changeLanguageState: ChangeLanguageLoading()));
-    await Future.delayed(Duration(seconds: 2));
-    emit(state.copyWith(changeLanguageState: ChangeLanguageSuccess()));
+  Future<void> _setLanguage(_SetLanguage event, Emitter<LocalizationState> emit) async {
+    final first = await coreStorage.getFirstEntity();
+    if (first != null) {
+      await coreStorage.insertOrUpdateIfExist(
+          first.copyWith(languageCode: event.locale.languageCode, countryCode: event.locale.countryCode));
+    } else {
+      await coreStorage.insertOrUpdateIfExist(
+          CoreEntity(languageCode: event.locale.languageCode, countryCode: event.locale.countryCode));
+    }
+    emit(state.copyWith(currentLocale: event.locale));
   }
 }

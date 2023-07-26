@@ -10,10 +10,10 @@ Future<void> appRunner({required AppRunnerSetting settings}) async {
 
 Future<void> _registerModules({required GetIt c, required AppRunnerSetting settings}) async {
   for (var element in settings.appModuleSettings.childModules) {
-    element.registerDependency(c);
+    await element.registerDependency(c);
   }
 
   for (var element in settings.appModuleSettings.routeModules) {
-    element.addPages();
+    await element.addPages();
   }
 }

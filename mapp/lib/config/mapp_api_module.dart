@@ -7,17 +7,17 @@ class MappApiModule extends ApiModule {
   MappApiModule({required this.settings});
 
   @override
-  void registerApiSetting(GetIt c) {
+  Future<void> registerApiSetting(GetIt c) async {
     c.registerLazySingleton<MappApiSettings>(() => settings);
   }
 
   @override
-  void registerBaseOption(GetIt c) {
+  Future<void> registerBaseOption(GetIt c) async {
 
   }
 
   @override
-  void registerDio(GetIt c) {
+  Future<void> registerDio(GetIt c) async {
 
   }
 }

@@ -7,24 +7,24 @@ import 'package:get_it/get_it.dart';
 
 abstract class AppModule extends BaseModule {
   @override
-  void registerDependency(GetIt c) {
-    registerAppSettings(c);
-    _setGlobalInjection(c);
-    setGlobalLoggerAndAlice(c);
-    _registerAppStorage(c);
+  Future<void> registerDependency(GetIt c) async {
+    await registerAppSettings(c);
+    await _setGlobalInjection(c);
+    await setGlobalLoggerAndAlice(c);
+    await _registerAppStorage(c);
   }
 
-  void registerAppSettings(GetIt c);
+  Future<void> registerAppSettings(GetIt c);
 
-  void _setGlobalInjection(GetIt c) {
+  Future<void> _setGlobalInjection(GetIt c) async {
     AppUtility.setInjection(c);
   }
 
-  void setGlobalLoggerAndAlice(GetIt c);
+  Future<void> setGlobalLoggerAndAlice(GetIt c);
 
-  void setGlobalUnknownRoute();
+  Future<void> setGlobalUnknownRoute();
 
-  void _registerAppStorage(GetIt c) {
+  Future<void> _registerAppStorage(GetIt c) async {
     c
       ..registerLazySingleton<CoreSqfliteDBRepository>(() => CoreSqfliteDBRepository())
       ..registerSingletonAsync<CoreSqfliteStorage>(
@@ -35,7 +35,7 @@ abstract class AppModule extends BaseModule {
 abstract class RouteModule {
   List<AppGetPage> get pages;
 
-  void addPages() {
+  Future<void> addPages() async {
     for (var page in pages) {
       final pages = page.toGetPages();
       AppUtility.addPages(pages);
@@ -44,7 +44,7 @@ abstract class RouteModule {
 }
 
 abstract class LocalizationModule extends BaseModule {
-  void checkSupportedLanguage() {
+  Future<void> checkSupportedLanguage() async {
     for (var element in supportedLocales) {
       if (!translationMap.containsKey('${element.languageCode}_${element.countryCode}')) {
         AppUtility.appLogger.w("DIDN'T SUPPORT LANGUAGE -> ${element.languageCode}_${element.countryCode}");
@@ -53,14 +53,15 @@ abstract class LocalizationModule extends BaseModule {
   }
 
   @override
-  void registerDependency(GetIt c) {
+  Future<void> registerDependency(GetIt c) async {
+    await c.isReady<CoreSqfliteStorage>();
     c.registerLazySingleton<LocalizationBloc>(() => LocalizationBloc(coreStorage: c.get<CoreSqfliteStorage>()));
-    checkSupportedLanguage();
-    setGlobalTranslationMap();
-    setDefaultLocale();
+    await checkSupportedLanguage();
+    await setGlobalTranslationMap();
+    await setDefaultLocale();
   }
 
-  void setGlobalTranslationMap() {
+  Future<void> setGlobalTranslationMap() async {
     AppUtility.setTranslationMap(translationMap);
     AppUtility.overrideSomeTranslationMap(overrideTranslationMap);
   }
@@ -71,7 +72,7 @@ abstract class LocalizationModule extends BaseModule {
 
   List<Locale> get supportedLocales;
 
-  void setDefaultLocale() {
+  Future<void> setDefaultLocale() async {
     if (supportedLocales.isNotEmpty) {
       AppUtility.setDefaultLocale(supportedLocales.first);
     }
@@ -79,5 +80,5 @@ abstract class LocalizationModule extends BaseModule {
 }
 
 abstract class BaseModule {
-  void registerDependency(GetIt c);
+  Future<void> registerDependency(GetIt c);
 }

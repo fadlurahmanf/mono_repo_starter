@@ -4,7 +4,7 @@ import 'package:mapp_storage/src/repository/_index.dart';
 
 class MappStorage extends BaseModule {
   @override
-  void registerDependency(GetIt c) {
+  Future<void> registerDependency(GetIt c) async {
     c
       ..registerLazySingleton<MappSqfliteDBRepository>(() => MappSqfliteDBRepository())
       ..registerSingletonAsync<MappSqfliteRepository>(

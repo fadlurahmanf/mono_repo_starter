@@ -12,14 +12,14 @@ abstract class MappAppModule extends AppModule {
   MappAppModule({required this.settings});
 
   @override
-  void registerAppSettings(GetIt c) {
+  Future<void> registerAppSettings(GetIt c) async {
     c
       ..registerLazySingleton<AppSettings>(() => settings)
       ..registerLazySingleton<MappAppSettings>(() => settings);
   }
 
   @override
-  void setGlobalUnknownRoute() {
+  Future<void> setGlobalUnknownRoute() async {
     AppUtility.setUnknownRoute(GetPage(
       name: '/unknown',
       page: () => const SizedBox.expand(),
@@ -31,14 +31,14 @@ class MappAppDevModule extends MappAppModule {
   MappAppDevModule({required super.settings});
 
   @override
-  void registerAppSettings(GetIt c) {
+  Future<void> registerAppSettings(GetIt c) async {
     c
       ..registerLazySingleton<AppSettings>(() => settings)
       ..registerLazySingleton<MappAppSettings>(() => settings);
   }
 
   @override
-  void setGlobalLoggerAndAlice(GetIt c) {
+  Future<void> setGlobalLoggerAndAlice(GetIt c) async {
     Logger? logger;
     if (settings.useLog == true) {
       logger = Logger(printer: PrettyPrinter());
@@ -58,11 +58,10 @@ class MappAppDevModule extends MappAppModule {
 }
 
 class MappAppStagingModule extends MappAppModule {
-
   MappAppStagingModule({required super.settings});
 
   @override
-  void setGlobalLoggerAndAlice(GetIt c) {
+  Future<void> setGlobalLoggerAndAlice(GetIt c) async {
     // no need to install logger in staging
   }
 }

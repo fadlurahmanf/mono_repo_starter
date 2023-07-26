@@ -12,8 +12,10 @@ class CoreSqfliteStorage {
       final first = all.first;
       await db.update(CoreEntity.table, first.copyWith(languageCode: entity.languageCode).toJson());
       return;
+    } else {
+      await db.delete(CoreEntity.table);
+      await db.insert(CoreEntity.table, entity.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
     }
-    await db.insert(CoreEntity.table, entity.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<CoreEntity>> getAll() async {
