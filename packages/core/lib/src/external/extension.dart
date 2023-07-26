@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 
 extension BuildContentX on BuildContext {
-
   GetIt get getIt {
     return AppUtility.getIt;
   }
@@ -28,7 +27,24 @@ extension AppGetPageX on AppGetPage {
     final pages = <GetPage<dynamic>>[
       GetPage(name: '/$screenType', page: page),
     ];
-    final transitions = <Transition>[Transition.downToUp, Transition.fadeIn];
+    final transitions = <Transition>[
+      Transition.fade,
+      Transition.fadeIn,
+      Transition.rightToLeft,
+      Transition.leftToRight,
+      Transition.upToDown,
+      Transition.downToUp,
+      Transition.rightToLeftWithFade,
+      Transition.leftToRightWithFade,
+      Transition.zoom,
+      Transition.topLevel,
+      Transition.noTransition,
+      Transition.cupertino,
+      Transition.cupertinoDialog,
+      Transition.size,
+      Transition.circularReveal,
+      Transition.native,
+    ];
     for (var transition in transitions) {
       pages.add(GetPage(name: '/${screenType}_${transition.hashCode}', page: page, transition: transition));
     }

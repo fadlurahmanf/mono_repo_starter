@@ -48,9 +48,9 @@ class _WelcomeLayoutState extends State<_WelcomeLayout> {
             ),
             ElevatedButton(
               onPressed: () async {
-                context.push(TNCScreen, transition: Transition.fadeIn);
+                context.push(TNCScreen, transition: Transition.zoom);
               },
-              child: Text("data"),
+              child: Text("PUSH TO TNC"),
             ),
             ElevatedButton(
               onPressed: () async {
