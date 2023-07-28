@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:core_sqflite/core_sqflite.dart';
-import 'package:core_sqflite/src/dto/model/sql_script.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class IDBRepository {

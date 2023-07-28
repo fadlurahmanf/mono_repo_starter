@@ -7,7 +7,9 @@ import 'package:km_oob/km_oob.dart';
 import 'package:km_shared/km_shared.dart';
 import 'package:km_storage/km_storage.dart';
 
-final _devRouteModules = <RouteModule>[KmOobRoute()];
+final _devRouteModules = <RouteModule>[
+  KmOobRoute(),
+];
 
 final _devModules = <BaseModule>[
   KmAppDevModule(settings: KmAppDevSettings()),

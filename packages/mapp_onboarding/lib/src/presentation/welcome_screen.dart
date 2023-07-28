@@ -36,39 +36,39 @@ class _WelcomeLayoutState extends State<_WelcomeLayout> {
             Text(MappConstant.helloWorld.tr),
             ElevatedButton(
               onPressed: () async {
-                context.getIt.get<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: Locale('id', 'ID')));
+                context.getIt.get<LocalizationBloc>().add(const LocalizationEvent.setLanguage(locale: Locale('id', 'ID')));
               },
-              child: Text('GANTI KE INDONESIA'),
+              child: const Text('GANTI KE INDONESIA'),
             ),
             ElevatedButton(
               onPressed: () async {
-                context.getIt.get<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: Locale('en', 'ID')));
+                context.getIt.get<LocalizationBloc>().add(const LocalizationEvent.setLanguage(locale: Locale('en', 'ID')));
               },
-              child: Text('GANTI KE ENGLISH'),
+              child: const Text('GANTI KE ENGLISH'),
             ),
             ElevatedButton(
               onPressed: () async {
                 context.push(TNCScreen, transition: Transition.zoom);
               },
-              child: Text("PUSH TO TNC"),
+              child: const Text("PUSH TO TNC"),
             ),
             ElevatedButton(
               onPressed: () async {
                 await context.getIt.get<MappSqfliteRepository>().insert(
-                        mappEntity: MappEntity(
+                        mappEntity: const MappEntity(
                       deviceId: 'DEVICE_ID',
                     ));
               },
-              child: Text("INSERT"),
+              child: const Text("INSERT"),
             ),
             ElevatedButton(
               onPressed: () async {
                 final list = await context.getIt.get<MappSqfliteRepository>().getAll();
-                list.forEach((element) {
+                for (var element in list) {
                   print("masuk element: ${element.toJson()}");
-                });
+                }
               },
-              child: Text("GET"),
+              child: const Text("GET"),
             ),
           ],
         ),

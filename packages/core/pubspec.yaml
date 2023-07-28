@@ -18,6 +18,7 @@ dependencies:
   get_it: ^7.6.0
   json_annotation: ^4.8.1
   logger: ^1.4.0
+  sizer: ^2.0.15
   sqflite: ^2.2.8+4
 
   core_sqflite:

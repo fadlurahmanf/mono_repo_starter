@@ -1,11 +1,8 @@
 import 'package:core/core.dart';
-import 'package:core/src/app_settings.dart';
-import 'package:core/src/external/app_utility.dart';
-import 'package:core/src/external/extension.dart';
-import 'package:core/src/localization/localization_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class CoreApp extends StatelessWidget {
   const CoreApp({
@@ -59,37 +56,41 @@ class _MaterialAppState extends State<_MaterialApp> {
             }
           })
         ],
-        child: BlocBuilder<LocalizationBloc, LocalizationState>(builder: (context, state) {
-          final currentLocale = state.currentLocale;
-          return GetMaterialApp(
-            title: context.getIt.get<AppSettings>().appName,
-            navigatorKey: context.getIt.get<AppSettings>().useAlice == true && AppUtility.alice != null
-                ? AppUtility.alice?.getNavigatorKey()
-                : Get.key,
-            theme: ThemeData(
-              // This is the theme of your application.
-              //
-              // TRY THIS: Try running your application with "flutter run". You'll see
-              // the application has a blue toolbar. Then, without quitting the app,
-              // try changing the seedColor in the colorScheme below to Colors.green
-              // and then invoke "hot reload" (save your changes or press the "hot
-              // reload" button in a Flutter-supported IDE, or press "r" if you used
-              // the command line to start the app).
-              //
-              // Notice that the counter didn't reset back to zero; the application
-              // state is not lost during the reload. To reset the state, use hot
-              // restart instead.
-              //
-              // This works for code too, not just values: Most code changes can be
-              // tested with just a hot reload.
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            locale: currentLocale,
-            translationsKeys: AppUtility.translationMap,
-            getPages: AppUtility.pages,
-            initialRoute: AppUtility.pages.first.name,
-            unknownRoute: AppUtility.unknownRoute,
+        child: BlocBuilder<LocalizationBloc, LocalizationState>(builder: (context, locState) {
+          final currentLocale = locState.currentLocale;
+          return Sizer(
+            builder: (context, orientation, deviceType) {
+              return GetMaterialApp(
+                title: context.getIt.get<AppSettings>().appName,
+                navigatorKey: context.getIt.get<AppSettings>().useAlice == true && AppUtility.alice != null
+                    ? AppUtility.alice?.getNavigatorKey()
+                    : Get.key,
+                theme: ThemeData(
+                  // This is the theme of your application.
+                  //
+                  // TRY THIS: Try running your application with "flutter run". You'll see
+                  // the application has a blue toolbar. Then, without quitting the app,
+                  // try changing the seedColor in the colorScheme below to Colors.green
+                  // and then invoke "hot reload" (save your changes or press the "hot
+                  // reload" button in a Flutter-supported IDE, or press "r" if you used
+                  // the command line to start the app).
+                  //
+                  // Notice that the counter didn't reset back to zero; the application
+                  // state is not lost during the reload. To reset the state, use hot
+                  // restart instead.
+                  //
+                  // This works for code too, not just values: Most code changes can be
+                  // tested with just a hot reload.
+                  colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                  useMaterial3: true,
+                ),
+                locale: currentLocale,
+                translationsKeys: AppUtility.translationMap,
+                getPages: AppUtility.pages,
+                initialRoute: AppUtility.pages.first.name,
+                unknownRoute: AppUtility.unknownRoute,
+              );
+            },
           );
         }));
   }

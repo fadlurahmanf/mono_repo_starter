@@ -478,6 +478,12 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/km_storage/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/km_storage/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/km_storage/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_ui/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_ui/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_ui/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_validator/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_validator/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/km_validator/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

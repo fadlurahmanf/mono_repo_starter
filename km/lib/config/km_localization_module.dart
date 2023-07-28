@@ -7,6 +7,9 @@ abstract class KmLocalizationModule extends LocalizationModule {
   Map<String, Map<String, String>> get translationMap => {
         'id_ID': {
           KmConstant.helloWorld: 'Halo Dunia',
+          KmConstant.minimumFieldGeneral: '@${KmConstant.value1} harus terdiri dari @${KmConstant.value2} karakter',
+          KmConstant.emptyFieldGeneral: '@${KmConstant.value1} tidak boleh kosong',
+          KmConstant.emailNotValid: 'Email tidak valid',
         },
         'en_ID': {
           KmConstant.helloWorld: 'Hello world',

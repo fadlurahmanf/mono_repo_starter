@@ -23,7 +23,7 @@ abstract class MappAppModule extends AppModule {
     AppUtility.setUnknownRoute(GetPage(
       name: '/unknown',
       page: () => const SizedBox.expand(),
-    ));
+    ),);
   }
 }
 

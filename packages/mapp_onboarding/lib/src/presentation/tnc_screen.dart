@@ -26,7 +26,7 @@ class _TNCLayoutState extends State<_TNCLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.amber,
     );
   }

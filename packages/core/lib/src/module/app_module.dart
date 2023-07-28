@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/src/localization/localization_bloc.dart';
 import 'package:core/src/storage/core_sqflite_db_repository.dart';
 import 'package:core/src/storage/core_sqflite_storage.dart';
 import 'package:flutter/material.dart';
