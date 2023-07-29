@@ -10,12 +10,14 @@ class KmFilledButton extends StatelessWidget {
   bool _isText = false;
   late String _text;
   late Widget Function(BuildContext, TextStyle) _widget;
+  VoidCallback onTap;
 
-  KmFilledButton({super.key});
+  KmFilledButton({required this.onTap, super.key});
 
   KmFilledButton.widget({
     required Widget Function(BuildContext, TextStyle) widget,
     bool? expand,
+    required this.onTap,
     super.key,
   }) {
     _isExpand = expand ?? true;
@@ -26,6 +28,7 @@ class KmFilledButton extends StatelessWidget {
   KmFilledButton.text({
     required String text,
     bool? expand,
+    required this.onTap,
     super.key,
   }) {
     _isExpand = expand ?? true;
@@ -52,7 +55,7 @@ class KmFilledButton extends StatelessWidget {
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.symmetric(vertical: 7.sp)),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
-      onPressed: () async {},
+      onPressed: onTap,
       child: _buttonChild(context),
     );
   }

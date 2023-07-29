@@ -21,6 +21,8 @@ class KmTextField extends StatelessWidget {
   String? hint;
   String? error;
 
+  TextInputAction? textInputAction;
+
   KmTextFieldAction? drawableEnd;
 
   KmTextField({
@@ -29,6 +31,7 @@ class KmTextField extends StatelessWidget {
     this.label,
     this.hint,
     this.error,
+    this.textInputAction,
     this.drawableEnd,
     super.key,
   });
@@ -43,6 +46,7 @@ class KmTextField extends StatelessWidget {
         label: label,
         hint: hint,
         error: error,
+        textInputAction: textInputAction,
         drawableEnd: drawableEnd,
         key: key,
       ),
@@ -58,6 +62,8 @@ class _KmTextFieldLayout extends StatefulWidget {
   String? hint;
   String? error;
 
+  TextInputAction? textInputAction;
+
   KmTextFieldAction? drawableEnd;
 
   _KmTextFieldLayout({
@@ -66,6 +72,7 @@ class _KmTextFieldLayout extends StatefulWidget {
     this.label,
     this.hint,
     this.error,
+    this.textInputAction,
     this.drawableEnd,
     super.key,
   });
@@ -133,7 +140,7 @@ class _KmTextFieldLayoutState extends State<_KmTextFieldLayout> {
                 Visibility(
                   visible: state.showLabel == true,
                   child: SizedBox(
-                    height: 17.sp,
+                    height: 15.sp,
                     child: Text(
                       widget.label ?? widget.hint ?? '-',
                       style: KmTextStyle.labelTextField(color: color),
@@ -141,13 +148,14 @@ class _KmTextFieldLayoutState extends State<_KmTextFieldLayout> {
                   ),
                 ),
                 Container(
-                  padding: state.showLabel == true ? EdgeInsets.zero : EdgeInsets.only(bottom: 5.sp, top: 5.sp),
+                  padding: state.showLabel == true ? EdgeInsets.zero : EdgeInsets.only(bottom: 3.sp, top: 3.sp),
                   child: Row(
                     children: [
                       Expanded(
                           child: TextField(
                         controller: widget.controller,
                         onChanged: widget.onChange,
+                        textInputAction: widget.textInputAction ?? TextInputAction.next,
                         decoration: InputDecoration(
                             hintText: widget.hint ?? "-",
                             hintStyle: KmTextStyle.hintTextField(),

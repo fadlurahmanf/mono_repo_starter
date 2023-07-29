@@ -14,4 +14,6 @@ class RegisterEvent with _$RegisterEvent {
   const factory RegisterEvent.fillConfPassword({
     required String password,
   }) = _FillConfPassowrd;
+
+  const factory RegisterEvent.register() = _Register;
 }

@@ -22,6 +22,7 @@ mixin _$RegisterEvent {
     required TResult Function(String email) fillEmail,
     required TResult Function(String password) fillPassword,
     required TResult Function(String password) fillConfPassword,
+    required TResult Function() register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$RegisterEvent {
     TResult? Function(String email)? fillEmail,
     TResult? Function(String password)? fillPassword,
     TResult? Function(String password)? fillConfPassword,
+    TResult? Function()? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$RegisterEvent {
     TResult Function(String email)? fillEmail,
     TResult Function(String password)? fillPassword,
     TResult Function(String password)? fillConfPassword,
+    TResult Function()? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,7 @@ mixin _$RegisterEvent {
     required TResult Function(_FillEmail value) fillEmail,
     required TResult Function(_FillPassword value) fillPassword,
     required TResult Function(_FillConfPassowrd value) fillConfPassword,
+    required TResult Function(_Register value) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +59,7 @@ mixin _$RegisterEvent {
     TResult? Function(_FillEmail value)? fillEmail,
     TResult? Function(_FillPassword value)? fillPassword,
     TResult? Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult? Function(_Register value)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$RegisterEvent {
     TResult Function(_FillEmail value)? fillEmail,
     TResult Function(_FillPassword value)? fillPassword,
     TResult Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_FillFullName implements _FillFullName {
     required TResult Function(String email) fillEmail,
     required TResult Function(String password) fillPassword,
     required TResult Function(String password) fillConfPassword,
+    required TResult Function() register,
   }) {
     return fillFullName(fullName);
   }
@@ -166,6 +173,7 @@ class _$_FillFullName implements _FillFullName {
     TResult? Function(String email)? fillEmail,
     TResult? Function(String password)? fillPassword,
     TResult? Function(String password)? fillConfPassword,
+    TResult? Function()? register,
   }) {
     return fillFullName?.call(fullName);
   }
@@ -177,6 +185,7 @@ class _$_FillFullName implements _FillFullName {
     TResult Function(String email)? fillEmail,
     TResult Function(String password)? fillPassword,
     TResult Function(String password)? fillConfPassword,
+    TResult Function()? register,
     required TResult orElse(),
   }) {
     if (fillFullName != null) {
@@ -192,6 +201,7 @@ class _$_FillFullName implements _FillFullName {
     required TResult Function(_FillEmail value) fillEmail,
     required TResult Function(_FillPassword value) fillPassword,
     required TResult Function(_FillConfPassowrd value) fillConfPassword,
+    required TResult Function(_Register value) register,
   }) {
     return fillFullName(this);
   }
@@ -203,6 +213,7 @@ class _$_FillFullName implements _FillFullName {
     TResult? Function(_FillEmail value)? fillEmail,
     TResult? Function(_FillPassword value)? fillPassword,
     TResult? Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult? Function(_Register value)? register,
   }) {
     return fillFullName?.call(this);
   }
@@ -214,6 +225,7 @@ class _$_FillFullName implements _FillFullName {
     TResult Function(_FillEmail value)? fillEmail,
     TResult Function(_FillPassword value)? fillPassword,
     TResult Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (fillFullName != null) {
@@ -301,6 +313,7 @@ class _$_FillEmail implements _FillEmail {
     required TResult Function(String email) fillEmail,
     required TResult Function(String password) fillPassword,
     required TResult Function(String password) fillConfPassword,
+    required TResult Function() register,
   }) {
     return fillEmail(email);
   }
@@ -312,6 +325,7 @@ class _$_FillEmail implements _FillEmail {
     TResult? Function(String email)? fillEmail,
     TResult? Function(String password)? fillPassword,
     TResult? Function(String password)? fillConfPassword,
+    TResult? Function()? register,
   }) {
     return fillEmail?.call(email);
   }
@@ -323,6 +337,7 @@ class _$_FillEmail implements _FillEmail {
     TResult Function(String email)? fillEmail,
     TResult Function(String password)? fillPassword,
     TResult Function(String password)? fillConfPassword,
+    TResult Function()? register,
     required TResult orElse(),
   }) {
     if (fillEmail != null) {
@@ -338,6 +353,7 @@ class _$_FillEmail implements _FillEmail {
     required TResult Function(_FillEmail value) fillEmail,
     required TResult Function(_FillPassword value) fillPassword,
     required TResult Function(_FillConfPassowrd value) fillConfPassword,
+    required TResult Function(_Register value) register,
   }) {
     return fillEmail(this);
   }
@@ -349,6 +365,7 @@ class _$_FillEmail implements _FillEmail {
     TResult? Function(_FillEmail value)? fillEmail,
     TResult? Function(_FillPassword value)? fillPassword,
     TResult? Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult? Function(_Register value)? register,
   }) {
     return fillEmail?.call(this);
   }
@@ -360,6 +377,7 @@ class _$_FillEmail implements _FillEmail {
     TResult Function(_FillEmail value)? fillEmail,
     TResult Function(_FillPassword value)? fillPassword,
     TResult Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (fillEmail != null) {
@@ -447,6 +465,7 @@ class _$_FillPassword implements _FillPassword {
     required TResult Function(String email) fillEmail,
     required TResult Function(String password) fillPassword,
     required TResult Function(String password) fillConfPassword,
+    required TResult Function() register,
   }) {
     return fillPassword(password);
   }
@@ -458,6 +477,7 @@ class _$_FillPassword implements _FillPassword {
     TResult? Function(String email)? fillEmail,
     TResult? Function(String password)? fillPassword,
     TResult? Function(String password)? fillConfPassword,
+    TResult? Function()? register,
   }) {
     return fillPassword?.call(password);
   }
@@ -469,6 +489,7 @@ class _$_FillPassword implements _FillPassword {
     TResult Function(String email)? fillEmail,
     TResult Function(String password)? fillPassword,
     TResult Function(String password)? fillConfPassword,
+    TResult Function()? register,
     required TResult orElse(),
   }) {
     if (fillPassword != null) {
@@ -484,6 +505,7 @@ class _$_FillPassword implements _FillPassword {
     required TResult Function(_FillEmail value) fillEmail,
     required TResult Function(_FillPassword value) fillPassword,
     required TResult Function(_FillConfPassowrd value) fillConfPassword,
+    required TResult Function(_Register value) register,
   }) {
     return fillPassword(this);
   }
@@ -495,6 +517,7 @@ class _$_FillPassword implements _FillPassword {
     TResult? Function(_FillEmail value)? fillEmail,
     TResult? Function(_FillPassword value)? fillPassword,
     TResult? Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult? Function(_Register value)? register,
   }) {
     return fillPassword?.call(this);
   }
@@ -506,6 +529,7 @@ class _$_FillPassword implements _FillPassword {
     TResult Function(_FillEmail value)? fillEmail,
     TResult Function(_FillPassword value)? fillPassword,
     TResult Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (fillPassword != null) {
@@ -594,6 +618,7 @@ class _$_FillConfPassowrd implements _FillConfPassowrd {
     required TResult Function(String email) fillEmail,
     required TResult Function(String password) fillPassword,
     required TResult Function(String password) fillConfPassword,
+    required TResult Function() register,
   }) {
     return fillConfPassword(password);
   }
@@ -605,6 +630,7 @@ class _$_FillConfPassowrd implements _FillConfPassowrd {
     TResult? Function(String email)? fillEmail,
     TResult? Function(String password)? fillPassword,
     TResult? Function(String password)? fillConfPassword,
+    TResult? Function()? register,
   }) {
     return fillConfPassword?.call(password);
   }
@@ -616,6 +642,7 @@ class _$_FillConfPassowrd implements _FillConfPassowrd {
     TResult Function(String email)? fillEmail,
     TResult Function(String password)? fillPassword,
     TResult Function(String password)? fillConfPassword,
+    TResult Function()? register,
     required TResult orElse(),
   }) {
     if (fillConfPassword != null) {
@@ -631,6 +658,7 @@ class _$_FillConfPassowrd implements _FillConfPassowrd {
     required TResult Function(_FillEmail value) fillEmail,
     required TResult Function(_FillPassword value) fillPassword,
     required TResult Function(_FillConfPassowrd value) fillConfPassword,
+    required TResult Function(_Register value) register,
   }) {
     return fillConfPassword(this);
   }
@@ -642,6 +670,7 @@ class _$_FillConfPassowrd implements _FillConfPassowrd {
     TResult? Function(_FillEmail value)? fillEmail,
     TResult? Function(_FillPassword value)? fillPassword,
     TResult? Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult? Function(_Register value)? register,
   }) {
     return fillConfPassword?.call(this);
   }
@@ -653,6 +682,7 @@ class _$_FillConfPassowrd implements _FillConfPassowrd {
     TResult Function(_FillEmail value)? fillEmail,
     TResult Function(_FillPassword value)? fillPassword,
     TResult Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (fillConfPassword != null) {
@@ -673,6 +703,126 @@ abstract class _FillConfPassowrd implements RegisterEvent {
 }
 
 /// @nodoc
+abstract class _$$_RegisterCopyWith<$Res> {
+  factory _$$_RegisterCopyWith(
+          _$_Register value, $Res Function(_$_Register) then) =
+      __$$_RegisterCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_RegisterCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_Register>
+    implements _$$_RegisterCopyWith<$Res> {
+  __$$_RegisterCopyWithImpl(
+      _$_Register _value, $Res Function(_$_Register) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_Register implements _Register {
+  const _$_Register();
+
+  @override
+  String toString() {
+    return 'RegisterEvent.register()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Register);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String fullName) fillFullName,
+    required TResult Function(String email) fillEmail,
+    required TResult Function(String password) fillPassword,
+    required TResult Function(String password) fillConfPassword,
+    required TResult Function() register,
+  }) {
+    return register();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String fullName)? fillFullName,
+    TResult? Function(String email)? fillEmail,
+    TResult? Function(String password)? fillPassword,
+    TResult? Function(String password)? fillConfPassword,
+    TResult? Function()? register,
+  }) {
+    return register?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String fullName)? fillFullName,
+    TResult Function(String email)? fillEmail,
+    TResult Function(String password)? fillPassword,
+    TResult Function(String password)? fillConfPassword,
+    TResult Function()? register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FillFullName value) fillFullName,
+    required TResult Function(_FillEmail value) fillEmail,
+    required TResult Function(_FillPassword value) fillPassword,
+    required TResult Function(_FillConfPassowrd value) fillConfPassword,
+    required TResult Function(_Register value) register,
+  }) {
+    return register(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FillFullName value)? fillFullName,
+    TResult? Function(_FillEmail value)? fillEmail,
+    TResult? Function(_FillPassword value)? fillPassword,
+    TResult? Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult? Function(_Register value)? register,
+  }) {
+    return register?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FillFullName value)? fillFullName,
+    TResult Function(_FillEmail value)? fillEmail,
+    TResult Function(_FillPassword value)? fillPassword,
+    TResult Function(_FillConfPassowrd value)? fillConfPassword,
+    TResult Function(_Register value)? register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Register implements RegisterEvent {
+  const factory _Register() = _$_Register;
+}
+
+/// @nodoc
 mixin _$RegisterState {
   String? get fullName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
@@ -682,6 +832,8 @@ mixin _$RegisterState {
   String? get eEmail => throw _privateConstructorUsedError;
   String? get ePassword => throw _privateConstructorUsedError;
   String? get eConfPassword => throw _privateConstructorUsedError;
+  PostingRegisterState get postingRegisterState =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RegisterStateCopyWith<RegisterState> get copyWith =>
@@ -702,7 +854,8 @@ abstract class $RegisterStateCopyWith<$Res> {
       String? eFullName,
       String? eEmail,
       String? ePassword,
-      String? eConfPassword});
+      String? eConfPassword,
+      PostingRegisterState postingRegisterState});
 }
 
 /// @nodoc
@@ -726,6 +879,7 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
     Object? eEmail = freezed,
     Object? ePassword = freezed,
     Object? eConfPassword = freezed,
+    Object? postingRegisterState = null,
   }) {
     return _then(_value.copyWith(
       fullName: freezed == fullName
@@ -760,6 +914,10 @@ class _$RegisterStateCopyWithImpl<$Res, $Val extends RegisterState>
           ? _value.eConfPassword
           : eConfPassword // ignore: cast_nullable_to_non_nullable
               as String?,
+      postingRegisterState: null == postingRegisterState
+          ? _value.postingRegisterState
+          : postingRegisterState // ignore: cast_nullable_to_non_nullable
+              as PostingRegisterState,
     ) as $Val);
   }
 }
@@ -780,7 +938,8 @@ abstract class _$$_RegisterStateCopyWith<$Res>
       String? eFullName,
       String? eEmail,
       String? ePassword,
-      String? eConfPassword});
+      String? eConfPassword,
+      PostingRegisterState postingRegisterState});
 }
 
 /// @nodoc
@@ -802,6 +961,7 @@ class __$$_RegisterStateCopyWithImpl<$Res>
     Object? eEmail = freezed,
     Object? ePassword = freezed,
     Object? eConfPassword = freezed,
+    Object? postingRegisterState = null,
   }) {
     return _then(_$_RegisterState(
       fullName: freezed == fullName
@@ -836,6 +996,10 @@ class __$$_RegisterStateCopyWithImpl<$Res>
           ? _value.eConfPassword
           : eConfPassword // ignore: cast_nullable_to_non_nullable
               as String?,
+      postingRegisterState: null == postingRegisterState
+          ? _value.postingRegisterState
+          : postingRegisterState // ignore: cast_nullable_to_non_nullable
+              as PostingRegisterState,
     ));
   }
 }
@@ -851,7 +1015,8 @@ class _$_RegisterState implements _RegisterState {
       this.eFullName,
       this.eEmail,
       this.ePassword,
-      this.eConfPassword});
+      this.eConfPassword,
+      required this.postingRegisterState});
 
   @override
   final String? fullName;
@@ -869,10 +1034,12 @@ class _$_RegisterState implements _RegisterState {
   final String? ePassword;
   @override
   final String? eConfPassword;
+  @override
+  final PostingRegisterState postingRegisterState;
 
   @override
   String toString() {
-    return 'RegisterState(fullName: $fullName, email: $email, password: $password, confPassword: $confPassword, eFullName: $eFullName, eEmail: $eEmail, ePassword: $ePassword, eConfPassword: $eConfPassword)';
+    return 'RegisterState(fullName: $fullName, email: $email, password: $password, confPassword: $confPassword, eFullName: $eFullName, eEmail: $eEmail, ePassword: $ePassword, eConfPassword: $eConfPassword, postingRegisterState: $postingRegisterState)';
   }
 
   @override
@@ -893,12 +1060,23 @@ class _$_RegisterState implements _RegisterState {
             (identical(other.ePassword, ePassword) ||
                 other.ePassword == ePassword) &&
             (identical(other.eConfPassword, eConfPassword) ||
-                other.eConfPassword == eConfPassword));
+                other.eConfPassword == eConfPassword) &&
+            (identical(other.postingRegisterState, postingRegisterState) ||
+                other.postingRegisterState == postingRegisterState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fullName, email, password,
-      confPassword, eFullName, eEmail, ePassword, eConfPassword);
+  int get hashCode => Object.hash(
+      runtimeType,
+      fullName,
+      email,
+      password,
+      confPassword,
+      eFullName,
+      eEmail,
+      ePassword,
+      eConfPassword,
+      postingRegisterState);
 
   @JsonKey(ignore: true)
   @override
@@ -909,14 +1087,16 @@ class _$_RegisterState implements _RegisterState {
 
 abstract class _RegisterState implements RegisterState {
   const factory _RegisterState(
-      {final String? fullName,
-      final String? email,
-      final String? password,
-      final String? confPassword,
-      final String? eFullName,
-      final String? eEmail,
-      final String? ePassword,
-      final String? eConfPassword}) = _$_RegisterState;
+          {final String? fullName,
+          final String? email,
+          final String? password,
+          final String? confPassword,
+          final String? eFullName,
+          final String? eEmail,
+          final String? ePassword,
+          final String? eConfPassword,
+          required final PostingRegisterState postingRegisterState}) =
+      _$_RegisterState;
 
   @override
   String? get fullName;
@@ -934,6 +1114,8 @@ abstract class _RegisterState implements RegisterState {
   String? get ePassword;
   @override
   String? get eConfPassword;
+  @override
+  PostingRegisterState get postingRegisterState;
   @override
   @JsonKey(ignore: true)
   _$$_RegisterStateCopyWith<_$_RegisterState> get copyWith =>

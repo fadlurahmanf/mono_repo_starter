@@ -49,25 +49,19 @@ class KmTextStyle {
     double? letterSpacing,
   }) {
     return TextStyle(
-      fontFamily: _default,
-      fontWeight: weight,
-      height: height,
-      fontSize: 12.sp,
-      color: KmColor.green,
-      letterSpacing: letterSpacing,
-      shadows: const [
-        Shadow(
-          offset: Offset(1.0, 3.0),
-          blurRadius: 10.0,
-          color: Color.fromARGB(255, 0, 0, 0),
-        ),
-        // Shadow(
-        //   offset: Offset(1.0, 1.0),
-        //   blurRadius: 10.0,
-        //   color: Color.fromARGB(255, 0, 0, 0),
-        // ),
-      ]
-    );
+        fontFamily: _default,
+        fontWeight: weight,
+        height: height,
+        fontSize: 12.sp,
+        color: KmColor.green,
+        letterSpacing: letterSpacing,
+        shadows: const [
+          Shadow(
+            offset: Offset(1.0, 3.0),
+            blurRadius: 10.0,
+            color: Color.fromARGB(255, 0, 0, 0),
+          ),
+        ]);
   }
 
   static TextStyle labelTextField({
@@ -79,7 +73,7 @@ class KmTextStyle {
       fontFamily: _default,
       fontWeight: FontWeight.w400,
       height: height,
-      fontSize: 11.sp,
+      fontSize: 10.sp,
       color: color ?? KmColor.green,
       letterSpacing: letterSpacing,
     );
@@ -94,7 +88,7 @@ class KmTextStyle {
       fontFamily: _default,
       fontWeight: FontWeight.w600,
       height: height,
-      fontSize: 13.sp,
+      fontSize: 12.sp,
       color: Colors.grey,
       letterSpacing: letterSpacing,
     );
@@ -110,6 +104,38 @@ class KmTextStyle {
       height: height,
       fontSize: 11.sp,
       color: Colors.red,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle style14({
+    double height = 1.4,
+    double fontSize = 14,
+    Color color = Colors.black,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: _default,
+      fontWeight: FontWeight.w400,
+      height: height,
+      fontSize: fontSize.sp,
+      color: color,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle style16({
+    double height = 1.4,
+    double fontSize = 16,
+    Color color = Colors.black,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: _default,
+      fontWeight: FontWeight.w400,
+      height: height,
+      fontSize: fontSize.sp,
+      color: color,
       letterSpacing: letterSpacing,
     );
   }

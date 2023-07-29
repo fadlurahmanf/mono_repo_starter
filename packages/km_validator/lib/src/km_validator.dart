@@ -36,7 +36,10 @@ class KmPasswordValidator {
     if (password.isEmpty) {
       return KmConstant.emptyFieldGeneral.trParams({KmConstant.value1: 'Password'});
     } else if (password.length <= 8) {
-      return KmConstant.emailNotValid.tr;
+      return KmConstant.minimumFieldGeneral.trParams({
+        KmConstant.value1: 'Password',
+        KmConstant.value2: '8'
+      });
     } else {
       return null;
     }

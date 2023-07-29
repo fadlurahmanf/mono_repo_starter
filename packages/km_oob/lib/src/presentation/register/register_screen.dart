@@ -28,7 +28,7 @@ class _RegisterLayout extends StatefulWidget {
 }
 
 class _RegisterLayoutState extends State<_RegisterLayout> {
-  RegisterBloc? registerBloc;
+  RegisterBloc? _bloc;
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -37,36 +37,68 @@ class _RegisterLayoutState extends State<_RegisterLayout> {
   @override
   void initState() {
     super.initState();
-    registerBloc = BlocProvider.of(context);
+    _bloc = BlocProvider.of(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SizedBox.expand(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 40,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            final registerState = state.postingRegisterState;
+            if (registerState is PostingRegisterLoading) {
+            } else if (registerState is PostingRegisterSuccess) {
+            } else if (registerState is PostingRegisterFailed) {}
+          },
+        )
+      ],
+      child: KmBaseVibrance(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 10.sp),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              const KmLogo(),
+              SizedBox(
+                height: (0.5).h,
+              ),
+              Text(
+                'Hello!',
+                style: KmTextStyle.title(),
+              ),
+              SizedBox(
+                height: (0.5).h,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.sp),
+                child: Text('Welcome! Find jobs that suit you here, let’s get to work!',
+                  style: KmTextStyle.style14(
+                    height: 1.2,
+                    color: Colors.grey
+                  ), textAlign: TextAlign.center,
                 ),
-                const KmLogo(),
-                Text(
-                  'Hello!',
-                  style: KmTextStyle.title(),
-                ),
-                _formLayout(),
-                KmFilledButton.text(
-                    text: "Register",
-                ),
-                const KmFooter(),
-              ],
-            ),
+              ),
+              Image.asset(KmAssetConstant.signup1, height: (20).h),
+              _formLayout(),
+              SizedBox(
+                height: 50.sp,
+              ),
+              KmFilledButton.text(
+                text: "Register",
+                onTap: () async {
+                  _bloc?.add(const RegisterEvent.register());
+                },
+              ),
+              SizedBox(
+                height: 10.sp,
+              ),
+              const KmFooter(),
+            ],
           ),
         ),
       ),
@@ -74,58 +106,57 @@ class _RegisterLayoutState extends State<_RegisterLayout> {
   }
 
   Widget _formLayout() {
-    return Expanded(
-      child: BlocBuilder<RegisterBloc, RegisterState>(builder: (context, regState) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 15.sp),
-              child: KmTextField(
-                controller: fullNameController,
-                error: regState.eEmail,
-                hint: "Nama Lengkap",
-                onChange: (value) {
-                  registerBloc?.add(RegisterEvent.fillFullName(fullName: value));
-                },
-              ),
+    return BlocBuilder<RegisterBloc, RegisterState>(builder: (context, regState) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 15.sp),
+            child: KmTextField(
+              controller: fullNameController,
+              error: regState.eFullName,
+              hint: "Nama Lengkap",
+              onChange: (value) {
+                _bloc?.add(RegisterEvent.fillFullName(fullName: value));
+              },
             ),
-            Container(
-              margin: EdgeInsets.only(top: 15.sp),
-              child: KmTextField(
-                controller: emailController,
-                error: regState.eEmail,
-                hint: "Email",
-                onChange: (value) {
-                  registerBloc?.add(RegisterEvent.fillEmail(email: value));
-                },
-              ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 15.sp),
+            child: KmTextField(
+              controller: emailController,
+              error: regState.eEmail,
+              hint: "Email",
+              onChange: (value) {
+                _bloc?.add(RegisterEvent.fillEmail(email: value));
+              },
             ),
-            Container(
-              margin: EdgeInsets.only(top: 15.sp),
-              child: KmTextField(
-                controller: passwordController,
-                error: regState.ePassword,
-                hint: "Password",
-                onChange: (value) {
-                  registerBloc?.add(RegisterEvent.fillPassword(password: value));
-                },
-              ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 15.sp),
+            child: KmTextField(
+              controller: passwordController,
+              error: regState.ePassword,
+              hint: "Password",
+              onChange: (value) {
+                _bloc?.add(RegisterEvent.fillPassword(password: value));
+              },
             ),
-            Container(
-              margin: EdgeInsets.only(top: 15.sp),
-              child: KmTextField(
-                controller: confPasswordController,
-                error: regState.eConfPassword,
-                hint: "Konfirmasi Password",
-                onChange: (value) {
-                  registerBloc?.add(RegisterEvent.fillConfPassword(password: value));
-                },
-              ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 15.sp),
+            child: KmTextField(
+              controller: confPasswordController,
+              error: regState.eConfPassword,
+              hint: "Konfirmasi Password",
+              textInputAction: TextInputAction.done,
+              onChange: (value) {
+                _bloc?.add(RegisterEvent.fillConfPassword(password: value));
+              },
             ),
-          ],
-        );
-      }),
-    );
+          ),
+        ],
+      );
+    });
   }
 }
