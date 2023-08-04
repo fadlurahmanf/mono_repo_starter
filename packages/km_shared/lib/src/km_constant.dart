@@ -9,4 +9,6 @@ class KmConstant {
   static const emptyFieldGeneral = 'empty_field_general';
   static const emailNotValid = 'email_not_valid';
   static const confPasswordNotMatch = 'conf_password_not_match';
+  static const loading = 'loading';
+  static const loadingInAWhile = 'loading_in_a_while';
 }

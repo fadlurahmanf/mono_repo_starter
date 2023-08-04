@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:km_oob/src/presentation/register/register_bloc.dart';
@@ -48,8 +49,12 @@ class _RegisterLayoutState extends State<_RegisterLayout> {
           listener: (context, state) {
             final registerState = state.postingRegisterState;
             if (registerState is PostingRegisterLoading) {
+              context.showBottomsheet(const LoadingBottomSheet());
             } else if (registerState is PostingRegisterSuccess) {
-            } else if (registerState is PostingRegisterFailed) {}
+              context.dismissBottomsheet();
+            } else if (registerState is PostingRegisterFailed) {
+              context.dismissBottomsheet();
+            }
           },
         )
       ],
@@ -86,18 +91,22 @@ class _RegisterLayoutState extends State<_RegisterLayout> {
               Image.asset(KmAssetConstant.signup1, height: (20).h),
               _formLayout(),
               SizedBox(
-                height: 50.sp,
+                height: 3.h,
               ),
               KmFilledButton.text(
                 text: "Register",
                 onTap: () async {
-                  _bloc?.add(const RegisterEvent.register());
+                  context.showBottomsheet(const LoadingBottomSheet());
+                  // _bloc?.add(const RegisterEvent.register());
                 },
               ),
               SizedBox(
                 height: 10.sp,
               ),
               const KmFooter(),
+              SizedBox(
+                height: 5.h,
+              ),
             ],
           ),
         ),

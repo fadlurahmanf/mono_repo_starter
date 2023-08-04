@@ -20,6 +20,14 @@ extension BuildContentX on BuildContext {
       return Get.toNamed('/$screen', arguments: {'TES': 'TES'});
     }
   }
+
+  Future<T?> showBottomsheet<T>(Widget bottomsheet, {bool isDismissible = true, bool enableDrag = true}){
+    return Get.bottomSheet(bottomsheet, isDismissible: isDismissible, enableDrag: enableDrag);
+  }
+
+  void dismissBottomsheet(){
+    return Get.until((route) => Get.isBottomSheetOpen == null || Get.isBottomSheetOpen == false);
+  }
 }
 
 extension AppGetPageX on AppGetPage {

@@ -54,7 +54,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   Future<void> _register(_Register event, Emitter<RegisterState> emit) async {
-    print("masuk _register ${KmNameValidator.validateName(state.fullName ?? '')}");
     emit(state.copyWith(
       eFullName: KmNameValidator.validateName(state.fullName ?? ''),
       eEmail: KmEmailValidator.validateEmail(state.email ?? ''),
@@ -66,7 +65,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       return;
     }
     emit(state.copyWith(postingRegisterState: PostingRegisterLoading()));
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 10));
     emit(state.copyWith(postingRegisterState: PostingRegisterSuccess()));
     emit(state.copyWith(postingRegisterState: PostingRegisterIdle()));
   }

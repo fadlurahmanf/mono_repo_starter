@@ -1,12 +1,17 @@
 name: mono_repo_starter
 
 packages:
-  - packages/fln/**
+  - packages/**
   - mapp
-#  - sapp
+  - sapp
+  - km
 
 scripts:
-  pubGet:
+  kmPubGet:
     exec: flutter clean && flutter pub get
-  genResp:
+  kmGenResp:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
+  mappPubGet:
+    run: melos exec --ignore="km_*" "flutter clean && flutter pub get"
+  mappGenResp:
+    run: melos exec --ignore="km_*" "flutter clean && flutter pub get"
