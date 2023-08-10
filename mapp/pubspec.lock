@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.3"
+  app_links:
+    dependency: transitive
+    description:
+      name: app_links
+      sha256: "16725e716afd0634a5441654b1dda2b6c5557aa230884b5e1f41a5aa546a4cb6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.3"
   args:
     dependency: transitive
     description:
@@ -77,6 +85,13 @@ packages:
     dependency: "direct main"
     description:
       path: "../packages/core"
+      relative: true
+    source: path
+    version: "0.0.1"
+  core_applink:
+    dependency: "direct main"
+    description:
+      path: "../packages/core_applink"
       relative: true
     source: path
     version: "0.0.1"
@@ -294,6 +309,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  mapp_config:
+    dependency: "direct main"
+    description:
+      path: "../packages/mapp_config"
+      relative: true
+    source: path
+    version: "0.0.1"
   mapp_onboarding:
     dependency: "direct main"
     description:

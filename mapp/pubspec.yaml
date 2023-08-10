@@ -43,7 +43,11 @@ dependencies:
 
   core:
     path: ../packages/core
+  core_applink:
+    path: ../packages/core_applink
 
+  mapp_config:
+    path: ../packages/mapp_config
   mapp_onboarding:
     path: ../packages/mapp_onboarding
   mapp_shared:

@@ -1,4 +1,4 @@
-import 'module/app_module.dart';
+import 'app_module.dart';
 
 class AppModuleSettings {
   final List<BaseModule> childModules;

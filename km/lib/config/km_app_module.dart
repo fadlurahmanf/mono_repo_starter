@@ -20,7 +20,7 @@ abstract class KmAppModule extends AppModule {
 
   @override
   Future<void> setGlobalUnknownRoute() async {
-    AppUtility.setUnknownRoute(GetPage(
+    AppFactory.setUnknownRoute(GetPage(
       name: '/unknown',
       page: () => const SizedBox.expand(),
     ));
@@ -42,16 +42,16 @@ class KmAppDevModule extends KmAppModule {
     Logger? logger;
     if (settings.useLog == true) {
       logger = Logger(printer: PrettyPrinter());
-      AppUtility.setLogger(logger);
+      AppFactory.setLogger(logger);
     }
     Alice? alice;
     if (settings.useAlice == true) {
       alice = Alice(showInspectorOnShake: true);
-      AppUtility.setAlice(alice);
+      AppFactory.setAlice(alice);
     }
 
     final appLogger = AppLogger(logger: logger, alice: alice);
-    AppUtility.setAppLogger(appLogger);
+    AppFactory.setAppLogger(appLogger);
 
     c.registerLazySingleton(() => appLogger);
   }

@@ -1,34 +1,21 @@
 import 'package:core/core.dart';
-import 'package:core/src/storage/core_sqflite_db_repository.dart';
-import 'package:core/src/storage/core_sqflite_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-abstract class AppModule extends BaseModule {
+abstract class BaseModule {
+  Future<void> registerDependency(GetIt c);
+}
+
+abstract class AppConfigModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
-    await registerAppSettings(c);
-    await _setGlobalInjection(c);
-    await setGlobalLoggerAndAlice(c);
-    await _registerAppStorage(c);
+    defineUnknownRoute();
+    registerAppLogger(c);
   }
 
-  Future<void> registerAppSettings(GetIt c);
+  void defineUnknownRoute();
 
-  Future<void> _setGlobalInjection(GetIt c) async {
-    AppUtility.setInjection(c);
-  }
-
-  Future<void> setGlobalLoggerAndAlice(GetIt c);
-
-  Future<void> setGlobalUnknownRoute();
-
-  Future<void> _registerAppStorage(GetIt c) async {
-    c
-      ..registerLazySingleton<CoreSqfliteDBRepository>(() => CoreSqfliteDBRepository())
-      ..registerSingletonAsync<CoreSqfliteStorage>(
-          () async => CoreSqfliteStorage(db: await c.get<CoreSqfliteDBRepository>().openDB()));
-  }
+  void registerAppLogger(GetIt c);
 }
 
 abstract class RouteModule {
@@ -36,48 +23,59 @@ abstract class RouteModule {
 
   Future<void> addPages() async {
     for (var page in pages) {
-      final pages = page.toGetPages();
-      AppUtility.addPages(pages);
+      AppFactory.I.addPage(page);
     }
   }
 }
 
 abstract class LocalizationModule extends BaseModule {
-  Future<void> checkSupportedLanguage() async {
-    for (var element in supportedLocales) {
-      if (!translationMap.containsKey('${element.languageCode}_${element.countryCode}')) {
-        AppUtility.appLogger.w("DIDN'T SUPPORT LANGUAGE -> ${element.languageCode}_${element.countryCode}");
-      }
-    }
-  }
-
-  @override
-  Future<void> registerDependency(GetIt c) async {
-    await c.isReady<CoreSqfliteStorage>();
-    c.registerLazySingleton<LocalizationBloc>(() => LocalizationBloc(coreStorage: c.get<CoreSqfliteStorage>()));
-    await checkSupportedLanguage();
-    await setGlobalTranslationMap();
-    await setDefaultLocale();
-  }
-
-  Future<void> setGlobalTranslationMap() async {
-    AppUtility.setTranslationMap(translationMap);
-    AppUtility.overrideSomeTranslationMap(overrideTranslationMap);
-  }
-
   Map<String, Map<String, String>> get translationMap;
 
   Map<String, Map<String, String>> get overrideTranslationMap => {};
 
   List<Locale> get supportedLocales;
 
+  @override
+  Future<void> registerDependency(GetIt c) async {
+    checkSupportedLanguage();
+    setGlobalTranslationMap();
+    setDefaultLocale();
+    c.registerLazySingleton<LocalizationBloc>(() => LocalizationBloc());
+  }
+
+  void checkSupportedLanguage() async {
+    for (var element in supportedLocales) {
+      if (!translationMap.containsKey('${element.languageCode}_${element.countryCode}')) {
+        AppFactory.I.appLogger.w("DIDN'T SUPPORT LANGUAGE -> ${element.languageCode}_${element.countryCode}");
+      }
+    }
+  }
+
+  Future<void> setGlobalTranslationMap() async {
+    AppFactory.I.setTranslationMap(translationMap);
+    AppFactory.I.overrideSomeTranslationMap(overrideTranslationMap);
+  }
+
   Future<void> setDefaultLocale() async {
     if (supportedLocales.isNotEmpty) {
-      AppUtility.setDefaultLocale(supportedLocales.first);
+      AppFactory.I.setDefaultLocale(supportedLocales.first);
+    } else {
+      AppFactory.I.appLogger.w("SUPPORTED LOCALE EMPTY");
     }
   }
 }
 
-abstract class BaseModule {
-  Future<void> registerDependency(GetIt c);
+abstract class ApiModule extends BaseModule {
+  @override
+  Future<void> registerDependency(GetIt c) async {
+    await registerApiSetting(c);
+    await registerBaseOption(c);
+    await registerDio(c);
+  }
+
+  Future<void> registerApiSetting(GetIt c);
+
+  Future<void> registerBaseOption(GetIt c);
+
+  Future<void> registerDio(GetIt c);
 }

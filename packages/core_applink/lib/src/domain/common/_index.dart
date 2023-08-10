@@ -1,0 +1,1 @@
+export 'i_core_applink_repository.dart';

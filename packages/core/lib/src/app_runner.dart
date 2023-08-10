@@ -5,10 +5,12 @@ import 'package:get_it/get_it.dart';
 Future<void> appRunner({required AppRunnerSetting settings}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await _registerModules(c: settings.c, settings: settings);
-  runApp(const CoreApp());
+  runApp(settings.app);
 }
 
 Future<void> _registerModules({required GetIt c, required AppRunnerSetting settings}) async {
+  AppFactory.I.setInjection(c);
+
   for (var element in settings.appModuleSettings.childModules) {
     await element.registerDependency(c);
   }

@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:get/get.dart';
+import 'package:mapp_onboarding/src/mapp_onboarding_module.dart';
 import 'package:mapp_onboarding/src/presentation/tnc_screen.dart';
 import 'package:mapp_shared/mapp_shared.dart';
 import 'package:mapp_storage/mapp_storage.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget with WrapperState {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return _WelcomeLayout(
-      key: key,
-    );
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+
+  @override
+  Widget wrap(BuildContext context) {
+    return this;
   }
 }
 
-class _WelcomeLayout extends StatefulWidget {
-  const _WelcomeLayout({Key? key}) : super(key: key);
-
-  @override
-  State<_WelcomeLayout> createState() => _WelcomeLayoutState();
-}
-
-class _WelcomeLayoutState extends State<_WelcomeLayout> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,14 +43,14 @@ class _WelcomeLayoutState extends State<_WelcomeLayout> {
             ),
             ElevatedButton(
               onPressed: () async {
-                context.push(TNCScreen, transition: Transition.zoom);
+                context.push(MappOnBoardingRoutes, TNCScreen, transition: Transition.leftToRight);
               },
               child: const Text("PUSH TO TNC"),
             ),
             ElevatedButton(
               onPressed: () async {
                 await context.getIt.get<MappSqfliteRepository>().insert(
-                        mappEntity: const MappEntity(
+                    mappEntity: const MappEntity(
                       deviceId: 'DEVICE_ID',
                     ));
               },

@@ -1,15 +1,12 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:core/core.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class CoreApp extends StatelessWidget {
-  const CoreApp({
-    super.key,
-  });
+class MappApp extends StatelessWidget {
+  const MappApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -29,42 +26,38 @@ class _MaterialApp extends StatefulWidget {
 }
 
 class _MaterialAppState extends State<_MaterialApp> {
-  LocalizationBloc? localizationBloc;
+  LocalizationBloc? _localizationBloc;
 
   @override
   void initState() {
     super.initState();
-    if (context.getIt.get<AppSettings>().useAlice == true) {
-      if (AppUtility.alice == null) {
-        context.getIt.get<AppLogger>().wtf('USE ALICE TRUE BUT ALICE NULL');
-      }
-
-      AppUtility.addNavigatorKeyToAlice(Get.key);
+    _localizationBloc = context.getIt.get<LocalizationBloc>();
+    if (AppFactory.I.defaultLocale != null) {
+      _localizationBloc?.add(LocalizationEvent.setLanguage(locale: AppFactory.I.defaultLocale!));
     }
-
-    localizationBloc = context.getIt.get<LocalizationBloc>();
-    localizationBloc?.add(LocalizationEvent.initAppLanguage(defaultLocale: AppUtility.defaultLocale));
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
         listeners: [
-          BlocListener<LocalizationBloc, LocalizationState>(listener: (context, state) {
-            if (state.currentLocale != null) {
-              Get.updateLocale(state.currentLocale!);
-            }
-          })
+          BlocListener<LocalizationBloc, LocalizationState>(
+              listenWhen: (previous, current) =>
+                  previous.currentLocale?.languageCode != current.currentLocale?.languageCode,
+              listener: (context, state) {
+                if (state.currentLocale != null) {
+                  Get.updateLocale(state.currentLocale!);
+                  // TODO(DEVELOPER): save storage language code
+                }
+              })
         ],
         child: BlocBuilder<LocalizationBloc, LocalizationState>(builder: (context, locState) {
           final currentLocale = locState.currentLocale;
           return Sizer(
             builder: (context, orientation, deviceType) {
               return GetMaterialApp(
-                title: context.getIt.get<AppSettings>().appName,
-                navigatorKey: context.getIt.get<AppSettings>().useAlice == true && AppUtility.alice != null
-                    ? AppUtility.alice?.getNavigatorKey()
-                    : Get.key,
+                title: 'Mapp',
+                navigatorKey: AppFactory.I.alice?.getNavigatorKey() ?? AppFactory.I.navigatorKey,
                 theme: ThemeData(
                   // This is the theme of your application.
                   //
@@ -85,10 +78,10 @@ class _MaterialAppState extends State<_MaterialApp> {
                   useMaterial3: true,
                 ),
                 locale: currentLocale,
-                translationsKeys: AppUtility.translationMap,
-                getPages: AppUtility.pages,
-                initialRoute: AppUtility.pages.first.name,
-                unknownRoute: AppUtility.unknownRoute,
+                getPages: AppFactory.I.onGenerateRoute(context),
+                translationsKeys: AppFactory.I.translationMap,
+                initialRoute: AppFactory.I.routes.first.fullPath,
+                unknownRoute: AppFactory.I.unknownRoute,
               );
             },
           );
