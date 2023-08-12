@@ -1,12 +1,20 @@
 import 'package:core/src/external/app_factory.dart';
-import 'package:core/src/route/app_get_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 
 extension BuildContentX on BuildContext {
   GetIt get getIt {
     return AppFactory.I.getIt;
+  }
+
+  T provide<T extends StateStreamableSource<Object?>>() {
+    return BlocProvider.of<T>(this);
+  }
+
+  T get<T extends Object>({String? instanceName, dynamic param1, dynamic param2, Type? type}) {
+    return getIt.get<T>(instanceName: instanceName, param1: param1, param2: param2, type: type);
   }
 
   T getArgument<T>() {

@@ -104,6 +104,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  core_applink:
+    dependency: transitive
+    description:
+      path: "../packages/core_applink"
+      relative: true
+    source: path
+    version: "0.0.1"
   core_sqflite:
     dependency: transitive
     description:

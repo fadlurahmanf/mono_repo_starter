@@ -1,3 +1,4 @@
+import 'package:core_applink/core_applink.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core/core.dart';
@@ -12,6 +13,7 @@ class MappApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => context.getIt.get<LocalizationBloc>()),
+        BlocProvider(create: (context) => context.getIt.get<AppLinkBloc>())
       ],
       child: const _MaterialApp(),
     );
@@ -26,15 +28,20 @@ class _MaterialApp extends StatefulWidget {
 }
 
 class _MaterialAppState extends State<_MaterialApp> {
-  LocalizationBloc? _localizationBloc;
-
   @override
   void initState() {
     super.initState();
-    _localizationBloc = context.getIt.get<LocalizationBloc>();
     if (AppFactory.I.defaultLocale != null) {
-      _localizationBloc?.add(LocalizationEvent.setLanguage(locale: AppFactory.I.defaultLocale!));
+      context.provide<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: AppFactory.I.defaultLocale!));
     }
+
+    // initial applink
+    Future.delayed(const Duration(seconds: 2), () {
+      context.read<AppLinkBloc>().add(const AppLinkEvent.init());
+    });
+
+    // listen applink
+    context.read<AppLinkBloc>().add(const AppLinkEvent.listen());
   }
 
   @override
@@ -49,7 +56,11 @@ class _MaterialAppState extends State<_MaterialApp> {
                   Get.updateLocale(state.currentLocale!);
                   // TODO(DEVELOPER): save storage language code
                 }
-              })
+              }),
+          BlocListener<AppLinkBloc, AppLinkState>(
+            listenWhen: (previous, current) => previous.uri?.toString() != current.uri?.toString(),
+            listener: (context, state) {},
+          )
         ],
         child: BlocBuilder<LocalizationBloc, LocalizationState>(builder: (context, locState) {
           final currentLocale = locState.currentLocale;

@@ -14,4 +14,4 @@ scripts:
   mappPubGet:
     run: melos exec --ignore="km_*" "flutter clean && flutter pub get"
   mappGenResp:
-    run: melos exec --ignore="km_*" "flutter clean && flutter pub get"
+    run: melos exec --ignore="km_*" "flutter pub run build_runner build --delete-conflicting-outputs"

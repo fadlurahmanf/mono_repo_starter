@@ -1,1 +1,1 @@
-export 'core_applink_bloc.dart';
+export 'applink_bloc.dart';

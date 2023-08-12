@@ -6,7 +6,7 @@ class CoreAppLinkModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
     c
-      ..registerLazySingleton<ICoreAppLinkRepository>(() => CoreAppLinkRepository())
-      ..registerFactory(() => CoreAppLinkBloc(coreAppLinkRepository: c.get<ICoreAppLinkRepository>()));
+      ..registerLazySingleton<IAppLinkRepository>(() => AppLinkRepository())
+      ..registerFactory(() => AppLinkBloc(appLinkRepository: c.get<IAppLinkRepository>()));
   }
 }

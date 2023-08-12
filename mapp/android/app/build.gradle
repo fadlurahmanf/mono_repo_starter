@@ -66,6 +66,11 @@ android {
     flavorDimensions "app"
 
     productFlavors {
+        // buat testing applink
+        salesDev {
+            applicationId "id.co.bebas.sales.dev"
+            dimension "app"
+        }
         fake {
             applicationIdSuffix ".fake"
             dimension "app"

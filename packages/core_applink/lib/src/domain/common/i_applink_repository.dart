@@ -1,6 +1,6 @@
 import 'package:app_links/app_links.dart';
 
-abstract class ICoreAppLinkRepository {
+abstract class IAppLinkRepository {
   AppLinks get appLinks;
 
   void uriListener(void Function(Uri) onData);

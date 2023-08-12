@@ -1,7 +1,7 @@
 import 'package:app_links/src/app_links.dart';
 import 'package:core_applink/src/domain/common/_index.dart';
 
-class CoreAppLinkRepository implements ICoreAppLinkRepository {
+class AppLinkRepository implements IAppLinkRepository {
   @override
   AppLinks get appLinks => AppLinks();
 

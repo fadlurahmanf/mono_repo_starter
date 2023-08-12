@@ -1,1 +1,1 @@
-export 'i_core_applink_repository.dart';
+export 'i_applink_repository.dart';
