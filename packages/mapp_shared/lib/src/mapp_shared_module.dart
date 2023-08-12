@@ -4,7 +4,5 @@ import 'package:mapp_shared/mapp_shared.dart';
 
 class MappShared extends BaseModule {
   @override
-  Future<void> registerDependency(GetIt c) async {
-    c.registerLazySingleton<MappConstant>(() => MappConstant());
-  }
+  Future<void> registerDependency(GetIt c) async {}
 }

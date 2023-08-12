@@ -17,7 +17,7 @@ final _devModules = <BaseModule>[
   MappDevConfigModule(),
   MappLocalizationDevModule(),
   MappShared(),
-  CoreAppLinkModule(),
+  AppLinkModule(),
   MappStorage(),
   MappApiModule(
     settings: MappApiDevSettings(),
