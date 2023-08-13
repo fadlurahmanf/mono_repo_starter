@@ -9,6 +9,8 @@ class MappEntity with _$MappEntity {
   const factory MappEntity({
     @JsonKey(name: 'cDeviceId') required String deviceId,
     @JsonKey(name: 'cGuestToken') String? guestToken,
+    @JsonKey(name: 'cLanguageCode') String? languageCode,
+    @JsonKey(name: 'cCountryCode') String? countryCode,
     @JsonKey(name: 'cCreatedAt') String? createdAt,
   }) = _MappEntity;
 
@@ -17,5 +19,7 @@ class MappEntity with _$MappEntity {
   static const String table = 'mapp';
   static const String cDeviceId = 'cDeviceId';
   static const String cGuestToken = 'cGuestToken';
+  static const String cLanguageCode = 'cLanguageCode';
+  static const String cCountryCode = 'cCountryCode';
   static const String cCreatedAt = 'cCreatedAt';
 }

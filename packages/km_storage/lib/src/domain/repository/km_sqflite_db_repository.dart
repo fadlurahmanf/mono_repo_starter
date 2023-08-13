@@ -1,7 +1,7 @@
 import 'package:core_sqflite/core_sqflite.dart';
 import 'package:km_storage/km_storage.dart';
 
-class KmSqfliteDBRepository extends DBRepository {
+class KmSqfliteDBRepository extends IDBCreatorRepository {
   @override
   SqfliteDBModel get dbModel => SqfliteDBModel(
         databaseName: 'km.db',

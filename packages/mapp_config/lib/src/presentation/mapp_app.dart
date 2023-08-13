@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core/core.dart';
 import 'package:get/get.dart';
+import 'package:mapp_config/src/presentation/mapp_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 
 class MappApp extends StatelessWidget {
   const MappApp({super.key});
@@ -13,7 +15,8 @@ class MappApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => context.get<LocalizationBloc>()),
-        BlocProvider(create: (context) => context.get<AppLinkBloc>())
+        BlocProvider(create: (context) => context.get<AppLinkBloc>()),
+        BlocProvider(create: (context) => context.get<MappBloc>()),
       ],
       child: const _MaterialApp(),
     );
@@ -31,9 +34,11 @@ class _MaterialAppState extends State<_MaterialApp> {
   @override
   void initState() {
     super.initState();
-    if (AppFactory.I.defaultLocale != null) {
-      context.provide<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: AppFactory.I.defaultLocale!));
-    }
+    // if (AppFactory.I.defaultLocale != null) {
+    //   context.provide<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: AppFactory.I.defaultLocale!));
+    // }
+
+    FlutterUdid.consistentUdid.then((value) => context.read<MappBloc>().add(MappEvent.saveDeviceId(value)));
 
     // initial applink
     Future.delayed(const Duration(seconds: 2), () {
@@ -53,8 +58,7 @@ class _MaterialAppState extends State<_MaterialApp> {
                 previous.currentLocale?.languageCode != current.currentLocale?.languageCode,
             listener: (context, state) {
               if (state.currentLocale != null) {
-                Get.updateLocale(state.currentLocale!);
-                // TODO(DEVELOPER): save storage language code
+                _onSuccess(context, locale: state.currentLocale!);
               }
             },
           ),
@@ -98,5 +102,10 @@ class _MaterialAppState extends State<_MaterialApp> {
             },
           );
         }));
+  }
+
+  Future<void> _onSuccess(BuildContext context, {required Locale locale}) async {
+    Get.updateLocale(locale);
+    context.get<MappBloc>().add(MappEvent.saveLocale(locale: Locale(locale.languageCode, locale.countryCode)));
   }
 }

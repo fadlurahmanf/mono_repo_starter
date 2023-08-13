@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:mapp_config/src/mapp_config_module.dart';
 
-class MappDevConfigModule extends MappConfigModule {
+class MappDevConfigModule extends MappAppConfigModule {
   @override
   void registerAppLogger(GetIt c) {
     final logger = Logger(printer: PrettyPrinter());

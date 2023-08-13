@@ -14,7 +14,7 @@ class IdentityApi implements IIdentityApi {
   @override
   Future<GuestTokenResponse> generateGuestToken(GuestTokenRequest request) async {
     return handleResponse<GuestTokenResponse>(
-      onRequest: () async => await dio.request(generateGuestTokenPath),
+      onRequest: () async => await dio.post(generateGuestTokenPath, data: request.toJson()),
       onResponseMap: (map) => GuestTokenResponse.fromJson(map),
     );
   }

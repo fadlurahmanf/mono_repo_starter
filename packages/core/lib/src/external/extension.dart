@@ -29,6 +29,14 @@ extension BuildContentX on BuildContext {
     }
   }
 
+  Future<T?>? pushReplaceAll<T>(Type module, Type screen, {Transition? transition}) {
+    if (transition != null) {
+      return Get.offAllNamed('/${module}_${screen}_${transition.hashCode}', arguments: {'TES': 'TES'});
+    } else {
+      return Get.offAllNamed('/${module}_$screen', arguments: {'TES': 'TES'});
+    }
+  }
+
   Future<T?> showBottomsheet<T>(Widget bottomsheet, {bool isDismissible = true, bool enableDrag = true}) {
     return Get.bottomSheet(bottomsheet, isDismissible: isDismissible, enableDrag: enableDrag);
   }

@@ -68,16 +68,16 @@ abstract class LocalizationModule extends BaseModule {
 abstract class ApiModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
-    await registerApiSetting(c);
     await registerBaseOption(c);
     await registerDio(c);
+    await registerApi(c);
   }
-
-  Future<void> registerApiSetting(GetIt c);
 
   Future<void> registerBaseOption(GetIt c);
 
   Future<void> registerDio(GetIt c);
+
+  Future<void> registerApi(GetIt c);
 }
 
 abstract class FirebaseModule {

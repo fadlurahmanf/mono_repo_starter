@@ -16,7 +16,7 @@ abstract class IDBRepository {
   Future<void> onUpgradeDB(Database db, int oldVersion, int newVersion);
 }
 
-abstract class DBRepository implements IDBRepository {
+abstract class IDBCreatorRepository implements IDBRepository {
   Database? _database;
 
   @override
