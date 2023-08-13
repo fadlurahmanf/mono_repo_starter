@@ -79,3 +79,7 @@ abstract class ApiModule extends BaseModule {
 
   Future<void> registerDio(GetIt c);
 }
+
+abstract class FirebaseModule {
+  Future<void> init();
+}

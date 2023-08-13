@@ -10,9 +10,9 @@ import 'package:mapp_config/src/mapp_config_module.dart';
 class MappDevConfigModule extends MappConfigModule {
   @override
   void registerAppLogger(GetIt c) {
-    Logger logger = Logger(printer: PrettyPrinter());
+    final logger = Logger(printer: PrettyPrinter());
 
-    Alice alice = Alice(showInspectorOnShake: true);
+    final alice = Alice(showInspectorOnShake: true);
     alice.setNavigatorKey(Get.key);
 
     final appLogger = AppLogger(logger: logger, alice: alice);

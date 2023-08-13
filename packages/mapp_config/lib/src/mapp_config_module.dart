@@ -2,6 +2,14 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mapp_shared/mapp_shared.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+class MappFirebaseModule extends FirebaseModule {
+  @override
+  Future<void> init() async {
+    await Firebase.initializeApp();
+  }
+}
 
 abstract class MappConfigModule extends AppConfigModule {
   @override

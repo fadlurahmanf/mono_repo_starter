@@ -11,10 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dartz: ^0.10.1
   get: ^4.6.5
   core:
     path: ../core
 
+  mapp_api:
+    path: ../mapp_api
   mapp_shared:
     path: ../mapp_shared
   mapp_storage:

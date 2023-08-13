@@ -12,8 +12,8 @@ class MappApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => context.getIt.get<LocalizationBloc>()),
-        BlocProvider(create: (context) => context.getIt.get<AppLinkBloc>())
+        BlocProvider(create: (context) => context.get<LocalizationBloc>()),
+        BlocProvider(create: (context) => context.get<AppLinkBloc>())
       ],
       child: const _MaterialApp(),
     );
@@ -49,14 +49,15 @@ class _MaterialAppState extends State<_MaterialApp> {
     return MultiBlocListener(
         listeners: [
           BlocListener<LocalizationBloc, LocalizationState>(
-              listenWhen: (previous, current) =>
-                  previous.currentLocale?.languageCode != current.currentLocale?.languageCode,
-              listener: (context, state) {
-                if (state.currentLocale != null) {
-                  Get.updateLocale(state.currentLocale!);
-                  // TODO(DEVELOPER): save storage language code
-                }
-              }),
+            listenWhen: (previous, current) =>
+                previous.currentLocale?.languageCode != current.currentLocale?.languageCode,
+            listener: (context, state) {
+              if (state.currentLocale != null) {
+                Get.updateLocale(state.currentLocale!);
+                // TODO(DEVELOPER): save storage language code
+              }
+            },
+          ),
           BlocListener<AppLinkBloc, AppLinkState>(
             listenWhen: (previous, current) => previous.uri?.toString() != current.uri?.toString(),
             listener: (context, state) {},

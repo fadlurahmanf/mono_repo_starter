@@ -26,9 +26,8 @@ final _devModules = <BaseModule>[
 
 final devSetting = AppRunnerSetting(
   c: GetIt.I,
-  appModuleSettings: AppModuleSettings(
-    routeModules: _devRouteModules,
-    childModules: _devModules,
-  ),
+  firebaseModule: MappFirebaseModule(),
+  childModules: _devModules,
+  routeModules: _devRouteModules,
   app: const MappApp(),
 );

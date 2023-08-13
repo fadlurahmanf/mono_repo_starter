@@ -9,5 +9,5 @@ class MappAppStagingSettings extends MappAppSettings {
 }
 
 class MappAppSettings extends AppSettings {
-  MappAppSettings({required super.useLog, required super.useAlice}) : super(appName: 'MAPP');
+  MappAppSettings({required super.useLog, required super.useAlice}) : super(appName: 'Mapp');
 }

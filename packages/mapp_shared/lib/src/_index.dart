@@ -1,2 +1,2 @@
-export 'mapp_constant.dart';
+export 'constant/_index.dart';
 export 'mapp_shared_module.dart';

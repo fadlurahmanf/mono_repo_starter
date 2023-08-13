@@ -490,6 +490,12 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/core_applink/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core_applink/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core_applink/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core_fremote_config/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core_fremote_config/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core_fremote_config/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_api/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_api/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_api/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
