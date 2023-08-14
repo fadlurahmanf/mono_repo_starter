@@ -11,7 +11,7 @@ abstract class IMappSqfliteStorage {
 
   Future<int> updateGuestToken(String guestToken);
 
-  Future<int> updateLocale({required String languageCode, required String countryCode});
+  Future<int> updateLocale({String? languageCode, String? countryCode});
 
   Future<int> updateDeviceId(String deviceId);
 

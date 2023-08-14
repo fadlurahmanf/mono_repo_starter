@@ -24,8 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), (){
-      context.pushReplaceAll(MappOnBoardingRoutes, WelcomeScreen);
+    Future.delayed(const Duration(seconds: 2), () {
+      context.pushNamed('MappExampleRoute', 'ExampleScreen');
     });
     // context.read<SplashBloc>().add(const SplashEvent.generateGuestToken());
   }
@@ -34,9 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
-        // if (state is GenerateGuestTokenSuccess) {
-        //   context.push(MappOnBoardingRoutes, WelcomeScreen);
-        // }
+        if (state is GenerateGuestTokenSuccess) {
+          context.pushReplaceAll(MappOnBoardingRoutes, WelcomeScreen);
+        }
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -47,19 +47,11 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/images/setneg_logo.png', height: 100, width: 100,),
-                SizedBox(height: 20,),
-                Text('Kementerian Sekretariat Negara Republik Indonesia', style: TextStyle(
-                  fontWeight: FontWeight.w700, fontSize: 18
-                ), textAlign: TextAlign.center,),
-                SizedBox(height: 40,),
-                Text('Jangan bagikan kepada siapapun, properti milik pemerintah', style: TextStyle(
-                    fontWeight: FontWeight.w400, fontSize: 18, fontStyle: FontStyle.normal
-                ), textAlign: TextAlign.center,),
-                SizedBox(height: 10,),
-                Text('Do not share this credential into anyone, government property', style: TextStyle(
-                    fontWeight: FontWeight.w400, fontSize: 18, fontStyle: FontStyle.italic
-                ), textAlign: TextAlign.center,),
+                Image.asset(
+                  'assets/images/setneg_logo.png',
+                  height: 100,
+                  width: 100,
+                ),
               ],
             ),
           ),

@@ -29,6 +29,14 @@ extension BuildContentX on BuildContext {
     }
   }
 
+  Future<T?>? pushNamed<T>(String module, String screen, {Transition? transition}) {
+    if (transition != null) {
+      return Get.toNamed('/${module}_${screen}_${transition.hashCode}', arguments: {'TES': 'TES'});
+    } else {
+      return Get.toNamed('/${module}_$screen', arguments: {'TES': 'TES'});
+    }
+  }
+
   Future<T?>? pushReplaceAll<T>(Type module, Type screen, {Transition? transition}) {
     if (transition != null) {
       return Get.offAllNamed('/${module}_${screen}_${transition.hashCode}', arguments: {'TES': 'TES'});

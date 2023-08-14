@@ -109,6 +109,12 @@ class AppFactory {
   }
 
   List<GetPage<dynamic>> onGenerateRoute(BuildContext context) {
-    return routes.map((e) => GetPage(name: e.fullPath, page: () => e.page(context), transition: e.transition)).toList();
+    return routes
+        .map((e) => GetPage(
+              name: e.fullPath,
+              page: () => e.page(context),
+              transition: e.transition,
+            ))
+        .toList();
   }
 }

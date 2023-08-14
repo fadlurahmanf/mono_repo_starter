@@ -1,11 +1,12 @@
 import 'package:core/core.dart';
-import 'package:core_sqflite/core_sqflite.dart';
 import 'package:sqflite/sqflite.dart';
+import '../data/model/db_model.dart';
+import '../data/model/sql_script.dart';
 
-abstract class IDBRepository {
+abstract class IDBCreatorRepository {
   SqfliteDBModel get dbModel;
 
-  Map<int, SQLScript> get scripts;
+  Map<int, SQLScript> get script;
 
   Future<Database> openDB();
 
@@ -16,7 +17,7 @@ abstract class IDBRepository {
   Future<void> onUpgradeDB(Database db, int oldVersion, int newVersion);
 }
 
-abstract class IDBCreatorRepository implements IDBRepository {
+abstract class DBCreatorRepository implements IDBCreatorRepository {
   Database? _database;
 
   @override
@@ -32,17 +33,19 @@ abstract class IDBCreatorRepository implements IDBRepository {
 
   @override
   Future<void> onCreateDB(Database db, int version) async {
-    if (dbModel.version < scripts.length) {
+    if (dbModel.version < script.length) {
       AppFactory.I.appLogger.w('FORGOT TO INCREASE VERSION DB?', logInAlice: true);
-    } else if (dbModel.version > scripts.length) {
+    } else if (dbModel.version > script.length) {
       AppFactory.I.appLogger.w('ADD SCRIPT FIRST TO DO A MIGRATION', logInAlice: true);
     } else {
       AppFactory.I.appLogger.d('onCreateDB: $version');
       final batch = db.batch();
-      for (int i = 1; i <= scripts.length; i++) {
-        final script = scripts[i]?.script;
-        if (script != null) {
-          batch.execute(scripts[i]!.script);
+      for (int i = 1; i <= script.length; i++) {
+        final scripts = script[i]?.scripts;
+        if (scripts != null) {
+          for (var versionScript in scripts) {
+            batch.execute(versionScript);
+          }
         }
       }
       await batch.commit();
@@ -57,9 +60,11 @@ abstract class IDBCreatorRepository implements IDBRepository {
     } else {
       AppFactory.I.appLogger.d('onUpgradeDB: $oldVersion to $newVersion');
       for (int i = oldVersion + 1; i <= newVersion; i++) {
-        final script = scripts[i]?.script;
-        if (script != null) {
-          batch.execute(scripts[i]!.script);
+        final scripts = script[i]?.scripts;
+        if (scripts != null) {
+          for (var versionScript in scripts) {
+            batch.execute(versionScript);
+          }
         }
       }
       await batch.commit();

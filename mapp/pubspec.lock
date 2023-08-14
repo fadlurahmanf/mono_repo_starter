@@ -2,12 +2,11 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   alice:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      name: alice
-      sha256: "32a3fce0719be3a437f20b440c88dabc5f630b9573d9ba6af29e474fffa17d9e"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../forks/alice"
+      relative: true
+    source: path
     version: "0.3.3"
   app_links:
     dependency: transitive
@@ -92,6 +91,13 @@ packages:
     dependency: "direct main"
     description:
       path: "../packages/core_applink"
+      relative: true
+    source: path
+    version: "0.0.1"
+  core_notification:
+    dependency: transitive
+    description:
+      path: "../packages/core_notification"
       relative: true
     source: path
     version: "0.0.1"
@@ -239,10 +245,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_local_notifications
-      sha256: aea96b3b78556c97607d9bee59fcec515bc3ec1b6e905f14d72906ae055033fa
+      sha256: "3cc40fe8c50ab8383f3e053a499f00f975636622ecdc8e20a77418ece3b1e975"
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.2"
+    version: "15.1.0+1"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -376,6 +382,20 @@ packages:
     dependency: "direct main"
     description:
       path: "../packages/mapp_config"
+      relative: true
+    source: path
+    version: "0.0.1"
+  mapp_example:
+    dependency: "direct main"
+    description:
+      path: "../packages/mapp_example"
+      relative: true
+    source: path
+    version: "0.0.1"
+  mapp_notification:
+    dependency: "direct main"
+    description:
+      path: "../packages/mapp_notification"
       relative: true
     source: path
     version: "0.0.1"

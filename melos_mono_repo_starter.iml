@@ -496,6 +496,24 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp_api/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp_api/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp_api/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_fake/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_fake/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_fake/build" />
+      <excludeFolder url="file://$MODULE_DIR$/forks/alice/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/forks/alice/build" />
+      <excludeFolder url="file://$MODULE_DIR$/forks/alice/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/forks/alice/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/forks/alice/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/forks/alice/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core_notification/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core_notification/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core_notification/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_notification/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_notification/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_notification/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp_example/.pub" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

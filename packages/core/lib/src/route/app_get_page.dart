@@ -8,11 +8,17 @@ class AppGetPage {
   Widget Function(BuildContext context) page;
   bool firstRoute;
 
-  String get fullPath => firstRoute
-      ? '/'
-      : transition != null
-          ? '/${moduleType}_${screenType}_$transition'
-          : '/${moduleType}_$screenType';
+  String get fullPath {
+    if (firstRoute && transition == null) {
+      return '/';
+    } else {
+      if (transition != null) {
+        return '/${moduleType}_${screenType}_$transition';
+      } else {
+        return '/${moduleType}_$screenType';
+      }
+    }
+  }
 
   AppGetPage({
     required this.moduleType,

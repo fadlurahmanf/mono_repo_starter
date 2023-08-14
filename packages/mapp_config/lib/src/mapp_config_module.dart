@@ -14,7 +14,7 @@ class MappConfigModule extends BaseModule {
   Future<void> registerDependency(GetIt c) async {
     c
       ..registerLazySingleton<IMappRepository>(() => MappRepository(mappSqfliteStorage: c.get<IMappSqfliteStorage>()))
-      ..registerLazySingleton(() => MappBloc(mappRepository: c.get<IMappRepository>()));
+      ..registerLazySingleton(() => MappBloc(mappRepository: c.get<IMappRepository>(), appLogger: c.get<AppLogger>()));
   }
 }
 

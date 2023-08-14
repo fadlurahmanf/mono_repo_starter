@@ -15,6 +15,13 @@ class AppLogger {
     }
   }
 
+  void e(String message, {bool logInAlice = false}) {
+    logger?.e(message);
+    if (logInAlice == true) {
+      alice?.addLog(AliceLog(message: message, level: DiagnosticLevel.error));
+    }
+  }
+
   void w(String message, {bool logInAlice = false}) {
     logger?.w(message);
     if (logInAlice == true) {

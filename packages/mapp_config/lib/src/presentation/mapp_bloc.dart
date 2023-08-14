@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,21 +15,22 @@ part 'mapp_state.dart';
 
 class MappBloc extends Bloc<MappEvent, MappState> {
   IMappRepository mappRepository;
+  AppLogger appLogger;
 
-  MappBloc({required this.mappRepository}) : super(MappState.initialize()) {
+  MappBloc({required this.mappRepository, required this.appLogger}) : super(MappState.initialize()) {
     on<MappEvent>((events, emit) async {
       await events.map(
-        saveLocale: (event) async => _saveLocale(event, emit),
-        saveDeviceId: (event) async => _saveDeviceId(event, emit),
+        init: (event) async => await _init(event, emit),
+        saveLocale: (event) async => await _saveLocale(event, emit),
       );
     });
   }
 
-  Future<void> _saveLocale(_SaveLocale event, Emitter<MappState> emit) async {}
+  Future<void> _init(_Init event, Emitter<MappState> emit) async {
+    await mappRepository.setupStorageFirstInstall(event.deviceId, locale: event.locale);
+  }
 
-  Future<void> _saveDeviceId(_SaveDeviceId event, Emitter<MappState> emit) async {
-    try {
-      await mappRepository.saveOrUpdateDeviceId(event.deviceId);
-    } on Exception catch (e) {}
+  Future<void> _saveLocale(_SaveLocale event, Emitter<MappState> emit) async {
+    await mappRepository.saveLocale(event.locale);
   }
 }

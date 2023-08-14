@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mapp_api/src/data/general/mapp_base_response.dart';
-import 'package:mapp_api/src/data/general/mapp_exception.dart';
+import 'package:mapp_shared/src/data/exception/mapp_response_exception.dart';
 
 Future<T> handleResponse<T>({
   required Future<Response<dynamic>> Function() onRequest,
@@ -13,7 +13,7 @@ Future<T> handleResponse<T>({
     if (response.data != null && response.message == 'SUCCESS') {
       return Future.value(response.data!);
     } else {
-      throw MappException();
+      throw MappResponseException();
     }
   } on DioException catch (e) {
     throw Exception();

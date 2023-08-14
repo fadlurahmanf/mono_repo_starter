@@ -46,10 +46,10 @@ class MappSqfliteStorage implements IMappSqfliteStorage {
   }
 
   @override
-  Future<int> updateLocale({required String languageCode, required String countryCode}) async {
+  Future<int> updateLocale({String? languageCode, String? countryCode}) async {
     final data = await getDataOrNull();
     if (data != null) {
-      return db.update(MappEntity.table, data.copyWith(languageCode: languageCode).toJson());
+      return db.update(MappEntity.table, data.copyWith(languageCode: languageCode, countryCode: countryCode).toJson());
     } else {
       return -1;
     }

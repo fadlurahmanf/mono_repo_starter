@@ -34,11 +34,12 @@ class _MaterialAppState extends State<_MaterialApp> {
   @override
   void initState() {
     super.initState();
-    // if (AppFactory.I.defaultLocale != null) {
-    //   context.provide<LocalizationBloc>().add(LocalizationEvent.setLanguage(locale: AppFactory.I.defaultLocale!));
-    // }
+    if (AppFactory.I.defaultLocale != null) {
+      Get.updateLocale(AppFactory.I.defaultLocale!);
+    }
 
-    FlutterUdid.consistentUdid.then((value) => context.read<MappBloc>().add(MappEvent.saveDeviceId(value)));
+    FlutterUdid.consistentUdid
+        .then((value) => context.read<MappBloc>().add(MappEvent.init(value, locale: AppFactory.I.defaultLocale)));
 
     // initial applink
     Future.delayed(const Duration(seconds: 2), () {
@@ -96,7 +97,7 @@ class _MaterialAppState extends State<_MaterialApp> {
                 locale: currentLocale,
                 getPages: AppFactory.I.onGenerateRoute(context),
                 translationsKeys: AppFactory.I.translationMap,
-                initialRoute: AppFactory.I.routes.first.fullPath,
+                initialRoute: '/',
                 unknownRoute: AppFactory.I.unknownRoute,
               );
             },
@@ -106,6 +107,6 @@ class _MaterialAppState extends State<_MaterialApp> {
 
   Future<void> _onSuccess(BuildContext context, {required Locale locale}) async {
     Get.updateLocale(locale);
-    context.get<MappBloc>().add(MappEvent.saveLocale(locale: Locale(locale.languageCode, locale.countryCode)));
+    context.get<MappBloc>().add(MappEvent.saveLocale(locale));
   }
 }

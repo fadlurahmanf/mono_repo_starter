@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:mapp_onboarding/src/domain/common/i_identity_repository.dart';
 import 'package:mapp_api/mapp_api.dart';
+import 'package:mapp_shared/mapp_shared.dart';
 import 'package:mapp_storage/mapp_storage.dart';
 
 class IdentityRepository implements IIdentityRepository {
@@ -10,7 +11,7 @@ class IdentityRepository implements IIdentityRepository {
   IdentityRepository({required this.identityApi, required this.mappSqfliteStorage});
 
   @override
-  Future<Either<MappException, GuestTokenResponse>> generateGuestToken() async {
+  Future<Either<MappResponseException, GuestTokenResponse>> generateGuestToken() async {
     try {
       final response = await identityApi.generateGuestToken(const GuestTokenRequest(
         guestId: 'Random Guest Id',
@@ -18,13 +19,13 @@ class IdentityRepository implements IIdentityRepository {
       if (response.accessToken != null) {
         await mappSqfliteStorage.updateGuestToken(response.accessToken ?? '');
       } else {
-        throw MappException(message: 'ACCESS_TOKEN_MISSING');
+        throw MappResponseException(message: 'ACCESS_TOKEN_MISSING');
       }
       return right(response);
-    } on MappException catch (e) {
+    } on MappResponseException catch (e) {
       return left(e);
     } on Exception catch (e) {
-      return left(MappException.fromError(e));
+      return left(MappResponseException.fromException(e));
     }
   }
 }

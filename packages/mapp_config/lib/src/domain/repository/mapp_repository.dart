@@ -10,22 +10,25 @@ class MappRepository implements IMappRepository {
   MappRepository({required this.mappSqfliteStorage});
 
   @override
-  Future<Locale?> getLocale() async {
+  Future<void> setupStorageFirstInstall(String deviceId, {Locale? locale}) async {
     final data = await mappSqfliteStorage.getDataOrNull();
-    if (data != null && data.languageCode != null && data.countryCode != null) {
-      return Locale(data.languageCode!, data.countryCode);
+    if (data != null) {
+      await mappSqfliteStorage.updateByMap(data.copyWith(
+        deviceId: deviceId,
+        languageCode: locale?.languageCode,
+        countryCode: locale?.countryCode,
+      ));
     } else {
-      return null;
+      await mappSqfliteStorage.removeDataAndInsert(MappEntity(
+        deviceId: deviceId,
+        languageCode: locale?.languageCode,
+        countryCode: locale?.countryCode,
+      ));
     }
   }
 
   @override
-  Future<void> saveOrUpdateDeviceId(String deviceId) async {
-    final data = await mappSqfliteStorage.getDataOrNull();
-    if (data != null) {
-      await mappSqfliteStorage.updateDeviceId(deviceId);
-    } else {
-      await mappSqfliteStorage.removeDataAndInsert(MappEntity(deviceId: deviceId));
-    }
+  Future<void> saveLocale(Locale locale) async {
+    await mappSqfliteStorage.updateLocale(languageCode: locale.languageCode, countryCode: locale.countryCode);
   }
 }

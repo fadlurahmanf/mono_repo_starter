@@ -11,7 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  alice: ^0.3.3
+  alice:
+    path: ../../forks/alice
   dartz: ^0.10.1
   freezed_annotation: ^2.4.1
   flutter_bloc: ^8.1.3

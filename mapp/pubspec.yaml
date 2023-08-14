@@ -35,7 +35,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
-  alice: ^0.3.3
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   get_it: ^7.6.0
@@ -51,6 +50,10 @@ dependencies:
     path: ../packages/mapp_api
   mapp_config:
     path: ../packages/mapp_config
+  mapp_example:
+    path: ../packages/mapp_example
+  mapp_notification:
+    path: ../packages/mapp_notification
   mapp_onboarding:
     path: ../packages/mapp_onboarding
   mapp_shared:

@@ -7,8 +7,11 @@ import 'package:mapp_shared/mapp_shared.dart';
 import 'package:mapp_storage/mapp_storage.dart';
 import 'package:mapp_config/mapp_config.dart';
 import 'package:core_applink/core_applink.dart';
+import 'package:mapp_notification/mapp_notification.dart';
+import 'package:mapp_example/mapp_example.dart';
 
 final _devRouteModules = <RouteModule>[
+  MappExampleRoute(),
   MappOnBoardingRoutes(),
 ];
 
@@ -16,6 +19,7 @@ final _devModules = <BaseModule>[
   MappDevConfigModule(),
   MappLocalizationDevModule(),
   MappShared(),
+  MappNotificationModule(),
   AppLinkModule(),
   MappStorage(),
   MappApiDevModule(
