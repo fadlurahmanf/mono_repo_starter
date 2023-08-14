@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mapp/config/mapp_localization_settings.dart';
 import 'package:mapp_api/mapp_api.dart';
 import 'package:mapp_onboarding/mapp_onboarding.dart';
 import 'package:mapp_shared/mapp_shared.dart';
@@ -16,8 +15,9 @@ final _devRouteModules = <RouteModule>[
 ];
 
 final _devModules = <BaseModule>[
+  MappFirebaseModule(),
   MappDevConfigModule(),
-  MappLocalizationDevModule(),
+  MappDevLocalizationModule(),
   MappShared(),
   MappNotificationModule(),
   AppLinkModule(),
@@ -31,7 +31,6 @@ final _devModules = <BaseModule>[
 
 final devSetting = AppRunnerSetting(
   c: GetIt.I,
-  firebaseModule: MappFirebaseModule(),
   childModules: _devModules,
   routeModules: _devRouteModules,
   app: const MappApp(),

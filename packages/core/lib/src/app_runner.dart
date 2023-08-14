@@ -4,10 +4,6 @@ import 'package:get_it/get_it.dart';
 
 Future<void> appRunner({required AppRunnerSetting settings}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(settings.firebaseModule != null){
-    final module = settings.firebaseModule!;
-    await module.init();
-  }
   await _registerModules(c: settings.c, childModules: settings.childModules, routeModules: settings.routeModules);
   runApp(settings.app);
 }

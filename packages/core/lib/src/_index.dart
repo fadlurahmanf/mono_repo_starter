@@ -1,4 +1,4 @@
-export 'dto/_index.dart';
+export 'domain/_index.dart';
 export 'external/_index.dart';
 export 'localization/_index.dart';
 export 'logger/_index.dart';
