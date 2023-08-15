@@ -52,6 +52,8 @@ dependencies:
     path: ../packages/mapp_config
   mapp_example:
     path: ../packages/mapp_example
+  mapp_fcm:
+    path: ../packages/mapp_fcm
   mapp_onboarding:
     path: ../packages/mapp_onboarding
   mapp_shared:
