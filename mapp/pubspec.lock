@@ -88,31 +88,31 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.1"
-  core:
-    dependency: "direct main"
-    description:
-      path: "../packages/core"
-      relative: true
-    source: path
-    version: "0.0.1"
   core_applink:
     dependency: "direct main"
     description:
-      path: "../packages/core_applink"
+      path: "../packages/core/applink"
+      relative: true
+    source: path
+    version: "0.0.1"
+  core_config:
+    dependency: "direct main"
+    description:
+      path: "../packages/core/config"
       relative: true
     source: path
     version: "0.0.1"
   core_fcm:
     dependency: transitive
     description:
-      path: "../packages/core_fcm"
+      path: "../packages/core/firebase/fcm"
       relative: true
     source: path
     version: "0.0.1"
   core_sqflite:
     dependency: transitive
     description:
-      path: "../packages/core_sqflite"
+      path: "../packages/core/storage/sqflite"
       relative: true
     source: path
     version: "0.0.1"
@@ -406,49 +406,49 @@ packages:
   mapp_api:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_api"
+      path: "../packages/mapp/mapp_api"
       relative: true
     source: path
     version: "0.0.1"
   mapp_config:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_config"
+      path: "../packages/mapp/mapp_config"
       relative: true
     source: path
     version: "0.0.1"
   mapp_example:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_example"
+      path: "../packages/mapp/mapp_example"
       relative: true
     source: path
     version: "0.0.1"
   mapp_fcm:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_fcm"
+      path: "../packages/mapp/mapp_fcm"
       relative: true
     source: path
     version: "0.0.1"
   mapp_onboarding:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_onboarding"
+      path: "../packages/mapp/mapp_onboarding"
       relative: true
     source: path
     version: "0.0.1"
   mapp_shared:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_shared"
+      path: "../packages/mapp/mapp_shared"
       relative: true
     source: path
     version: "0.0.1"
   mapp_storage:
     dependency: "direct main"
     description:
-      path: "../packages/mapp_storage"
+      path: "../packages/mapp/mapp_storage"
       relative: true
     source: path
     version: "0.0.1"

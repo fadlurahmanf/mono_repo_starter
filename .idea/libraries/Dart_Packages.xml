@@ -295,8 +295,8 @@
         <entry key="ffi">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.0.1/lib" />
             </list>
           </value>
@@ -654,8 +654,8 @@
         <entry key="package_info_plus">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/package_info_plus-4.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/package_info_plus-4.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/package_info_plus-4.1.0/lib" />
             </list>
           </value>
         </entry>
@@ -676,16 +676,16 @@
         <entry key="path_provider">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.0.15/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.1.0/lib" />
             </list>
           </value>
         </entry>
         <entry key="path_provider_android">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.0.27/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.0.19/lib" />
             </list>
           </value>
@@ -693,8 +693,8 @@
         <entry key="path_provider_foundation">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.3/lib" />
             </list>
           </value>
@@ -702,8 +702,8 @@
         <entry key="path_provider_linux">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.7/lib" />
             </list>
           </value>
@@ -711,8 +711,8 @@
         <entry key="path_provider_platform_interface">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.6/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.1/lib" />
             </list>
           </value>
@@ -720,8 +720,8 @@
         <entry key="path_provider_windows">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.6/lib" />
             </list>
           </value>
@@ -878,8 +878,8 @@
         <entry key="sensors_plus">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus-3.0.3/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus-3.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus-3.0.3/lib" />
             </list>
           </value>
         </entry>
@@ -893,16 +893,16 @@
         <entry key="share_plus">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.1.0/lib" />
             </list>
           </value>
         </entry>
         <entry key="share_plus_platform_interface">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.3.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.2.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.3.0/lib" />
             </list>
           </value>
         </entry>
@@ -1075,8 +1075,8 @@
         <entry key="url_launcher_android">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.37/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.17/lib" />
             </list>
           </value>
@@ -1160,8 +1160,8 @@
         <entry key="win32">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.0.6/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.0.5/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.0.6/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-4.1.4/lib" />
             </list>
           </value>
@@ -1169,8 +1169,8 @@
         <entry key="xdg_directories">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-1.0.2/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-1.0.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-1.0.2/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-0.2.0+1/lib" />
             </list>
           </value>

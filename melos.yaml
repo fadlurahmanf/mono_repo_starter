@@ -1,7 +1,11 @@
 name: mono_repo_starter
 
 packages:
-  - packages/**
+  - packages/core/**
+  - packages/core/firebase/**
+  - packages/core/storage/**
+  - packages/km
+  - packages/mapp
   - mapp
   - sapp
   - km

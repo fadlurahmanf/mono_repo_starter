@@ -1,4 +1,4 @@
-import 'package:core/core.dart';
+import 'package:core/config.dart';
 
 class KmAppDevSettings extends KmAppSettings {
   KmAppDevSettings() : super(useLog: true, useAlice: true);

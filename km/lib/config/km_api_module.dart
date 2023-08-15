@@ -1,4 +1,4 @@
-import 'package:core/core.dart';
+import 'package:core/config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:km/config/km_api_settings.dart';
 

@@ -1,5 +1,5 @@
 import 'package:alice/alice.dart';
-import 'package:core/core.dart';
+import 'package:core/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';

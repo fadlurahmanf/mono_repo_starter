@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:core/core.dart';
+import 'package:core/config.dart';
 import 'package:km_shared/km_shared.dart';
 
 abstract class KmLocalizationModule extends LocalizationModule {
