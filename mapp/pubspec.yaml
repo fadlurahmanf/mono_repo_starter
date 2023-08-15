@@ -52,8 +52,6 @@ dependencies:
     path: ../packages/mapp_config
   mapp_example:
     path: ../packages/mapp_example
-  mapp_notification:
-    path: ../packages/mapp_notification
   mapp_onboarding:
     path: ../packages/mapp_onboarding
   mapp_shared:

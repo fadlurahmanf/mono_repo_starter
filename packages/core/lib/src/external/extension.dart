@@ -29,12 +29,19 @@ extension BuildContentX on BuildContext {
     }
   }
 
+  String _getFullPathNamed(String module, String screen, {Transition? transition}) {
+    final route = AppFactory.I.routes
+            .firstWhereOrNull((element) =>
+                element.fullPath.contains('/${module}_${screen}_${transition.hashCode}') ||
+                element.fullPath.contains('/${module}_$screen'))
+            ?.fullPath ??
+        '/unknown';
+    return route;
+  }
+
   Future<T?>? pushNamed<T>(String module, String screen, {Transition? transition}) {
-    if (transition != null) {
-      return Get.toNamed('/${module}_${screen}_${transition.hashCode}', arguments: {'TES': 'TES'});
-    } else {
-      return Get.toNamed('/${module}_$screen', arguments: {'TES': 'TES'});
-    }
+    final route = _getFullPathNamed(module, screen, transition: transition);
+    return Get.toNamed(route);
   }
 
   Future<T?>? pushReplaceAll<T>(Type module, Type screen, {Transition? transition}) {
@@ -43,6 +50,10 @@ extension BuildContentX on BuildContext {
     } else {
       return Get.offAllNamed('/${module}_$screen', arguments: {'TES': 'TES'});
     }
+  }
+
+  void back<T>({T? result}) {
+    return Get.back(result: result);
   }
 
   Future<T?> showBottomsheet<T>(Widget bottomsheet, {bool isDismissible = true, bool enableDrag = true}) {

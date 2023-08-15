@@ -21,6 +21,10 @@ class AppFactory {
 
   List<AppGetPage> routes = [];
 
+  void addUnknownPage(AppGetPage p) {
+    routes.add(p);
+  }
+
   void addPage(AppGetPage p) {
     final transitions = <Transition>[
       Transition.fade,
@@ -100,12 +104,10 @@ class AppFactory {
     Alice? alice,
     Logger? logger,
     Locale? defaultLocale,
-    GetPage<dynamic>? unknownRoute,
   }) {
     this.alice = alice ?? this.alice;
     this.logger = logger ?? this.logger;
     this.defaultLocale = defaultLocale ?? this.defaultLocale;
-    this.unknownRoute = unknownRoute ?? this.unknownRoute;
   }
 
   List<GetPage<dynamic>> onGenerateRoute(BuildContext context) {

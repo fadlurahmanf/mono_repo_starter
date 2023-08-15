@@ -12,6 +12,6 @@ scripts:
   kmGenResp:
     exec: flutter pub run build_runner build --delete-conflicting-outputs
   mappPubGet:
-    run: melos exec --ignore="km_*" "flutter clean && flutter pub get"
+    run: melos exec --ignore="km_*,km,sapp" "flutter clean && flutter pub get"
   mappGenResp:
-    run: melos exec --ignore="km_*" "flutter pub run build_runner build --delete-conflicting-outputs"
+    run: melos exec --ignore="core_fremote_config,core_sqflite,km_*,km,mapp,mapp_example,mapp_fake,mapp_shared,sapp" "flutter pub run build_runner build --delete-conflicting-outputs"

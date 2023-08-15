@@ -14,6 +14,9 @@ dependencies:
   core:
     path: ../core
 
+  mapp_config:
+    path: ../mapp_config
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

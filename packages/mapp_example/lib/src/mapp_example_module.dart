@@ -14,5 +14,10 @@ class MappExampleRoute extends RouteModule {
           screenType: SwitchLanguageScreen,
           page: (context) => const SwitchLanguageScreen().wrap(context),
         ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: NotificationScreen,
+          page: (context) => const NotificationScreen().wrap(context),
+        ),
       ];
 }

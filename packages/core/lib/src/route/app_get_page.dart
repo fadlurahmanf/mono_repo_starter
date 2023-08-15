@@ -6,10 +6,13 @@ class AppGetPage {
   Type screenType;
   Transition? transition;
   Widget Function(BuildContext context) page;
-  bool firstRoute;
+  bool isFirstRoute;
+  bool isUnknown;
 
   String get fullPath {
-    if (firstRoute && transition == null) {
+    if (isUnknown == true) {
+      return '/unknown';
+    } else if (isFirstRoute && transition == null) {
       return '/';
     } else {
       if (transition != null) {
@@ -25,7 +28,8 @@ class AppGetPage {
     required this.screenType,
     required this.page,
     this.transition,
-    this.firstRoute = false,
+    this.isFirstRoute = false,
+    this.isUnknown = false,
   });
 
   AppGetPage copyWith({Transition? transition}) {

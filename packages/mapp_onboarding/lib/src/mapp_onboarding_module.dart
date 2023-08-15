@@ -18,21 +18,21 @@ class MappOnBoarding extends BaseModule {
   }
 }
 
-class MappOnBoardingRoutes extends RouteModule {
+class MappOnBoardingRoute extends RouteModule {
   @override
   List<AppGetPage> get pages => [
         AppGetPage(
-          moduleType: MappOnBoardingRoutes,
+          moduleType: MappOnBoardingRoute,
           screenType: SplashScreen,
           page: (context) => const SplashScreen().wrap(context),
-          firstRoute: true,
+          isFirstRoute: true,
         ),
         AppGetPage(
-          moduleType: MappOnBoardingRoutes,
+          moduleType: MappOnBoardingRoute,
           screenType: WelcomeScreen,
           page: (context) => const WelcomeScreen().wrap(context),
-          firstRoute: false,
+          isFirstRoute: false,
         ),
-        AppGetPage(moduleType: MappOnBoardingRoutes, screenType: TNCScreen, page: (context) => const TNCScreen()),
+        AppGetPage(moduleType: MappOnBoardingRoute, screenType: TNCScreen, page: (context) => const TNCScreen()),
       ];
 }

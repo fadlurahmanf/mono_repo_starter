@@ -44,7 +44,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  context.push(MappOnBoardingRoutes, TNCScreen, transition: Transition.leftToRight);
+                  context.push(MappOnBoardingRoute, TNCScreen, transition: Transition.leftToRight);
                 },
                 child: const Text("PUSH TO TNC"),
               ),

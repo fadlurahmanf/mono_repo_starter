@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is GenerateGuestTokenSuccess) {
-          context.pushReplaceAll(MappOnBoardingRoutes, WelcomeScreen);
+          context.pushReplaceAll(MappOnBoardingRoute, WelcomeScreen);
         }
       },
       child: Scaffold(

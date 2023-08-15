@@ -94,13 +94,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  core_notification:
-    dependency: transitive
-    description:
-      path: "../packages/core_notification"
-      relative: true
-    source: path
-    version: "0.0.1"
   core_sqflite:
     dependency: transitive
     description:
@@ -389,13 +382,6 @@ packages:
     dependency: "direct main"
     description:
       path: "../packages/mapp_example"
-      relative: true
-    source: path
-    version: "0.0.1"
-  mapp_notification:
-    dependency: "direct main"
-    description:
-      path: "../packages/mapp_notification"
       relative: true
     source: path
     version: "0.0.1"

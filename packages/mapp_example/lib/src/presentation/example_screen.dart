@@ -22,6 +22,12 @@ class _ExampleScreenState extends State<ExampleScreen> {
                   context.pushNamed('MappExampleRoute', 'SwitchLanguageScreen');
                 },
                 child: Text('SWITCH LANGUAGE'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                context.pushNamed('MappExampleRoute', 'NotificationScreen');
+              },
+              child: Text('NOTIF 1 ACTION'),
             )
           ],
         ),
