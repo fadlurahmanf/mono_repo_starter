@@ -1,5 +1,6 @@
 import 'package:core_config/config.dart';
 import 'package:mapp_example/src/_index.dart';
+import 'package:mapp_example/src/presentation/locator/_index.dart';
 import 'package:mapp_example/src/presentation/storage/_index.dart';
 
 class MappExampleRoute extends RouteModule {
@@ -24,6 +25,11 @@ class MappExampleRoute extends RouteModule {
           moduleType: MappExampleRoute,
           screenType: StorageScreen,
           page: (context) => const StorageScreen().wrap(context),
+        ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: LocatorScreen,
+          page: (context) => const LocatorScreen().wrap(context),
         ),
       ];
 }

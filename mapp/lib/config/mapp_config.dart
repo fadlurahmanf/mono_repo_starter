@@ -8,6 +8,7 @@ import 'package:mapp_storage/mapp_storage.dart';
 import 'package:mapp_config/mapp_config.dart';
 import 'package:core_applink/applink.dart';
 import 'package:mapp_example/mapp_example.dart';
+import 'package:core_locator/locator.dart';
 
 final _devRouteModules = <RouteModule>[
   MappConfigRoute(),
@@ -16,11 +17,12 @@ final _devRouteModules = <RouteModule>[
 ];
 
 final _devModules = <BaseModule>[
+  AppLinkModule(),
+  LocatorModule(),
   MappFirebaseModule(),
   MappDevConfigModule(),
   MappDevLocalizationModule(),
   MappShared(),
-  AppLinkModule(),
   MappFCMModule(),
   MappStorage(),
   MappApiDevModule(

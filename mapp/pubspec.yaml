@@ -45,6 +45,8 @@ dependencies:
     path: ../packages/core/config
   core_applink:
     path: ../packages/core/applink
+  core_locator:
+    path: ../packages/core/locator
 
   mapp_api:
     path: ../packages/mapp/mapp_api

@@ -523,6 +523,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/core/storage/floor/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core/storage/floor/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core/storage/floor/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/locator/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/locator/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/locator/.dart_tool" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

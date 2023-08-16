@@ -1,3 +1,3 @@
-library core_applink;
+library core_locator;
 
 export 'src/_index.dart';

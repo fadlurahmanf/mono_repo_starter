@@ -35,6 +35,12 @@ class _ExampleScreenState extends State<ExampleScreen> {
               },
               child: Text('STORAGE'),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                context.pushNamed('MappExampleRoute', 'LocatorScreen');
+              },
+              child: Text('LOCATOR'),
+            ),
           ],
         ),
       ),

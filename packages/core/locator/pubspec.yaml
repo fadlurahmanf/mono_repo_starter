@@ -1,4 +1,4 @@
-name: mapp_example
+name: core_locator
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -11,15 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  core_config:
-    path: ../../core/config
-  core_locator:
-    path: ../../core/locator
+  geolocator: ^9.0.2
 
-  mapp_config:
-    path: ../mapp_config
-  mapp_storage:
-    path: ../mapp_storage
+  core_config:
+    path: ../config
 
 dev_dependencies:
   flutter_test:
