@@ -1,4 +1,5 @@
 import 'package:mapp_storage/mapp_storage.dart';
+import 'package:mapp_storage/src/data/entities/mapp_entity.dart';
 
 abstract class IMappSqfliteStorage {
   Future<int> removeDataAndInsert(MappEntity entity);

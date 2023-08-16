@@ -1,5 +1,6 @@
 import 'package:core_config/config.dart';
 import 'package:mapp_example/src/_index.dart';
+import 'package:mapp_example/src/presentation/storage/_index.dart';
 
 class MappExampleRoute extends RouteModule {
   @override
@@ -18,6 +19,11 @@ class MappExampleRoute extends RouteModule {
           moduleType: MappExampleRoute,
           screenType: NotificationScreen,
           page: (context) => const NotificationScreen().wrap(context),
+        ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: StorageScreen,
+          page: (context) => const StorageScreen().wrap(context),
         ),
       ];
 }

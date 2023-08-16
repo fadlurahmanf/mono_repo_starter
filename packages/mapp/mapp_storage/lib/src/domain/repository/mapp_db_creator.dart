@@ -1,7 +1,8 @@
 import 'package:core_sqflite/core_sqflite.dart';
 import 'package:mapp_storage/mapp_storage.dart';
+import 'package:mapp_storage/src/data/entities/mapp_entity.dart';
 
-class MappDbCreator extends DBCreatorRepository {
+class MappDbCreator extends DBCreator {
   @override
   SqfliteDBModel get dbModel => SqfliteDBModel(
         databaseName: 'mapp.db',

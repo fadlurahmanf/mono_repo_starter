@@ -20,6 +20,8 @@ dependencies:
   core_config:
     path: ../../core/config
 
+  core_floor:
+    path: ../../core/storage/floor
   core_sqflite:
     path: ../../core/storage/sqflite
 
@@ -27,6 +29,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.6
+  floor_generator: ^1.4.2
   flutter_lints: ^2.0.0
   freezed: ^2.4.1
   json_serializable: ^6.7.1

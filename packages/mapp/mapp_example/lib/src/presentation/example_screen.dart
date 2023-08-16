@@ -27,8 +27,14 @@ class _ExampleScreenState extends State<ExampleScreen> {
               onPressed: () async {
                 context.pushNamed('MappExampleRoute', 'NotificationScreen');
               },
-              child: Text('NOTIF 1 ACTION'),
-            )
+              child: Text('NOTIFICATION'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                context.pushNamed('MappExampleRoute', 'StorageScreen');
+              },
+              child: Text('STORAGE'),
+            ),
           ],
         ),
       ),

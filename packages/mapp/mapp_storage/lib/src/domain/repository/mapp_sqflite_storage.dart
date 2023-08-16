@@ -1,4 +1,5 @@
 import 'package:mapp_storage/mapp_storage.dart';
+import 'package:mapp_storage/src/data/entities/mapp_entity.dart';
 import 'package:mapp_storage/src/domain/common/i_mapp_sqflite_storage.dart';
 import 'package:sqflite/sqflite.dart';
 
