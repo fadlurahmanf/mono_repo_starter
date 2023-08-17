@@ -48,10 +48,14 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Put your location permission word here...</string>
+	<string>Put your location permission's word here...</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Put your location permission word here...</string>
+    <string>Put your location permission's word here...</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Put your location permission word here...</string>
+    <string>Put your location permission's word here...</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Put your camera permission word's here...</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Put your microphone permission's word here...</string>
 </dict>
 </plist>
