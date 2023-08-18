@@ -31,5 +31,10 @@ class MappExampleRoute extends RouteModule {
           screenType: LocatorScreen,
           page: (context) => const LocatorScreen().wrap(context),
         ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: FaceDetectionScreen,
+          page: (context) => const FaceDetectionScreen().wrap(context),
+        ),
       ];
 }

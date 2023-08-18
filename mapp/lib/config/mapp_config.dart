@@ -1,4 +1,6 @@
+import 'package:core_camera/camera.dart';
 import 'package:core_config/config.dart';
+import 'package:core_face_detection/face_detection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapp_api/mapp_api.dart';
 import 'package:mapp_fcm/mapp_fcm.dart';
@@ -19,11 +21,13 @@ final _devRouteModules = <RouteModule>[
 final _devModules = <BaseModule>[
   AppLinkModule(),
   LocatorModule(),
-  MappFirebaseModule(),
+  // MappFirebaseModule(),
+  MappFCMModule(),
+  CameraModule(),
+  FaceDetectionModule(),
   MappDevConfigModule(),
   MappDevLocalizationModule(),
   MappShared(),
-  MappFCMModule(),
   MappStorage(),
   MappApiDevModule(
     settings: MappApiDevSettings(),

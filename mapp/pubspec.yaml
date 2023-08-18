@@ -41,12 +41,16 @@ dependencies:
   logger: ^1.4.0
   google_fonts: ^5.1.0
 
-  core_config:
-    path: ../packages/core/config
   core_applink:
     path: ../packages/core/applink
+  core_camera:
+    path: ../packages/core/camera
+  core_config:
+    path: ../packages/core/config
   core_locator:
     path: ../packages/core/locator
+  core_face_detection:
+    path: ../packages/core/firebase/face_detection
 
   mapp_api:
     path: ../packages/mapp/mapp_api

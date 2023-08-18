@@ -14,12 +14,15 @@ Future<void> _registerModules({
   required List<RouteModule> routeModules,
 }) async {
   AppFactory.I.setInjection(c);
-
-  for (var element in childModules) {
+  print("START REGISTER: ${DateTime.now().toString()}");
+  await Future.forEach(childModules, (element) async {
     await element.registerDependency(c);
-  }
+  });
+  print("END REGISTER: ${DateTime.now().toString()}");
 
-  for (var element in routeModules) {
+  print("START PAGE: ${DateTime.now().toString()}");
+  await Future.forEach(routeModules, (element) async {
     await element.addPages();
-  }
+  });
+  print("END PAGE: ${DateTime.now().toString()}");
 }

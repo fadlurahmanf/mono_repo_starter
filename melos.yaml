@@ -4,8 +4,8 @@ packages:
   - packages/core/**
   - packages/core/firebase/**
   - packages/core/storage/**
-  - packages/km
-  - packages/mapp
+  - packages/km/**
+  - packages/mapp/**
   - mapp
   - sapp
   - km

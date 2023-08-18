@@ -6,10 +6,9 @@ import 'package:get_it/get_it.dart';
 abstract class FCMModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
-    FirebaseMessaging.onBackgroundMessage((message) => onBackgroundMessage(message, c));
     c.registerLazySingleton<IFCMRepository>(() => FCMRepository());
+    await registerListener();
   }
 
-  @pragma('vm:entry-point')
-  Future<void> onBackgroundMessage(RemoteMessage message, GetIt c);
+  Future<void> registerListener();
 }

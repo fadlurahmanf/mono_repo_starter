@@ -7,6 +7,6 @@ abstract class FirebaseModule extends BaseModule {
 
   @override
   Future<void> registerDependency(GetIt c) async {
-    init();
+    await init();
   }
 }

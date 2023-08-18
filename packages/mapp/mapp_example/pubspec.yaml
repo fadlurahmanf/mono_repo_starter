@@ -19,6 +19,8 @@ dependencies:
     path: ../../core/firebase/face_detection
   core_locator:
     path: ../../core/locator
+  core_ui:
+    path: ../../core/ui
 
   mapp_config:
     path: ../mapp_config

@@ -1,4 +1,4 @@
-name: core_fcm
+name: core_ui
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -10,12 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  firebase_core: ^2.15.0
-  firebase_messaging: ^14.6.6
-
-  core_config:
-    path: ../../config
 
 dev_dependencies:
   flutter_test:

@@ -12,37 +12,73 @@ class _ExampleScreenState extends State<ExampleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('EXAMPLE'),
+      ),
       body: SizedBox.expand(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () async {
-                  context.pushNamed('MappExampleRoute', 'SwitchLanguageScreen');
-                },
-                child: Text('SWITCH LANGUAGE'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                context.pushNamed('MappExampleRoute', 'NotificationScreen');
-              },
-              child: Text('NOTIFICATION'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                context.pushNamed('MappExampleRoute', 'StorageScreen');
-              },
-              child: Text('STORAGE'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                context.pushNamed('MappExampleRoute', 'LocatorScreen');
-              },
-              child: Text('LOCATOR'),
-            ),
-          ],
-        ),
+        child: ListView(children: [
+          ListTile(
+            leading: Icon(Icons.featured_play_list_outlined),
+            trailing: Icon(Icons.touch_app),
+            title: Text('LANGUAGE'),
+            isThreeLine: true,
+            subtitle: Text('Select Language'),
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'SwitchLanguageScreen');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.featured_play_list_outlined),
+            trailing: Icon(Icons.touch_app),
+            title: Text('NOTIFICATION'),
+            isThreeLine: true,
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'NotificationScreen');
+            },
+            subtitle: Text('Notification Feature'),
+          ),
+          ListTile(
+            leading: Icon(Icons.featured_play_list_outlined),
+            trailing: Icon(Icons.touch_app),
+            title: Text('STORAGE'),
+            isThreeLine: true,
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'StorageScreen');
+            },
+            subtitle: Text('Storage Feature'),
+          ),
+        ],),
+        // child: Column(
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     ElevatedButton(
+        //         onPressed: () async {
+        //           context.pushNamed('MappExampleRoute', 'SwitchLanguageScreen');
+        //         },
+        //         child: Text('SWITCH LANGUAGE'),
+        //     ),
+        //     ElevatedButton(
+        //       onPressed: () async {
+        //         context.pushNamed('MappExampleRoute', 'NotificationScreen');
+        //       },
+        //       child: Text('NOTIFICATION'),
+        //     ),
+        //     ElevatedButton(
+        //       onPressed: () async {
+        //         context.pushNamed('MappExampleRoute', 'StorageScreen');
+        //       },
+        //       child: Text('STORAGE'),
+        //     ),
+        //     ElevatedButton(
+        //       onPressed: () async {
+        //         context.pushNamed('MappExampleRoute', 'LocatorScreen');
+        //       },
+        //       child: Text('LOCATOR'),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

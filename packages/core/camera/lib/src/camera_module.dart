@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 class CameraModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
-    c.registerLazySingleton<ICameraRepository>(() => CameraRepository()..initAvailableCameras());
+    c.registerLazySingletonAsync<ICameraRepository>(() async => CameraRepository()..initAvailableCameras());
 
     await c.isReady<ICameraRepository>();
   }

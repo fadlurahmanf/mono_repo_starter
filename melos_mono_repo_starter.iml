@@ -538,6 +538,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_mlkit/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_mlkit/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_mlkit/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/ui/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/ui/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/ui/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
