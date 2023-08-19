@@ -8,9 +8,9 @@ abstract class ICryptoRSARepository {
 
   String getEncodedPublicKey(RSAPublicKey key);
 
-  RSAPrivateKey convertEncodedPrivateKey(String encodedPrivateKey);
+  RSAPrivateKey getPrivateKey(String encodedPrivateKey);
 
-  RSAPublicKey convertEncodedPublicKey(String encodedPublicKey);
+  RSAPublicKey getPublicKey(String encodedPublicKey);
 
   String encrypt({required RSAPublicKey publicKey, required String plainText});
 

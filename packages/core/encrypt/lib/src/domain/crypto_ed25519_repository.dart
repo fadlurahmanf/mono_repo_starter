@@ -41,4 +41,16 @@ class CryptoEd25519Repository implements ICryptoEd25519Repository {
     final sign = ed.sign(privateKey, message);
     return ed.verify(publicKey, message, sign);
   }
+
+  // verify signature without private key
+  @override
+  bool verifySignatureType2({
+    required ed.PublicKey publicKey,
+    required String base64Signature,
+    required String plainText
+  }) {
+    final message = utf8.encode(plainText) as Uint8List;
+    final sign = base64.decode(base64Signature);
+    return ed.verify(publicKey, message, sign);
+  }
 }

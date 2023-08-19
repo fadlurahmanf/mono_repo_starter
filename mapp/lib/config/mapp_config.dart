@@ -1,5 +1,6 @@
 import 'package:core_camera/camera.dart';
 import 'package:core_config/config.dart';
+import 'package:core_encrypt/encrypt.dart';
 import 'package:core_face_detection/face_detection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapp_api/mapp_api.dart';
@@ -20,8 +21,9 @@ final _devRouteModules = <RouteModule>[
 
 final _devModules = <BaseModule>[
   AppLinkModule(),
+  EncryptModule(),
   LocatorModule(),
-  // MappFirebaseModule(),
+  MappFirebaseModule(),
   MappFCMModule(),
   CameraModule(),
   FaceDetectionModule(),

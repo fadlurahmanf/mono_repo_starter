@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:core_encrypt/src/domain/i_crypto_rsa_repository.dart';
 import 'package:encrypt/encrypt.dart' as en;
 import 'package:flutter/foundation.dart';
@@ -11,7 +13,7 @@ class CryptoRSARepository implements ICryptoRSARepository {
   @override
   point.AsymmetricKeyPair<point.RSAPublicKey, point.RSAPrivateKey> generateKey() {
     final rsapars = point.RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 12);
-    final params = point.ParametersWithRandom(rsapars, point.SecureRandom());
+    final params = point.ParametersWithRandom(rsapars, RsaKeyHelper().getSecureRandom());
     final keyGenerator = RSAKeyGenerator();
     keyGenerator.init(params);
     final keypair = keyGenerator.generateKeyPair();
@@ -24,12 +26,12 @@ class CryptoRSARepository implements ICryptoRSARepository {
   }
 
   @override
-  point.RSAPrivateKey convertEncodedPrivateKey(String encodedPrivateKey) {
+  point.RSAPrivateKey getPrivateKey(String encodedPrivateKey) {
     return en.RSAKeyParser().parse(encodedPrivateKey) as point.RSAPrivateKey;
   }
 
   @override
-  point.RSAPublicKey convertEncodedPublicKey(String encodedPublicKey) {
+  point.RSAPublicKey getPublicKey(String encodedPublicKey) {
     return en.RSAKeyParser().parse(encodedPublicKey) as point.RSAPublicKey;
   }
 
@@ -42,13 +44,13 @@ class CryptoRSARepository implements ICryptoRSARepository {
   String encrypt({required point.RSAPublicKey publicKey, required String plainText}) {
     final cipher = RSAEngine()..init(true, PublicKeyParameter<point.RSAPublicKey>(publicKey));
     final cipherText = cipher.process(Uint8List.fromList(plainText.codeUnits));
-    return String.fromCharCodes(cipherText);
+    return base64.encode(cipherText);
   }
 
   @override
   String decrypt({required point.RSAPrivateKey privateKey, required String encryptedText}) {
     final cipher = RSAEngine()..init(false, point.PrivateKeyParameter<point.RSAPrivateKey>(privateKey));
-    final decrypted = cipher.process(Uint8List.fromList(encryptedText.codeUnits));
+    final decrypted = cipher.process(Uint8List.fromList(base64.decode(encryptedText)));
     return String.fromCharCodes(decrypted);
   }
 

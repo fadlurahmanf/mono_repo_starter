@@ -47,6 +47,8 @@ dependencies:
     path: ../packages/core/camera
   core_config:
     path: ../packages/core/config
+  core_encrypt:
+    path: ../packages/core/encrypt
   core_locator:
     path: ../packages/core/locator
   core_face_detection:

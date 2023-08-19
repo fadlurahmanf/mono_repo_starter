@@ -39,7 +39,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
             subtitle: Text('Notification Feature'),
           ),
           ListTile(
-            leading: Icon(Icons.featured_play_list_outlined),
+            leading: Icon(Icons.storage),
             trailing: Icon(Icons.touch_app),
             title: Text('STORAGE'),
             isThreeLine: true,
@@ -47,6 +47,46 @@ class _ExampleScreenState extends State<ExampleScreen> {
               context.pushNamed('MappExampleRoute', 'StorageScreen');
             },
             subtitle: Text('Storage Feature'),
+          ),
+          ListTile(
+            leading: Icon(Icons.lock),
+            trailing: Icon(Icons.touch_app),
+            title: Text('CRYPTO'),
+            isThreeLine: true,
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'AesScreen');
+            },
+            subtitle: Text('Aes Encrypt'),
+          ),
+          ListTile(
+            leading: Icon(Icons.lock),
+            trailing: Icon(Icons.touch_app),
+            title: Text('CRYPTO'),
+            isThreeLine: true,
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'Ed25519Screen');
+            },
+            subtitle: Text('ED25519 Encrypt'),
+          ),
+          ListTile(
+            leading: Icon(Icons.lock),
+            trailing: Icon(Icons.touch_app),
+            title: Text('CRYPTO'),
+            isThreeLine: true,
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'RsaScreen');
+            },
+            subtitle: Text('RSA Encrypt'),
+          ),
+          ListTile(
+            leading: Icon(Icons.lock),
+            trailing: Icon(Icons.touch_app),
+            title: Text('CRYPTO'),
+            isThreeLine: true,
+            onTap: () async {
+              context.pushNamed('MappExampleRoute', 'SalsaScreen');
+            },
+            subtitle: Text('Salsa Encrypt'),
           ),
         ],),
         // child: Column(

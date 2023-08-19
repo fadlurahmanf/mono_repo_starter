@@ -1,9 +1,23 @@
+import 'dart:math';
+
 import 'package:core_encrypt/src/domain/i_crypto_aes_repository.dart';
 import 'package:encrypt/encrypt.dart';
 
 class CryptoAESRepository implements ICryptoAESRepository {
   @override
+  String generateRandomKey(int length) {
+    const mChars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => mChars.codeUnitAt(Random.secure().nextInt(mChars.length)),
+      ),
+    );
+  }
+
+  @override
   Key getKey(String key) {
+    // key should be 16, 24, or 32
     return Key.fromUtf8(key);
   }
 

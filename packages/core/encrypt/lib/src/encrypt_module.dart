@@ -9,7 +9,7 @@ import 'package:core_encrypt/src/domain/i_crypto_rsa_repository.dart';
 import 'package:core_encrypt/src/domain/i_crypto_salsa_repository.dart';
 import 'package:get_it/get_it.dart';
 
-class CryptoModule extends BaseModule {
+class EncryptModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
     c

@@ -16,4 +16,10 @@ abstract class ICryptoEd25519Repository {
     required ed.PrivateKey privateKey,
     required String plainText,
   });
+
+  bool verifySignatureType2({
+    required ed.PublicKey publicKey,
+    required String base64Signature,
+    required String plainText,
+  });
 }

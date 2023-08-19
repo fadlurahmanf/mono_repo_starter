@@ -15,6 +15,8 @@ dependencies:
     path: ../../core/camera
   core_config:
     path: ../../core/config
+  core_encrypt:
+    path: ../../core/encrypt
   core_face_detection:
     path: ../../core/firebase/face_detection
   core_locator:
