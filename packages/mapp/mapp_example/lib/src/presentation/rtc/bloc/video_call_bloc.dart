@@ -23,12 +23,6 @@ class VideoCallBloc extends Bloc<VideoCallEvent, VideoCallState> {
   }
 
   Future<void> _onAddRemoteParticipant(_AddRemoteParticipant event, Emitter<VideoCallState> emit) async {
-    final exists = state.remoteStreamIds ?? [];
-    if (exists.contains(event.id)) {
-      print('REMOTE STREAM ID: ${event.id} EXIST');
-      return;
-    }
-    exists.add(event.id);
-    emit(state.copyWith(remoteStreamIds: exists));
+    emit(state.copyWith(remoteStreamIds: [event.id]));
   }
 }

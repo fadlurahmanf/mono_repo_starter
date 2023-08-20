@@ -179,7 +179,9 @@ class _CallerScreenState extends State<CallerScreen> {
 
   void onRemoteStream(BuildContext context, {required MediaStream stream}) {
     print("MASUK ON REMOTE STREAM ${stream.id}");
-    remoteRenderer.srcObject = stream;
+    setState(() {
+      remoteRenderer.srcObject = stream;
+    });
     context.read<VideoCallBloc>().add(VideoCallEvent.addRemoteParticipant(id: stream.id));
   }
 
@@ -206,40 +208,46 @@ class _CallerScreenState extends State<CallerScreen> {
     await rtcService.setRemoteDescription(offerJs);
     await rtcService.createAnswer();
 
-    receiverCandidatesSub = roomRef.child('receiverCandidates').onChildAdded;
-    receiverCandidatesSub?.listen((event) {
+    callerCandidatesSub = roomRef.child('callerCandidates').onChildAdded;
+    callerCandidatesSub?.listen((event) {
       final map = event.snapshot.value;
       Map<String, dynamic> mapJs = {};
       (map as Map<dynamic, dynamic>).forEach((key, value) {
         mapJs['$key'] = value;
       });
+      print("MASUK CALLER CANDIDATES: ${mapJs}");
       rtcService.addCandidate(mapJs);
     });
   }
 
-  Stream<DatabaseEvent>? roomChildAddedSub;
+  Stream<DatabaseEvent>? roomChildAdded;
   Stream<DatabaseEvent>? callerCandidatesSub;
 
   Future<void> listenAsCaller() async {
-    roomChildAddedSub = context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId).onChildAdded;
-    roomChildAddedSub?.listen((event) async {
-      if (event.snapshot.hasChild("receiverAnswer")) {
-        final answer = event.snapshot.child('receiverAnswer');
+    final roomRef = context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId);
+    roomChildAdded = roomRef.onChildAdded;
+    roomChildAdded?.listen((event) async {
+      print("MASUK receiverAnswer onChildAdded: ${event.snapshot.key}");
+      print("MASUK receiverAnswer onChildAdded: ${event.snapshot.value}");
+      if(event.snapshot.key == 'receiverAnswer'){
+        var receiverAnswer = event.snapshot.value;
         Map<String, dynamic> answerJs = {};
-        (answer as Map<dynamic, dynamic>).forEach((key, value) {
+        (receiverAnswer as Map<dynamic, dynamic>).forEach((key, value) {
           answerJs['$key'] = value;
         });
+        print("MASUK DALEM: $answerJs");
         await rtcService.setRemoteDescription(answerJs);
       }
     });
-    callerCandidatesSub =
-        context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId).child('callerCandidates').onChildAdded;
-    callerCandidatesSub?.listen((event) async {
+    receiverCandidatesSub =
+        context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId).child('receiverCandidates').onChildAdded;
+    receiverCandidatesSub?.listen((event) async {
       final map = event.snapshot.value;
       Map<String, dynamic> mapJs = {};
       (map as Map<dynamic, dynamic>).forEach((key, value) {
         mapJs['$key'] = value;
       });
+      print("MASUK RECEIVER CANDIDATE: $mapJs");
       rtcService.addCandidate(mapJs);
     });
   }

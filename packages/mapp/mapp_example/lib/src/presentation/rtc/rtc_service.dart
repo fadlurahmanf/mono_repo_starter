@@ -89,7 +89,9 @@ class RTCService {
     };
 
     peerConnection.onTrack = (event) {
-      event.streams.first.getTracks().forEach((element) {});
+      event.streams.first.getTracks().forEach((element) {
+        remoteStream?.addTrack(element);
+      });
     };
 
     _localPeerConnection = peerConnection;
@@ -116,7 +118,9 @@ class RTCService {
       print('LOCAL PEER CONNECTION NULL');
       return;
     }
-    final answer = await _localPeerConnection!.createAnswer();
+    final answer = await _localPeerConnection!.createAnswer({
+      'offerToReceiveVideo': 1,
+    });
     await _localPeerConnection!.setLocalDescription(answer);
     onRemoteAnswer(answer.toMap(), json.encode(answer.toMap()));
   }
