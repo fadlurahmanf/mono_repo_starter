@@ -36,6 +36,7 @@ final _devModules = <BaseModule>[
   ),
   MappConfigModule(),
   MappOnBoarding(),
+  MappExampleModule(),
 ];
 
 final devSetting = AppRunnerSetting(
