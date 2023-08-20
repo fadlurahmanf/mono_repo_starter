@@ -13,11 +13,22 @@ class VideoCallBloc extends Bloc<VideoCallEvent, VideoCallState> {
     on<VideoCallEvent>((events, emit) async {
       await events.map(
         setLocalParticipant: (event) async => await _onsetLocalParticipant(event, emit),
+        addRemoteParticipant: (event) async => await _onAddRemoteParticipant(event, emit),
       );
     });
   }
 
   Future<void> _onsetLocalParticipant(_SetLocalParticipant event, Emitter<VideoCallState> emit) async {
     emit(state.copyWith(localStreamId: event.id));
+  }
+
+  Future<void> _onAddRemoteParticipant(_AddRemoteParticipant event, Emitter<VideoCallState> emit) async {
+    final exists = state.remoteStreamIds ?? [];
+    if (exists.contains(event.id)) {
+      print('REMOTE STREAM ID: ${event.id} EXIST');
+      return;
+    }
+    exists.add(event.id);
+    emit(state.copyWith(remoteStreamIds: exists));
   }
 }

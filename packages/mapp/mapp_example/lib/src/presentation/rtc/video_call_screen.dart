@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:core_config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
@@ -32,10 +34,19 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     super.initState();
     rtcService = RTCService(
       onLocalStream: (stream) => onLocalStream(context, stream: stream),
+      onRemoteStream: (stream) => onRemoteStream(context, stream: stream),
     );
     initRenderers();
 
-    rtcService.initLocalUserMedia();
+    rtcService.init();
+  }
+
+  @override
+  void dispose() {
+    unawaited(localRenderer.dispose());
+    unawaited(remoteRenderer.dispose());
+    unawaited(rtcService.dispose());
+    super.dispose();
   }
 
   @override
@@ -44,6 +55,9 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       body: SizedBox.expand(
         child: Stack(
           children: [
+            Positioned.fill(
+              child: fullView(context),
+            ),
             Positioned(
               left: 5.w,
               top: 10.h,
@@ -65,23 +79,36 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         return Container(
           width: 35.w,
           height: 25.h,
-          decoration: BoxDecoration(
-            color: Colors.black,
-              borderRadius: BorderRadius.circular(15.sp)
-          ),
+          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(15.sp)),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.sp),
-            child: RTCVideoView(localRenderer, objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,),
-        ),
-      );
+            child: RTCVideoView(
+              localRenderer,
+              objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+            ),
+          ),
+        );
       } else {
-      return Container();
+        return Container();
       }
+    });
+  }
+
+  Widget fullView(BuildContext context) {
+    return BlocBuilder<VideoCallBloc, VideoCallState>(builder: (context, state) {
+      return Container(
+        decoration: const BoxDecoration(color: Colors.black),
+      );
     });
   }
 
   void onLocalStream(BuildContext context, {required MediaStream stream}) {
     localRenderer.setSrcObject(stream: stream);
     context.read<VideoCallBloc>().add(VideoCallEvent.setLocalParticipant(id: stream.id));
+  }
+
+  onRemoteStream(BuildContext context, {required MediaStream stream}) {
+    remoteRenderer.setSrcObject(stream: stream);
+    context.read<VideoCallBloc>().add(VideoCallEvent.addRemoteParticipant(id: stream.id));
   }
 }

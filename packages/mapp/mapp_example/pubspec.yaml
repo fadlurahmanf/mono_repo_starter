@@ -13,6 +13,7 @@ dependencies:
 
   flutter_webrtc: ^0.9.40
   freezed_annotation: ^2.4.1
+  sdp_transform: ^0.3.2
 
   core_camera:
     path: ../../core/camera
