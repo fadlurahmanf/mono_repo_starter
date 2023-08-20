@@ -39,9 +39,9 @@ extension BuildContentX on BuildContext {
     return route;
   }
 
-  Future<T?>? pushNamed<T>(String module, String screen, {Transition? transition}) {
+  Future<T?>? pushNamed<T>(String module, String screen, {dynamic arguments, Transition? transition}) {
     final route = _getFullPathNamed(module, screen, transition: transition);
-    return Get.toNamed(route);
+    return Get.toNamed(route, arguments: arguments);
   }
 
   Future<T?>? pushReplaceAll<T>(Type module, Type screen, {Transition? transition}) {

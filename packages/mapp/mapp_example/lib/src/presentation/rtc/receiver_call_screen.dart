@@ -42,7 +42,7 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
       onIceCandidate: (map, stringCandidate) {
         context
             .get<IVideoCallRemoteDataSource>()
-            .videoCallReference
+            .videoCallRef
             .child('receiver')
             .child('candidates')
             .set(candidates..add(map));
@@ -61,7 +61,7 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
             });
           }
           final candidates = event.snapshot.child('candidates').children;
-          for(int i=0; i<candidates.length; i++){
+          for (int i = 0; i < candidates.length; i++) {
             final value = event.snapshot.child('candidates').child('$i').value as Map<dynamic, dynamic>;
             Map<String, dynamic> newMap = {};
             value.forEach((key, value) {
@@ -76,12 +76,12 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
         // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').child('offer').set(map);
       },
       onRemoteAnswer: (map, stringifyMap) {
-        context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').child('answer').set(map);
+        context.get<IVideoCallRemoteDataSource>().videoCallRef.child('receiver').child('answer').set(map);
       },
     );
     initListenerDatabase(context);
     initRenderers();
-    rtcService.init();
+    // rtcService.init();
   }
 
   Stream<DatabaseEvent>? callerChildOnValueListen;
@@ -98,7 +98,7 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
 
   @override
   void dispose() {
-    context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').remove();
+    context.get<IVideoCallRemoteDataSource>().videoCallRef.child('receiver').remove();
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());

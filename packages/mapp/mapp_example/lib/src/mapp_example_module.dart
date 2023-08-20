@@ -4,6 +4,7 @@ import 'package:mapp_example/src/_index.dart';
 import 'package:mapp_example/src/presentation/crypto/salsa_screen.dart';
 import 'package:mapp_example/src/presentation/locator/_index.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/video_call_bloc.dart';
+import 'package:mapp_example/src/presentation/rtc/list_room_screen.dart';
 import 'package:mapp_example/src/presentation/rtc/receiver_call_screen.dart';
 import 'package:mapp_example/src/presentation/storage/_index.dart';
 
@@ -67,6 +68,11 @@ class MappExampleRoute extends RouteModule {
           screenType: SalsaScreen,
           page: (context) => const SalsaScreen().wrap(context),
         ),
+    AppGetPage(
+      moduleType: MappExampleRoute,
+      screenType: ListRoomScreen,
+      page: (context) => const ListRoomScreen().wrap(context),
+    ),
         AppGetPage(
           moduleType: MappExampleRoute,
           screenType: CallerScreen,

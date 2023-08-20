@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:core_config/config.dart';
 import 'package:flutter/material.dart';
@@ -29,78 +30,84 @@ class CallerScreen extends StatefulWidget with WrapperState {
 class _CallerScreenState extends State<CallerScreen> {
   final localRenderer = RTCVideoRenderer();
   final remoteRenderer = RTCVideoRenderer();
-
   late RTCService rtcService;
-  List<Map<String, dynamic>> candidates = [];
+  List<Map<String, dynamic>> receiverCandidates = [];
+  bool isCaller = true;
+  List<Map<String, dynamic>> callerCandidates = [];
+
+  String roomId = '';
 
   @override
   void initState() {
     super.initState();
+    final arg = context.getArgument() as Map<String, dynamic>;
+    isCaller = arg['isCaller'] == true;
+    roomId = arg['roomId'] ?? generateRoomId();
     rtcService = RTCService(
       onLocalStream: (stream) => onLocalStream(context, stream: stream),
       onIceCandidate: (map, stringCandidate) {
-        context
-            .get<IVideoCallRemoteDataSource>()
-            .videoCallReference
-            .child('caller')
-            .child('candidates')
-            .set(candidates..add(map));
+        if (isCaller) {
+          context
+              .get<IVideoCallRemoteDataSource>()
+              .videoCallRef
+              .child('rooms')
+              .child(roomId)
+              .child('callerCandidates')
+              .set(callerCandidates..add(map));
+        } else {
+          context
+              .get<IVideoCallRemoteDataSource>()
+              .videoCallRef
+              .child('rooms')
+              .child(roomId)
+              .child('receiverCandidates')
+              .set(receiverCandidates..add(map));
+        }
       },
-      onLocalPeerConnectionReady: () {},
+      onLocalPeerConnectionReady: () {
+        if (isCaller) {
+          rtcService.createLocalOffer();
+        } else {
+          listenAsReceiver();
+        }
+      },
       onRemoteStream: (stream) => onRemoteStream(context, stream: stream),
-      onLocalOffer: (sdp, stringSdp) {
-        context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('offer').set(sdp);
+      onLocalOffer: (map, stringifyMap) {
+        if (isCaller) {
+          context
+              .get<IVideoCallRemoteDataSource>()
+              .videoCallRef
+              .child('rooms')
+              .child(roomId)
+              .child('callerOffer')
+              .set(map);
+          listenAsCaller();
+        }
       },
-      onRemoteAnswer: (sdp, stringSdp) {
-        // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('answer').set(sdp);
+      onRemoteAnswer: (map, stringifyMap) {
+        if (!isCaller) {
+          context
+              .get<IVideoCallRemoteDataSource>()
+              .videoCallRef
+              .child('rooms')
+              .child(roomId)
+              .child('receiverAnswer')
+              .set(map);
+        }
       },
     );
-    initListenerDatabase(context);
     initRenderers();
-    rtcService.init();
+    rtcService.initLocalPeerConnection();
   }
 
-  Stream<DatabaseEvent>? receiverChildAddedSub;
-  late String localPlatform;
-  late String remotePlatform;
-
-  Future<void> initListenerDatabase(BuildContext context) async {
-    if (mounted) {
-      localPlatform = Platform.isIOS ? 'ios' : 'android';
-      remotePlatform = Platform.isIOS ? 'android' : 'ios';
-      receiverChildAddedSub = context.get<IVideoCallRemoteDataSource>().onKReceiverChildAdded;
-      receiverChildAddedSub?.listen((event) {
-        if (event.snapshot.hasChild('answer') && event.type == DatabaseEventType.childAdded) {
-          final answer = event.snapshot.child('answer');
-          print("MASUK ANSWER RECEIVER: $answer");
-          if (answer is Map<dynamic, dynamic>) {
-            Map<String, dynamic> answerJs = {};
-            answerJs.forEach((key, value) {
-              answerJs['$key'] = value;
-            });
-            rtcService.setRemoteDescription(answerJs);
-          }
-        } else if (event.snapshot.hasChild('candidates') && event.type == DatabaseEventType.childAdded) {
-          event.snapshot.children.forEach((e) {
-            final value = e.value as Map<dynamic, dynamic>;
-            Map<String, dynamic> newMap = {};
-            value.forEach((key, value) {
-              newMap['$key'] = value;
-            });
-            rtcService.addCandidate(newMap);
-          });
-        }
-      });
-    }
-  }
+  Future<void> initListenerDatabase() async {}
 
   @override
   void dispose() {
-    context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').remove();
+    // context.get<IVideoCallRemoteDataSource>().videoCallRef.child('rooms').child(roomId).remove();
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());
-    receiverChildAddedSub?.distinct();
     super.dispose();
   }
 
@@ -126,6 +133,7 @@ class _CallerScreenState extends State<CallerScreen> {
 
   Future<void> initRenderers() async {
     await localRenderer.initialize();
+    await remoteRenderer.initialize();
   }
 
   Widget smallRTCView(BuildContext context) {
@@ -151,9 +159,16 @@ class _CallerScreenState extends State<CallerScreen> {
 
   Widget fullView(BuildContext context) {
     return BlocBuilder<VideoCallBloc, VideoCallState>(builder: (context, state) {
-      return Container(
-        decoration: const BoxDecoration(color: Colors.black),
-      );
+      if((state.remoteStreamIds??[]).isNotEmpty){
+        return Container(
+          color: Colors.red,
+            child: RTCVideoView(remoteRenderer, objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,),
+        );
+      }else{
+        return Container(
+          decoration: const BoxDecoration(color: Colors.black),
+        );
+      }
     });
   }
 
@@ -162,8 +177,70 @@ class _CallerScreenState extends State<CallerScreen> {
     context.read<VideoCallBloc>().add(VideoCallEvent.setLocalParticipant(id: stream.id));
   }
 
-  onRemoteStream(BuildContext context, {required MediaStream stream}) {
-    remoteRenderer.setSrcObject(stream: stream);
+  void onRemoteStream(BuildContext context, {required MediaStream stream}) {
+    print("MASUK ON REMOTE STREAM ${stream.id}");
+    remoteRenderer.srcObject = stream;
     context.read<VideoCallBloc>().add(VideoCallEvent.addRemoteParticipant(id: stream.id));
+  }
+
+  String generateRoomId() {
+    const char = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return String.fromCharCodes(
+      Iterable.generate(
+        15,
+        (_) => char.codeUnitAt(Random().nextInt(char.length)),
+      ),
+    );
+  }
+
+  Stream<DatabaseEvent>? receiverCandidatesSub;
+
+  Future<void> listenAsReceiver() async {
+    final roomRef = context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId);
+    final room = await roomRef.get();
+    final offer = room.child(roomId).child('callerOffer');
+    Map<String, dynamic> offerJs = {};
+    (offer.value as Map<dynamic, dynamic>).forEach((key, value) {
+      offerJs['$key'] = value;
+    });
+    await rtcService.setRemoteDescription(offerJs);
+    await rtcService.createAnswer();
+
+    receiverCandidatesSub = roomRef.child('receiverCandidates').onChildAdded;
+    receiverCandidatesSub?.listen((event) {
+      final map = event.snapshot.value;
+      Map<String, dynamic> mapJs = {};
+      (map as Map<dynamic, dynamic>).forEach((key, value) {
+        mapJs['$key'] = value;
+      });
+      rtcService.addCandidate(mapJs);
+    });
+  }
+
+  Stream<DatabaseEvent>? roomChildAddedSub;
+  Stream<DatabaseEvent>? callerCandidatesSub;
+
+  Future<void> listenAsCaller() async {
+    roomChildAddedSub = context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId).onChildAdded;
+    roomChildAddedSub?.listen((event) async {
+      if (event.snapshot.hasChild("receiverAnswer")) {
+        final answer = event.snapshot.child('receiverAnswer');
+        Map<String, dynamic> answerJs = {};
+        (answer as Map<dynamic, dynamic>).forEach((key, value) {
+          answerJs['$key'] = value;
+        });
+        await rtcService.setRemoteDescription(answerJs);
+      }
+    });
+    callerCandidatesSub =
+        context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId).child('callerCandidates').onChildAdded;
+    callerCandidatesSub?.listen((event) async {
+      final map = event.snapshot.value;
+      Map<String, dynamic> mapJs = {};
+      (map as Map<dynamic, dynamic>).forEach((key, value) {
+        mapJs['$key'] = value;
+      });
+      rtcService.addCandidate(mapJs);
+    });
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
@@ -63,8 +64,6 @@ class RTCService {
     });
     peerConnection.onIceCandidate = (value) {
       if (value.candidate != null) {
-        print("MASUK ON ICE CANDIDATE: ${value.toMap()}");
-        print("MASUK ON ICE CANDIDATE STRING: ${json.encode(value.toMap()).length}");
         onIceCandidate(value.toMap() as Map<String, dynamic>, json.encode(value.toMap()));
       }
     };
@@ -100,7 +99,7 @@ class RTCService {
 
   MediaStream? remoteStream;
 
-  Future<void> createOffer() async {
+  Future<void> createLocalOffer() async {
     if (_localPeerConnection == null) {
       print('LOCAL PEER CONNECTION NULL');
       return;
@@ -108,16 +107,8 @@ class RTCService {
     final sessionDescription = await _localPeerConnection!.createOffer({
       'offerToReceiveVideo': 1,
     });
-    print("MASUK OFFER: ${sessionDescription.toMap()}");
-    print("MASUK OFFER STRING: ${json.encode(sessionDescription.toMap())}");
-    onLocalOffer(sessionDescription.toMap() as Map<String, dynamic>, json.encode(sessionDescription.toMap()));
     await _localPeerConnection!.setLocalDescription(sessionDescription);
-
-    // _localPeerConnection!.onTrack = (track) {
-    //   track.streams[0].getTracks().forEach((element) {
-    //     remoteStream?.addTrack(element);
-    //   });
-    // };
+    onLocalOffer(sessionDescription.toMap(), json.encode(sessionDescription.toMap()));
   }
 
   Future<void> createAnswer() async {
@@ -125,14 +116,9 @@ class RTCService {
       print('LOCAL PEER CONNECTION NULL');
       return;
     }
-    final sessionDescription = await _localPeerConnection!.createAnswer({
-      'offerToReceiveVideo': 1,
-    });
-
-    final answer = sessionDescription.toMap();
-    final answerString = json.encode(sessionDescription.toMap());
-    onRemoteAnswer(answer, answerString);
-    await _localPeerConnection!.setLocalDescription(sessionDescription);
+    final answer = await _localPeerConnection!.createAnswer();
+    await _localPeerConnection!.setLocalDescription(answer);
+    onRemoteAnswer(answer.toMap(), json.encode(answer.toMap()));
   }
 
   Future<void> setRemoteDescription(Map<String, dynamic> value) async {
@@ -153,11 +139,11 @@ class RTCService {
     await _localPeerConnection!.addCandidate(candidate);
   }
 
-  Future<void> init() async {
-    await (initLocalPeerConnection().then((value) async {
-      await createOffer();
-    }));
-  }
+  // Future<void> init() async {
+  //   await (initLocalPeerConnection().then((value) async {
+  //     await createLocalOffer();
+  //   }));
+  // }
 
   Timer? _timer;
 

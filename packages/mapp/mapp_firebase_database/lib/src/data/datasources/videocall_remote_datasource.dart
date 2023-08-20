@@ -6,7 +6,7 @@ class VideoCallRemoteDataSource implements IVideoCallRemoteDataSource {
 
   // on key video call
   @override
-  DatabaseReference get videoCallReference => _videoCallRef;
+  DatabaseReference get videoCallRef => _videoCallRef;
 
   @override
   DatabaseReference get callerDb => _videoCallRef.child('caller');
@@ -16,4 +16,7 @@ class VideoCallRemoteDataSource implements IVideoCallRemoteDataSource {
 
   @override
   Stream<DatabaseEvent> get onKReceiverChildAdded => _videoCallRef.child('receiver').onChildAdded;
+
+  @override
+  DatabaseReference get videoCallRoomRef => _videoCallRef.child('rooms');
 }
