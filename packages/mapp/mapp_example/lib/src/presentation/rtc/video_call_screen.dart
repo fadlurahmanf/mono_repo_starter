@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:core_config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/video_call_bloc.dart';
 import 'package:mapp_example/src/presentation/rtc/rtc_service.dart';
+import 'package:mapp_firebase_database/mapp_firebase_database.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class VideoCallScreen extends StatefulWidget with WrapperState {
   const VideoCallScreen({super.key});
@@ -35,10 +38,31 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     rtcService = RTCService(
       onLocalStream: (stream) => onLocalStream(context, stream: stream),
       onRemoteStream: (stream) => onRemoteStream(context, stream: stream),
+      onLocalOffer: (sdp) {
+        context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('offer').set(sdp);
+      },
     );
+    init(context);
     initRenderers();
-
     rtcService.init();
+  }
+
+  Stream<DatabaseEvent>? localDeviceSubscription;
+  late String localPlatform;
+  late String remotePlatform;
+
+  Future<void> init(BuildContext context) async {
+    if (mounted) {
+      localPlatform = Platform.isIOS ? 'ios' : 'android';
+      remotePlatform = Platform.isIOS ? 'android' : 'ios';
+      // localDeviceSubscription =
+      //     context.get<IVideoCallRemoteDataSource>().videoCallReference.child('device_$localPlatform').onValue;
+      // localDeviceSubscription?.listen((event) async {
+      //   print("MASUK EVENT KEY: ${event.snapshot.key}");
+      //   print("MASUK EVENT VALUE: ${event.snapshot.value}");
+      // });
+      // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('device_$remotePlatform').set({'debug': true});
+    }
   }
 
   @override
@@ -46,6 +70,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());
+    localDeviceSubscription?.distinct();
     super.dispose();
   }
 

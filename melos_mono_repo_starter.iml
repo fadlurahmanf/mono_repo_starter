@@ -544,6 +544,12 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/core/platform/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core/platform/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core/platform/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/realtime_database/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/realtime_database/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/realtime_database/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_firebase_database/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_firebase_database/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_firebase_database/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

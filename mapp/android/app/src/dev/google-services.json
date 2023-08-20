@@ -1,121 +1,42 @@
 {
   "project_info": {
-    "project_number": "356877090839",
-    "project_id": "example-taufik-b9812",
-    "storage_bucket": "example-taufik-b9812.appspot.com"
+    "project_number": "776093832713",
+    "firebase_url": "https://monorepo-5d7ea-default-rtdb.firebaseio.com",
+    "project_id": "monorepo-5d7ea",
+    "storage_bucket": "monorepo-5d7ea.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:356877090839:android:e977fc6a2c61dae0951c52",
+        "mobilesdk_app_id": "1:776093832713:android:a1cff7e5084411f0458ad8",
         "android_client_info": {
           "package_name": "com.fadlurahmanf.mapp.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
+          "client_id": "776093832713-erhtqnkuc9k52r5aqnb348kt7vsqq7fm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB9wXg0T4ChSElDxcIGPLti6uIW4y7iwIQ"
+          "current_key": "AIzaSyCI15He52Gj5k8y_GDxSS56kiwMMtz5B8g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
+              "client_id": "776093832713-erhtqnkuc9k52r5aqnb348kt7vsqq7fm.apps.googleusercontent.com",
               "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:356877090839:android:fc53979020ac5ccb951c52",
-        "android_client_info": {
-          "package_name": "com.fadlurahmanf.starterappmvvm"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9wXg0T4ChSElDxcIGPLti6uIW4y7iwIQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
+            },
             {
-              "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:356877090839:android:fe51bd187a170f13951c52",
-        "android_client_info": {
-          "package_name": "com.fadlurahmanf.starterappmvvm.dev"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9wXg0T4ChSElDxcIGPLti6uIW4y7iwIQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:356877090839:android:264578e9e198ea26951c52",
-        "android_client_info": {
-          "package_name": "com.fadlurahmanf.starterappmvvm.staging"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB9wXg0T4ChSElDxcIGPLti6uIW4y7iwIQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "356877090839-hpramekujpeitfosid1rnndc11078s7e.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "776093832713-tuhqva1j1eck8cog4dh02c36ocafvn5h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fadlurahmanf.mapp.dev"
+              }
             }
           ]
         }

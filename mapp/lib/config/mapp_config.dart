@@ -5,6 +5,7 @@ import 'package:core_face_detection/face_detection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapp_api/mapp_api.dart';
 import 'package:mapp_fcm/mapp_fcm.dart';
+import 'package:mapp_firebase_database/mapp_firebase_database.dart';
 import 'package:mapp_onboarding/mapp_onboarding.dart';
 import 'package:mapp_shared/mapp_shared.dart';
 import 'package:mapp_storage/mapp_storage.dart';
@@ -25,6 +26,7 @@ final _devModules = <BaseModule>[
   LocatorModule(),
   MappFirebaseModule(),
   MappFCMModule(),
+  MappFirebaseDatabaseModule(),
   CameraModule(),
   FaceDetectionModule(),
   MappDevConfigModule(),

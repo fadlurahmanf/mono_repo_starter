@@ -5,12 +5,14 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
 
 class RTCService {
-  Function(MediaStream) onLocalStream;
-  Function(MediaStream) onRemoteStream;
+  void Function(MediaStream) onLocalStream;
+  void Function(MediaStream) onRemoteStream;
+  void Function(Map<String, dynamic>) onLocalOffer;
 
   RTCService({
     required this.onLocalStream,
     required this.onRemoteStream,
+    required this.onLocalOffer,
   });
 
   Map<String, dynamic> configuration = {
@@ -79,6 +81,7 @@ class RTCService {
     });
     final offer = parse((sessionDescription.sdp ?? {}).toString());
     print('OFFER: $offer');
+    onLocalOffer(offer);
     await _localPeerConnection!.setLocalDescription(sessionDescription);
   }
 

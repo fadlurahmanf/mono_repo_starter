@@ -62,6 +62,8 @@ dependencies:
     path: ../packages/mapp/mapp_example
   mapp_fcm:
     path: ../packages/mapp/mapp_fcm
+  mapp_firebase_database:
+    path: ../packages/mapp/mapp_firebase_database
   mapp_onboarding:
     path: ../packages/mapp/mapp_onboarding
   mapp_shared:
