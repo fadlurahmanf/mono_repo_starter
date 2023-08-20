@@ -8,14 +8,23 @@ class RTCService {
   void Function(MediaStream) onLocalStream;
   void Function(MediaStream) onRemoteStream;
   void Function(Map<String, dynamic>) onLocalOffer;
+  void Function(Map<String, dynamic>) onRemoteAnswer;
+
+  void Function() onLocalPeerConnectionReady;
+
+  void Function(Map<String, dynamic>) onIceCandidate;
 
   RTCService({
     required this.onLocalStream,
     required this.onRemoteStream,
     required this.onLocalOffer,
+    required this.onRemoteAnswer,
+    required this.onLocalPeerConnectionReady,
+    required this.onIceCandidate,
   });
 
   Map<String, dynamic> configuration = {
+    'sdpSemantics': 'plan-b',
     "iceServers": [
       {"url": "stun:stun.l.google.com:19302"},
     ]
@@ -65,9 +74,13 @@ class RTCService {
     };
 
     peerConnection.onAddStream = (stream) {
+      stream.getTracks().forEach((element) {
+        peerConnection.addTrack(element, stream);
+      });
       onRemoteStream(stream);
     };
     _localPeerConnection = peerConnection;
+    onLocalPeerConnectionReady();
     return peerConnection;
   }
 
@@ -93,6 +106,7 @@ class RTCService {
     final sessionDescription = await _localPeerConnection!.createAnswer({
       'offerToReceiveVideo': 1,
     });
+    onRemoteAnswer(parse(sessionDescription.sdp ?? ''));
     await _localPeerConnection!.setLocalDescription(sessionDescription);
   }
 
@@ -101,8 +115,11 @@ class RTCService {
       print('LOCAL PEER CONNECTION NULL');
       return;
     }
+    print("MASUK VALUE REMOTE DESCRIPTION: $value");
     String sdp = write(value, null);
+    print("MASUK VALUE SDP: $value");
     final description = RTCSessionDescription(sdp, 'answer');
+    print("MASUK DESCRIPTION: ${_localPeerConnection != null}");
     await _localPeerConnection!.setRemoteDescription(description);
   }
 

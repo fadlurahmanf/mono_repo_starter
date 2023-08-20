@@ -7,4 +7,10 @@ class VideoCallRemoteDataSource implements IVideoCallRemoteDataSource {
   // on key video call
   @override
   DatabaseReference get videoCallReference => _videoCallRef;
+
+  @override
+  Stream<DatabaseEvent> get onkCallerValue => _videoCallRef.child('caller').onValue;
+
+  @override
+  Stream<DatabaseEvent> get onkReceiverValue => _videoCallRef.child('receiver').onValue;
 }

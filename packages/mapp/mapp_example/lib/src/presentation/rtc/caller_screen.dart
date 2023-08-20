@@ -11,11 +11,11 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class VideoCallScreen extends StatefulWidget with WrapperState {
-  const VideoCallScreen({super.key});
+class CallerScreen extends StatefulWidget with WrapperState {
+  const CallerScreen({super.key});
 
   @override
-  State<VideoCallScreen> createState() => _VideoCallScreenState();
+  State<CallerScreen> createState() => _CallerScreenState();
 
   @override
   Widget wrap(BuildContext context) {
@@ -26,7 +26,7 @@ class VideoCallScreen extends StatefulWidget with WrapperState {
   }
 }
 
-class _VideoCallScreenState extends State<VideoCallScreen> {
+class _CallerScreenState extends State<CallerScreen> {
   final localRenderer = RTCVideoRenderer();
   final remoteRenderer = RTCVideoRenderer();
 
@@ -37,40 +37,55 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     super.initState();
     rtcService = RTCService(
       onLocalStream: (stream) => onLocalStream(context, stream: stream),
+      onLocalPeerConnectionReady: (){
+
+      },
       onRemoteStream: (stream) => onRemoteStream(context, stream: stream),
       onLocalOffer: (sdp) {
         context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('offer').set(sdp);
       },
+      onRemoteAnswer: (sdp) {
+        // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('answer').set(sdp);
+      },
     );
-    init(context);
+    initListenerDatabase(context);
     initRenderers();
     rtcService.init();
   }
 
-  Stream<DatabaseEvent>? localDeviceSubscription;
+  Stream<DatabaseEvent>? receiverSubscription;
   late String localPlatform;
   late String remotePlatform;
 
-  Future<void> init(BuildContext context) async {
+  Future<void> initListenerDatabase(BuildContext context) async {
     if (mounted) {
       localPlatform = Platform.isIOS ? 'ios' : 'android';
       remotePlatform = Platform.isIOS ? 'android' : 'ios';
-      // localDeviceSubscription =
-      //     context.get<IVideoCallRemoteDataSource>().videoCallReference.child('device_$localPlatform').onValue;
-      // localDeviceSubscription?.listen((event) async {
-      //   print("MASUK EVENT KEY: ${event.snapshot.key}");
-      //   print("MASUK EVENT VALUE: ${event.snapshot.value}");
-      // });
-      // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('device_$remotePlatform').set({'debug': true});
+      receiverSubscription = context.get<IVideoCallRemoteDataSource>().onkReceiverValue;
+      receiverSubscription?.listen((event) {
+        print("MASUK EVENT KEY: ${event.snapshot.key}");
+        print("MASUK EVENT VALUE: ${event.snapshot.key}");
+        var answer = event.snapshot.child('answer').value;
+        print("MASUK ANSWER RECEIVER: $answer");
+        if (answer != null && answer is Map<dynamic, dynamic>) {
+          Map<String, dynamic> answerJs = {};
+          answerJs.forEach((key, value) {
+            answerJs['$key'] = value;
+          });
+          print("MASUK ANSWER CANDIDATE: ${answerJs['candidate']}");
+          rtcService.addCandidate(answerJs['candidate']);
+        }
+      });
     }
   }
 
   @override
   void dispose() {
+    context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').remove();
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());
-    localDeviceSubscription?.distinct();
+    receiverSubscription?.distinct();
     super.dispose();
   }
 

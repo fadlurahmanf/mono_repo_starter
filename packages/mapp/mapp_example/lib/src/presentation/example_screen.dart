@@ -95,9 +95,19 @@ class _ExampleScreenState extends State<ExampleScreen> {
               title: Text('WEB RTC'),
               isThreeLine: true,
               onTap: () async {
-                context.pushNamed('MappExampleRoute', 'VideoCallScreen');
+                context.pushNamed('MappExampleRoute', 'CallerScreen');
               },
-              subtitle: Text('VideoCall Screen'),
+              subtitle: Text('Caller Screen'),
+            ),
+            ListTile(
+              leading: Icon(Icons.video_call),
+              trailing: Icon(Icons.touch_app),
+              title: Text('WEB RTC'),
+              isThreeLine: true,
+              onTap: () async {
+                context.pushNamed('MappExampleRoute', 'ReceiverCallScreen');
+              },
+              subtitle: Text('Receiver Call Screen'),
             ),
           ],
         ),
