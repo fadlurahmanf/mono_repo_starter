@@ -31,20 +31,27 @@ class _CallerScreenState extends State<CallerScreen> {
   final remoteRenderer = RTCVideoRenderer();
 
   late RTCService rtcService;
+  List<Map<String, dynamic>> candidates = [];
 
   @override
   void initState() {
     super.initState();
     rtcService = RTCService(
       onLocalStream: (stream) => onLocalStream(context, stream: stream),
-      onLocalPeerConnectionReady: (){
-
+      onIceCandidate: (map, stringCandidate) {
+        context
+            .get<IVideoCallRemoteDataSource>()
+            .videoCallReference
+            .child('caller')
+            .child('candidates')
+            .set(candidates..add(map));
       },
+      onLocalPeerConnectionReady: () {},
       onRemoteStream: (stream) => onRemoteStream(context, stream: stream),
-      onLocalOffer: (sdp) {
+      onLocalOffer: (sdp, stringSdp) {
         context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('offer').set(sdp);
       },
-      onRemoteAnswer: (sdp) {
+      onRemoteAnswer: (sdp, stringSdp) {
         // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('caller').child('answer').set(sdp);
       },
     );
@@ -53,7 +60,7 @@ class _CallerScreenState extends State<CallerScreen> {
     rtcService.init();
   }
 
-  Stream<DatabaseEvent>? receiverSubscription;
+  Stream<DatabaseEvent>? receiverChildAddedSub;
   late String localPlatform;
   late String remotePlatform;
 
@@ -61,19 +68,27 @@ class _CallerScreenState extends State<CallerScreen> {
     if (mounted) {
       localPlatform = Platform.isIOS ? 'ios' : 'android';
       remotePlatform = Platform.isIOS ? 'android' : 'ios';
-      receiverSubscription = context.get<IVideoCallRemoteDataSource>().onkReceiverValue;
-      receiverSubscription?.listen((event) {
-        print("MASUK EVENT KEY: ${event.snapshot.key}");
-        print("MASUK EVENT VALUE: ${event.snapshot.key}");
-        var answer = event.snapshot.child('answer').value;
-        print("MASUK ANSWER RECEIVER: $answer");
-        if (answer != null && answer is Map<dynamic, dynamic>) {
-          Map<String, dynamic> answerJs = {};
-          answerJs.forEach((key, value) {
-            answerJs['$key'] = value;
+      receiverChildAddedSub = context.get<IVideoCallRemoteDataSource>().onKReceiverChildAdded;
+      receiverChildAddedSub?.listen((event) {
+        if (event.snapshot.hasChild('answer') && event.type == DatabaseEventType.childAdded) {
+          final answer = event.snapshot.child('answer');
+          print("MASUK ANSWER RECEIVER: $answer");
+          if (answer is Map<dynamic, dynamic>) {
+            Map<String, dynamic> answerJs = {};
+            answerJs.forEach((key, value) {
+              answerJs['$key'] = value;
+            });
+            rtcService.setRemoteDescription(answerJs);
+          }
+        } else if (event.snapshot.hasChild('candidates') && event.type == DatabaseEventType.childAdded) {
+          event.snapshot.children.forEach((e) {
+            final value = e.value as Map<dynamic, dynamic>;
+            Map<String, dynamic> newMap = {};
+            value.forEach((key, value) {
+              newMap['$key'] = value;
+            });
+            rtcService.addCandidate(newMap);
           });
-          print("MASUK ANSWER CANDIDATE: ${answerJs['candidate']}");
-          rtcService.addCandidate(answerJs['candidate']);
         }
       });
     }
@@ -85,7 +100,7 @@ class _CallerScreenState extends State<CallerScreen> {
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());
-    receiverSubscription?.distinct();
+    receiverChildAddedSub?.distinct();
     super.dispose();
   }
 

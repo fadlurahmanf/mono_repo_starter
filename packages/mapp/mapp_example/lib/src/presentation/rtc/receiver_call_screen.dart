@@ -32,18 +32,25 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
   final remoteRenderer = RTCVideoRenderer();
 
   late RTCService rtcService;
+  List<Map<String, dynamic>> candidates = [];
 
   @override
   void initState() {
     super.initState();
     rtcService = RTCService(
       onLocalStream: (stream) => onLocalStream(context, stream: stream),
+      onIceCandidate: (map, stringCandidate) {
+        context
+            .get<IVideoCallRemoteDataSource>()
+            .videoCallReference
+            .child('receiver')
+            .child('candidates')
+            .set(candidates..add(map));
+      },
       onLocalPeerConnectionReady: () {
-        callerSubscription?.listen((event) {
-          print("MASUK EVENT KEY: ${event.snapshot.key}");
-          print("MASUK EVENT VALUE: ${event.snapshot.value}");
-          var offer = event.snapshot.child('offer').value;
-          print("MASUK OFFER CALLER: $offer");
+        callerChildOnValueListen?.listen((event) {
+          final offer = event.snapshot.child('offer').value;
+          print("MASUK OFFER LISTEN: ${offer}");
           if (offer != null && offer is Map<dynamic, dynamic>) {
             Map<String, dynamic> offerJs = {};
             offer.forEach((key, value) {
@@ -53,14 +60,23 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
               rtcService.createAnswer();
             });
           }
+          final candidates = event.snapshot.child('candidates').children;
+          for(int i=0; i<candidates.length; i++){
+            final value = event.snapshot.child('candidates').child('$i').value as Map<dynamic, dynamic>;
+            Map<String, dynamic> newMap = {};
+            value.forEach((key, value) {
+              newMap['$key'] = value;
+            });
+            rtcService.addCandidate(newMap);
+          }
         });
       },
       onRemoteStream: (stream) => onRemoteStream(context, stream: stream),
-      onLocalOffer: (sdp) {
-        context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').child('offer').set(sdp);
+      onLocalOffer: (map, stringifyMap) {
+        // context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').child('offer').set(map);
       },
-      onRemoteAnswer: (sdp) {
-        context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').child('answer').set(sdp);
+      onRemoteAnswer: (map, stringifyMap) {
+        context.get<IVideoCallRemoteDataSource>().videoCallReference.child('receiver').child('answer').set(map);
       },
     );
     initListenerDatabase(context);
@@ -68,7 +84,7 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
     rtcService.init();
   }
 
-  Stream<DatabaseEvent>? callerSubscription;
+  Stream<DatabaseEvent>? callerChildOnValueListen;
   late String localPlatform;
   late String remotePlatform;
 
@@ -76,7 +92,7 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
     if (mounted) {
       localPlatform = Platform.isIOS ? 'ios' : 'android';
       remotePlatform = Platform.isIOS ? 'android' : 'ios';
-      callerSubscription = context.get<IVideoCallRemoteDataSource>().onkCallerValue;
+      callerChildOnValueListen = context.get<IVideoCallRemoteDataSource>().callerDb.onValue;
     }
   }
 
@@ -86,7 +102,7 @@ class _ReceiverCallScreenState extends State<ReceiverCallScreen> {
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());
-    callerSubscription?.distinct();
+    callerChildOnValueListen?.distinct();
     super.dispose();
   }
 

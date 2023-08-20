@@ -7,12 +7,12 @@ import 'package:sdp_transform/sdp_transform.dart';
 class RTCService {
   void Function(MediaStream) onLocalStream;
   void Function(MediaStream) onRemoteStream;
-  void Function(Map<String, dynamic>) onLocalOffer;
-  void Function(Map<String, dynamic>) onRemoteAnswer;
+  void Function(Map<String, dynamic>, String) onLocalOffer;
+  void Function(Map<String, dynamic>, String) onRemoteAnswer;
 
   void Function() onLocalPeerConnectionReady;
 
-  void Function(Map<String, dynamic>) onIceCandidate;
+  void Function(Map<String, dynamic>, String) onIceCandidate;
 
   RTCService({
     required this.onLocalStream,
@@ -63,26 +63,42 @@ class RTCService {
     });
     peerConnection.onIceCandidate = (value) {
       if (value.candidate != null) {
-        final js =
-            json.encode({'candidate': value.candidate, 'sdpMid': value.sdpMid, 'sdpMlineIndex': value.sdpMLineIndex});
-        print('onIceCandidate: $js');
+        print("MASUK ON ICE CANDIDATE: ${value.toMap()}");
+        print("MASUK ON ICE CANDIDATE STRING: ${json.encode(value.toMap()).length}");
+        onIceCandidate(value.toMap() as Map<String, dynamic>, json.encode(value.toMap()));
       }
     };
 
+    peerConnection.onIceGatheringState = (state) {
+      print('LISTEN onIceGatheringState: $state');
+    };
+
     peerConnection.onIceConnectionState = (value) {
-      print('onIceConnectionState: $value');
+      print('LISTE onIceConnectionState: $value');
+    };
+
+    peerConnection.onSignalingState = (value) {
+      print('LISTEN onSignalingState: $value');
     };
 
     peerConnection.onAddStream = (stream) {
       stream.getTracks().forEach((element) {
         peerConnection.addTrack(element, stream);
       });
+      remoteStream = stream;
       onRemoteStream(stream);
     };
+
+    peerConnection.onTrack = (event) {
+      event.streams.first.getTracks().forEach((element) {});
+    };
+
     _localPeerConnection = peerConnection;
     onLocalPeerConnectionReady();
     return peerConnection;
   }
+
+  MediaStream? remoteStream;
 
   Future<void> createOffer() async {
     if (_localPeerConnection == null) {
@@ -92,10 +108,16 @@ class RTCService {
     final sessionDescription = await _localPeerConnection!.createOffer({
       'offerToReceiveVideo': 1,
     });
-    final offer = parse((sessionDescription.sdp ?? {}).toString());
-    print('OFFER: $offer');
-    onLocalOffer(offer);
+    print("MASUK OFFER: ${sessionDescription.toMap()}");
+    print("MASUK OFFER STRING: ${json.encode(sessionDescription.toMap())}");
+    onLocalOffer(sessionDescription.toMap() as Map<String, dynamic>, json.encode(sessionDescription.toMap()));
     await _localPeerConnection!.setLocalDescription(sessionDescription);
+
+    // _localPeerConnection!.onTrack = (track) {
+    //   track.streams[0].getTracks().forEach((element) {
+    //     remoteStream?.addTrack(element);
+    //   });
+    // };
   }
 
   Future<void> createAnswer() async {
@@ -106,7 +128,10 @@ class RTCService {
     final sessionDescription = await _localPeerConnection!.createAnswer({
       'offerToReceiveVideo': 1,
     });
-    onRemoteAnswer(parse(sessionDescription.sdp ?? ''));
+
+    final answer = sessionDescription.toMap();
+    final answerString = json.encode(sessionDescription.toMap());
+    onRemoteAnswer(answer, answerString);
     await _localPeerConnection!.setLocalDescription(sessionDescription);
   }
 
@@ -115,11 +140,7 @@ class RTCService {
       print('LOCAL PEER CONNECTION NULL');
       return;
     }
-    print("MASUK VALUE REMOTE DESCRIPTION: $value");
-    String sdp = write(value, null);
-    print("MASUK VALUE SDP: $value");
-    final description = RTCSessionDescription(sdp, 'answer');
-    print("MASUK DESCRIPTION: ${_localPeerConnection != null}");
+    final description = RTCSessionDescription(value['sdp'], value['type']);
     await _localPeerConnection!.setRemoteDescription(description);
   }
 
