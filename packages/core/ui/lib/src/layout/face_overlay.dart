@@ -5,8 +5,8 @@ class FaceClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     return Path()
       ..addOval(Rect.fromCircle(
-        center: Offset(size.width / 2, 350),
-        radius: 135,
+        center: Offset(size.width / 2, 250),
+        radius: 180,
       ))
       ..addRect(Rect.fromLTWH(0, 0.0, size.width, size.height))
       ..fillType = PathFillType.evenOdd;
@@ -21,8 +21,8 @@ class FacePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final path = Path()
       ..addOval(Rect.fromCircle(
-        center: Offset(size.width / 2, 350),
-        radius: 135,
+        center: Offset(size.width / 2, 250),
+        radius: 180,
       ))
       ..fillType = PathFillType.evenOdd;
 
@@ -53,7 +53,7 @@ class _FaceOverlayState extends State<FaceOverlay> {
         child: CustomPaint(
           painter: FacePainter(),
           child: Container(
-            color: Colors.grey,
+            color: Colors.black54,
           ),
         ),
       ),

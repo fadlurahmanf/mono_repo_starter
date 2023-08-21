@@ -90,6 +90,16 @@ class _ExampleScreenState extends State<ExampleScreen> {
               subtitle: Text('Salsa Encrypt'),
             ),
             ListTile(
+              leading: Icon(Icons.face),
+              trailing: Icon(Icons.touch_app),
+              title: Text('MLKIT'),
+              isThreeLine: true,
+              onTap: () async {
+                context.pushNamed('MappExampleRoute', 'FaceDetection');
+              },
+              subtitle: Text('Face Detection'),
+            ),
+            ListTile(
               leading: Icon(Icons.video_call),
               trailing: Icon(Icons.touch_app),
               title: Text('WEB RTC'),
@@ -98,26 +108,6 @@ class _ExampleScreenState extends State<ExampleScreen> {
                 context.pushNamed('MappExampleRoute', 'ListRoomScreen');
               },
               subtitle: Text('List Room RTC'),
-            ),
-            ListTile(
-              leading: Icon(Icons.video_call),
-              trailing: Icon(Icons.touch_app),
-              title: Text('WEB RTC'),
-              isThreeLine: true,
-              onTap: () async {
-                context.pushNamed('MappExampleRoute', 'CallerScreen');
-              },
-              subtitle: Text('Caller Screen'),
-            ),
-            ListTile(
-              leading: Icon(Icons.video_call),
-              trailing: Icon(Icons.touch_app),
-              title: Text('WEB RTC'),
-              isThreeLine: true,
-              onTap: () async {
-                context.pushNamed('MappExampleRoute', 'ReceiverCallScreen');
-              },
-              subtitle: Text('Receiver Call Screen'),
             ),
           ],
         ),

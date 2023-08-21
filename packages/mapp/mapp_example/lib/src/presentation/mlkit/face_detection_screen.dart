@@ -4,6 +4,7 @@ import 'package:core_face_detection/face_detection.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import 'package:core_ui/ui.dart';
 
 class FaceDetectionScreen extends StatefulWidget with WrapperState {
   const FaceDetectionScreen({super.key});
@@ -32,10 +33,41 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
   }
 
   @override
+  void dispose() {
+    cameraController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final deviceRatio = size.width / size.height;
+
     return Scaffold(
-      appBar: AppBar(),
-      body: cameraController.value.isInitialized == true ? CameraPreview(cameraController) : Container(),
+      appBar: AppBar(
+        title: Text('Face Detection Screen'),
+      ),
+      body: cameraController.value.isInitialized == true ? _layoutCamera(context) : Container(),
+    );
+  }
+
+  Widget _layoutCamera(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        SizedBox(
+          width: size.width,
+          height: size.height,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: 100,
+              child: CameraPreview(cameraController),
+            ),
+          ),
+        ),
+        FaceOverlay(),
+      ],
     );
   }
 
@@ -50,7 +82,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
       if (!mounted) {
         return;
       }
-
+      setState(() {});
       cameraController.startImageStream((image) async => await processImage(context, image: image));
     });
   }
@@ -62,8 +94,8 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
       if (isProcessing) {
         return;
       }
-      Future.delayed(const Duration(seconds: 3), () async {
-        isProcessing = true;
+      isProcessing = true;
+      await Future.delayed(const Duration(seconds: 3), () async {
         final inputImage =
             context.get<IFaceDetectionRepository>().getInputImageFromCamera(image: image, camera: cameraDescription);
         if (inputImage == null) {
