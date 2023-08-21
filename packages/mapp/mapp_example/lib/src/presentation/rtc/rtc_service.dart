@@ -79,9 +79,10 @@ class RTCService {
     };
 
     _localPeerConnection.onAddStream = (stream) {
-      stream.getTracks().forEach((element) {
-        _localPeerConnection.addTrack(element, stream);
-      });
+      // print("MASUK ON ADD STREAM: ${stream.id}");
+      // stream.getTracks().forEach((element) {
+      //   _localPeerConnection.addTrack(element, stream);
+      // });
       remoteStream = stream;
       onRemoteStream(stream);
     };

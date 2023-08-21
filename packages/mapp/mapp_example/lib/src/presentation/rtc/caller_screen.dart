@@ -114,6 +114,10 @@ class _CallerScreenState extends State<CallerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(roomId),
+      ),
       body: SizedBox.expand(
         child: Stack(
           children: [
@@ -173,15 +177,14 @@ class _CallerScreenState extends State<CallerScreen> {
   }
 
   void onLocalStream(BuildContext context, {required MediaStream stream}) {
+    print("MASUK ON LOCAL STREAM ${stream.id}");
     localRenderer.setSrcObject(stream: stream);
     context.read<VideoCallBloc>().add(VideoCallEvent.setLocalParticipant(id: stream.id));
   }
 
   void onRemoteStream(BuildContext context, {required MediaStream stream}) {
     print("MASUK ON REMOTE STREAM ${stream.id}");
-    setState(() {
-      remoteRenderer.srcObject = stream;
-    });
+    remoteRenderer.srcObject = stream;
     context.read<VideoCallBloc>().add(VideoCallEvent.addRemoteParticipant(id: stream.id));
   }
 
