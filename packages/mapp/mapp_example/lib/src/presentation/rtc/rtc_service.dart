@@ -44,9 +44,7 @@ class RTCService {
   Future<MediaStream> getLocalStream() async {
     final mediaConstraints = {
       'audio': true,
-      'video': {
-        'facingMode': 'user',
-      }
+      'video': true,
     };
     final stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
     _localStream = stream;
@@ -54,93 +52,77 @@ class RTCService {
     return stream;
   }
 
-  RTCPeerConnection? _localPeerConnection;
+  late RTCPeerConnection _localPeerConnection;
 
   Future<RTCPeerConnection> initLocalPeerConnection() async {
-    final peerConnection = await createPeerConnection(configuration, offerSdpConstraints);
+    _localPeerConnection = await createPeerConnection(configuration, offerSdpConstraints);
     final localStream = await getLocalStream();
     localStream.getTracks().forEach((element) {
-      peerConnection.addTrack(element, localStream);
+      _localPeerConnection.addTrack(element, localStream);
     });
-    peerConnection.onIceCandidate = (value) {
+    _localPeerConnection.onIceCandidate = (value) {
       if (value.candidate != null) {
         onIceCandidate(value.toMap() as Map<String, dynamic>, json.encode(value.toMap()));
       }
     };
 
-    peerConnection.onIceGatheringState = (state) {
+    _localPeerConnection.onIceGatheringState = (state) {
       print('LISTEN onIceGatheringState: $state');
     };
 
-    peerConnection.onIceConnectionState = (value) {
+    _localPeerConnection.onIceConnectionState = (value) {
       print('LISTE onIceConnectionState: $value');
     };
 
-    peerConnection.onSignalingState = (value) {
+    _localPeerConnection.onSignalingState = (value) {
       print('LISTEN onSignalingState: $value');
     };
 
-    peerConnection.onAddStream = (stream) {
+    _localPeerConnection.onAddStream = (stream) {
       stream.getTracks().forEach((element) {
-        peerConnection.addTrack(element, stream);
+        _localPeerConnection.addTrack(element, stream);
       });
       remoteStream = stream;
       onRemoteStream(stream);
     };
 
-    peerConnection.onTrack = (event) {
+    _localPeerConnection.onTrack = (event) {
       event.streams.first.getTracks().forEach((element) {
         remoteStream?.addTrack(element);
       });
     };
 
-    _localPeerConnection = peerConnection;
+    print("MASUK ON LOCAL PEER CONNECTION READY");
     onLocalPeerConnectionReady();
-    return peerConnection;
+    return _localPeerConnection;
   }
 
   MediaStream? remoteStream;
 
   Future<void> createLocalOffer() async {
-    if (_localPeerConnection == null) {
-      print('LOCAL PEER CONNECTION NULL');
-      return;
-    }
-    final sessionDescription = await _localPeerConnection!.createOffer({
+    final offer = await _localPeerConnection.createOffer({
       'offerToReceiveVideo': 1,
     });
-    await _localPeerConnection!.setLocalDescription(sessionDescription);
-    onLocalOffer(sessionDescription.toMap(), json.encode(sessionDescription.toMap()));
+    await _localPeerConnection.setLocalDescription(offer);
+    onLocalOffer(offer.toMap(), json.encode(offer.toMap()));
   }
 
   Future<void> createAnswer() async {
-    if (_localPeerConnection == null) {
-      print('LOCAL PEER CONNECTION NULL');
-      return;
-    }
-    final answer = await _localPeerConnection!.createAnswer({
+    final answer = await _localPeerConnection.createAnswer({
       'offerToReceiveVideo': 1,
     });
-    await _localPeerConnection!.setLocalDescription(answer);
+    await _localPeerConnection.setLocalDescription(answer);
     onRemoteAnswer(answer.toMap(), json.encode(answer.toMap()));
   }
 
   Future<void> setRemoteDescription(Map<String, dynamic> value) async {
-    if (_localPeerConnection == null) {
-      print('LOCAL PEER CONNECTION NULL');
-      return;
-    }
     final description = RTCSessionDescription(value['sdp'], value['type']);
-    await _localPeerConnection!.setRemoteDescription(description);
+    await _localPeerConnection.setRemoteDescription(description);
   }
 
   Future<void> addCandidate(Map<String, dynamic> value) async {
-    if (_localPeerConnection == null) {
-      print('LOCAL PEER CONNECTION NULL');
-      return;
-    }
     final candidate = RTCIceCandidate(value['candidate'], value['sdpMid'], value['sdpMlineIndex']);
-    await _localPeerConnection!.addCandidate(candidate);
+    await _localPeerConnection.addCandidate(candidate);
   }
 
   // Future<void> init() async {
@@ -157,6 +139,6 @@ class RTCService {
 
   Future<void> dispose() async {
     unawaited(_localStream?.dispose());
-    unawaited(_localPeerConnection?.dispose());
+    unawaited(_localPeerConnection.dispose());
   }
 }
