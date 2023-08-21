@@ -66,7 +66,7 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
             ),
           ),
         ),
-        FaceOverlay(),
+        const FaceOverlay(),
       ],
     );
   }
