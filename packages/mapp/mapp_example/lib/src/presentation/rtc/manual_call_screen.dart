@@ -58,9 +58,9 @@ class _ManualCallScreenState extends State<ManualCallScreen> {
           BlocListener<ManualCallBloc, ManualCallState>(
               // listenWhen: (previous, current) => previous.info != current.info && current.info != null,
               listener: (context, state) {
-                print("MASUK STATE: ${state.roomId}");
-                context.showSnackBar(state.info ?? "");
-              }),
+            print("MASUK STATE: ${state.roomId}");
+            context.showSnackBar(state.info ?? "");
+          }),
           BlocListener<ManualCallBloc, ManualCallState>(
               listenWhen: (previous, current) => previous.localStream != current.localStream,
               listener: (context, state) {
@@ -124,7 +124,7 @@ class _ManualCallScreenState extends State<ManualCallScreen> {
                                     isCaller: true,
                                   ));
                             },
-                            child: const Text('SET REMOTE DESCRIPTION BASED ANSWER 5'),
+                            child: const Text('SET REMOTE DESCRIPTION BASED ANSWER 6'),
                           ),
                           ElevatedButton(
                             onPressed: () async {
@@ -132,7 +132,19 @@ class _ManualCallScreenState extends State<ManualCallScreen> {
                                     isCaller: true,
                                   ));
                             },
-                            child: const Text('ADD CANDIDATE 6'),
+                            child: const Text('ADD CANDIDATE 7'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context.read<ManualCallBloc>().add(const ManualCallEvent.muteMic(true));
+                            },
+                            child: const Text('MUTE'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context.read<ManualCallBloc>().add(const ManualCallEvent.muteMic(false));
+                            },
+                            child: const Text('UNMUTE'),
                           ),
                         ],
                       ),
@@ -166,19 +178,43 @@ class _ManualCallScreenState extends State<ManualCallScreen> {
                                     isCaller: false,
                                   ));
                             },
-                            child: const Text('SET REMOTE DESCRIPTION BASED ON OFFER 2'),
+                            child: const Text('SET REMOTE DESCRIPTION BASED ON OFFER 3'),
                           ),
                           ElevatedButton(
                             onPressed: () async {
                               context.read<ManualCallBloc>().add(const ManualCallEvent.answerOffer());
                             },
-                            child: const Text('CREATE ANSWER 3'),
+                            child: const Text('CREATE ANSWER 4'),
                           ),
                           ElevatedButton(
                             onPressed: () async {
                               context.read<ManualCallBloc>().add(const ManualCallEvent.addCandidate(isCaller: false));
                             },
-                            child: const Text('ADD CANDIDATE 4'),
+                            child: const Text('ADD CANDIDATE 5'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context.read<ManualCallBloc>().add(const ManualCallEvent.muteMic(true));
+                            },
+                            child: const Text('MUTE'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context.read<ManualCallBloc>().add(const ManualCallEvent.muteMic(false));
+                            },
+                            child: const Text('UNMUTE'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context.read<ManualCallBloc>().add(const ManualCallEvent.triggerMicIos(true));
+                            },
+                            child: const Text('ENABLE SPEAKER'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              context.read<ManualCallBloc>().add(const ManualCallEvent.triggerMicIos(false));
+                            },
+                            child: const Text('DISABLE SPEAKER'),
                           ),
                         ],
                       ),

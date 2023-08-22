@@ -40,6 +40,8 @@ class ManualCallBloc extends Bloc<ManualCallEvent, ManualCallState> {
         answerOffer: (event) async => await _onAnswerOffer(event, emit),
         addRemoteStream: (event) async => await _onAddRemoteStream(event, emit),
         addCandidate: (event) async => await _onAddCandidate(event, emit),
+        muteMic: (event) async => await _onMuteMic(event, emit),
+        triggerMicIos: (event) async => await _onTriggerMicIos(event, emit),
         disposeAll: (event) async => await _onDisposeAll(event, emit),
       );
     });
@@ -129,6 +131,7 @@ class ManualCallBloc extends Bloc<ManualCallEvent, ManualCallState> {
     };
 
     state.peerConnection?.onTrack = (event) {
+      print("MASUK ONTRACK ${event.track.kind}");
       event.streams[0].getTracks().forEach((element) {
         state.remoteStream?.addTrack(element);
       });
@@ -150,7 +153,6 @@ class ManualCallBloc extends Bloc<ManualCallEvent, ManualCallState> {
           answerRaw.forEach((key, value) {
             answer['$key'] = value;
           });
-          print("ANSWER VALUE: $answer");
           await state.peerConnection?.setRemoteDescription(RTCSessionDescription(answer['sdp'], answer['type']));
           emit(state.copyWith(info: 'SUCCESS SET ANSWER REMOTE DESCRIPTION'));
         }
@@ -207,10 +209,10 @@ class ManualCallBloc extends Bloc<ManualCallEvent, ManualCallState> {
         emit(state.copyWith(info: 'SUCCESS ADD CANDIDATE'));
       } else {
         final room = await videoCallRemoteDataSource.videoCall2RoomRef.child(state.roomId!).get();
-        final list = room.child('callerCandidates').children.toList();
+        final list = room.child('callerCandidates').value as List<Object?>;
         for (var element in list) {
-          if (element.value != null && element.value is Map<dynamic, dynamic>) {
-            final mapRaw = element.value as Map<dynamic, dynamic>;
+          if (element != null && element is Map<dynamic, dynamic>) {
+            final mapRaw = element;
             Map<String, dynamic> map = {};
             mapRaw.forEach((key, value) {
               map['$key'] = value;
@@ -222,6 +224,42 @@ class ManualCallBloc extends Bloc<ManualCallEvent, ManualCallState> {
       }
     } on Exception catch (e) {
       emit(state.copyWith(info: 'GAGAL ADD CANDIDATE: $e'));
+    }
+  }
+
+  Future<void> _onMuteMic(_MuteMic event, Emitter<ManualCallState> emit) async {
+    try {
+      if (event.mute) {
+        for(var track in state.localStream!.getAudioTracks()){
+          track.enabled = false;
+        }
+        emit(state.copyWith(info: 'SUCCESS MUTE MIC'));
+      } else {
+        for(var track in state.localStream!.getAudioTracks()){
+          track.enabled = true;
+        }
+        emit(state.copyWith(info: 'SUCCESS UNMUTE MIC'));
+      }
+    } catch (e) {
+      emit(state.copyWith(info: 'GAGAL SET MUTE MIC: $e'));
+    }
+  }
+
+  Future<void> _onTriggerMicIos(TriggerMicIos event, Emitter<ManualCallState> emit) async {
+    try {
+      if (event.enableSpeaker) {
+        for(var track in state.localStream!.getAudioTracks()){
+          track.enableSpeakerphone(true);
+        }
+        emit(state.copyWith(info: 'SUCCESS ENABLE SPEAKER'));
+      } else {
+        for(var track in state.localStream!.getAudioTracks()){
+          track.enableSpeakerphone(false);
+        }
+        emit(state.copyWith(info: 'SUCCESS DISBLE SPEAKER'));
+      }
+    } catch (e) {
+      emit(state.copyWith(info: 'GAGAL SET SPEAKER MIC: $e'));
     }
   }
 
