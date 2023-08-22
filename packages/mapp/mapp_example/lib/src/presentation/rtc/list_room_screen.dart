@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:core_config/config.dart';
 import 'package:mapp_firebase_database/mapp_firebase_database.dart';
@@ -22,17 +24,14 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
     init();
   }
 
-  Stream<DatabaseEvent>? roomSubscription;
   List<DataSnapshot> listRoom = [];
 
   Future<void> init() async {
     if (mounted) {
-      roomSubscription = context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.onValue;
-      roomSubscription?.listen((event) {
-        setState(() {
-          listRoom = event.snapshot.children.toList();
-        });
-      });
+      final list = (await context.get<IVideoCallRemoteDataSource>().videoCall2RoomRef.get());
+      listRoom = list.children.toList();
+      setState(() {});
+      print("MASUK ${list.children}");
     }
   }
 
@@ -45,8 +44,12 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
         actions: [
           GestureDetector(
             onTap: () async {
-              context.pushNamed('MappExampleRoute', 'CallerScreen', arguments: {
+              // context.pushNamed('MappExampleRoute', 'CallerScreen', arguments: {
+              //   'isCaller': true,
+              // });
+              context.pushNamed('MappExampleRoute', 'ManualCallScreen', arguments: {
                 'isCaller': true,
+                'roomId': generateRoomId(),
               });
             },
             child: const Icon(Icons.add),
@@ -62,13 +65,26 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
           return ListTile(
             title: Text('${listRoom[index].key}'),
             onTap: () async {
-              context.pushNamed('MappExampleRoute', 'CallerScreen', arguments: {
-                'isCaller': false,
+              context.pushNamed('MappExampleRoute', 'ManualCallScreen', arguments: {
                 'roomId': listRoom[index].key,
               });
+              // context.pushNamed('MappExampleRoute', 'CallerScreen', arguments: {
+              //   'isCaller': false,
+              //   'roomId': listRoom[index].key,
+              // });
             },
           );
         },
+      ),
+    );
+  }
+
+  String generateRoomId() {
+    const char = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return String.fromCharCodes(
+      Iterable.generate(
+        15,
+        (_) => char.codeUnitAt(Random().nextInt(char.length)),
       ),
     );
   }

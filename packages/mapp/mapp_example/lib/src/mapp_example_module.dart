@@ -3,15 +3,20 @@ import 'package:get_it/get_it.dart';
 import 'package:mapp_example/src/_index.dart';
 import 'package:mapp_example/src/presentation/crypto/salsa_screen.dart';
 import 'package:mapp_example/src/presentation/locator/_index.dart';
+import 'package:mapp_example/src/presentation/rtc/bloc/manual_call_bloc.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/video_call_bloc.dart';
 import 'package:mapp_example/src/presentation/rtc/list_room_screen.dart';
-import 'package:mapp_example/src/presentation/rtc/receiver_call_screen.dart';
+import 'package:mapp_example/src/presentation/rtc/manual_call_screen.dart';
 import 'package:mapp_example/src/presentation/storage/_index.dart';
+import 'package:mapp_firebase_database/mapp_firebase_database.dart';
 
 class MappExampleModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
-    c.registerFactory<VideoCallBloc>(() => VideoCallBloc());
+    c
+      ..registerFactory<VideoCallBloc>(() => VideoCallBloc())
+      ..registerFactory<ManualCallBloc>(
+          () => ManualCallBloc(videoCallRemoteDataSource: c.get<IVideoCallRemoteDataSource>()));
   }
 }
 
@@ -68,20 +73,20 @@ class MappExampleRoute extends RouteModule {
           screenType: SalsaScreen,
           page: (context) => const SalsaScreen().wrap(context),
         ),
-    AppGetPage(
-      moduleType: MappExampleRoute,
-      screenType: ListRoomScreen,
-      page: (context) => const ListRoomScreen().wrap(context),
-    ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: ListRoomScreen,
+          page: (context) => const ListRoomScreen().wrap(context),
+        ),
         AppGetPage(
           moduleType: MappExampleRoute,
           screenType: CallerScreen,
           page: (context) => const CallerScreen().wrap(context),
         ),
-    AppGetPage(
-      moduleType: MappExampleRoute,
-      screenType: ReceiverCallScreen,
-      page: (context) => const ReceiverCallScreen().wrap(context),
-    ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: ManualCallScreen,
+          page: (context) => const ManualCallScreen().wrap(context),
+        ),
       ];
 }

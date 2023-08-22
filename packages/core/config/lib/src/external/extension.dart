@@ -63,4 +63,30 @@ extension BuildContentX on BuildContext {
   void dismissBottomsheet() {
     return Get.until((route) => Get.isBottomSheetOpen == null || Get.isBottomSheetOpen == false);
   }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(this).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.blue,
+        content: Row(
+          children: [
+            const Icon(
+              Icons.info_outline_rounded,
+              color: Colors.white,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Text(
+                message,
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
 }

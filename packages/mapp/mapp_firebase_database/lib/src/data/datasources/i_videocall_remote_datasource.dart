@@ -4,11 +4,7 @@ abstract class IVideoCallRemoteDataSource {
   // on key video call
   DatabaseReference get videoCallRef;
 
-  DatabaseReference get callerDb;
-
   DatabaseReference get videoCallRoomRef;
 
-  Stream<DatabaseEvent> get onKCallerChildChanged;
-
-  Stream<DatabaseEvent> get onKReceiverChildAdded;
+  DatabaseReference get videoCall2RoomRef;
 }

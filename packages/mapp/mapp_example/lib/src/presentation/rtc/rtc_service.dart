@@ -5,6 +5,21 @@ import 'dart:math';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:sdp_transform/sdp_transform.dart';
 
+Map<String, dynamic> configuration = {
+  'sdpSemantics': 'plan-b',
+  "iceServers": [
+    {"url": "stun:stun.l.google.com:19302"},
+  ]
+};
+
+final Map<String, dynamic> offerSdpConstraints = {
+  "mandatory": {
+    "OfferToReceiveAudio": true,
+    "OfferToReceiveVideo": true,
+  },
+  "optional": [],
+};
+
 class RTCService {
   void Function(MediaStream) onLocalStream;
   void Function(MediaStream) onRemoteStream;
@@ -24,27 +39,14 @@ class RTCService {
     required this.onIceCandidate,
   });
 
-  Map<String, dynamic> configuration = {
-    'sdpSemantics': 'plan-b',
-    "iceServers": [
-      {"url": "stun:stun.l.google.com:19302"},
-    ]
-  };
-
-  final Map<String, dynamic> offerSdpConstraints = {
-    "mandatory": {
-      "OfferToReceiveAudio": true,
-      "OfferToReceiveVideo": true,
-    },
-    "optional": [],
-  };
-
   MediaStream? _localStream;
 
   Future<MediaStream> getLocalStream() async {
     final mediaConstraints = {
       'audio': true,
-      'video': true,
+      'video': {
+        'facingMode': 'user',
+      },
     };
     final stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
     _localStream = stream;
@@ -71,7 +73,7 @@ class RTCService {
     };
 
     _localPeerConnection.onIceConnectionState = (value) {
-      print('LISTE onIceConnectionState: $value');
+      print('LISTE onIceConnectionState: $value ${value.name}');
     };
 
     _localPeerConnection.onSignalingState = (value) {
@@ -92,6 +94,25 @@ class RTCService {
         remoteStream?.addTrack(element);
       });
     };
+
+    Helper.setSpeakerphoneOn(true);
+    _localStream!.getAudioTracks().forEach((element) {
+      element.enabled = true;
+      element.enableSpeakerphone(true);
+      print("MASUK SETTING: ${element.getSettings()}");
+      print("MASUK TES SINI: ${element.muted}");
+      // Helper.setVolume(0, element);
+    });
+
+    Helper.audiooutputs.then((value){
+      for (final element in value) {
+        print('MASUK Speaker Available ${element.deviceId}');
+        if(element.deviceId == 'Speaker'){
+          Helper.selectAudioOutput('Speaker');
+          Helper.selectAudioInput('Speaker');
+        }
+      }
+    });
 
     print("MASUK ON LOCAL PEER CONNECTION READY");
     onLocalPeerConnectionReady();

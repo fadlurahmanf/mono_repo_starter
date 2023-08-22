@@ -3,20 +3,15 @@ import 'package:firebase_database/firebase_database.dart';
 
 class VideoCallRemoteDataSource implements IVideoCallRemoteDataSource {
   final _videoCallRef = FirebaseDatabase.instance.ref('videocall');
+  final _videoCall2Ref = FirebaseDatabase.instance.ref('videocall_2');
 
   // on key video call
   @override
   DatabaseReference get videoCallRef => _videoCallRef;
 
   @override
-  DatabaseReference get callerDb => _videoCallRef.child('caller');
-
-  @override
-  Stream<DatabaseEvent> get onKCallerChildChanged => _videoCallRef.child('caller').onChildChanged;
-
-  @override
-  Stream<DatabaseEvent> get onKReceiverChildAdded => _videoCallRef.child('receiver').onChildAdded;
-
-  @override
   DatabaseReference get videoCallRoomRef => _videoCallRef.child('rooms');
+
+  @override
+  DatabaseReference get videoCall2RoomRef => _videoCall2Ref.child('rooms');
 }

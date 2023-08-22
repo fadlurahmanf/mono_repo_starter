@@ -203,11 +203,13 @@ class _CallerScreenState extends State<CallerScreen> {
   Future<void> listenAsReceiver() async {
     final roomRef = context.get<IVideoCallRemoteDataSource>().videoCallRoomRef.child(roomId);
     final room = await roomRef.get();
-    final offer = room.child(roomId).child('callerOffer');
+    final offer = room.child(roomId).child('callerOffer').value;
     Map<String, dynamic> offerJs = {};
-    (offer.value as Map<dynamic, dynamic>).forEach((key, value) {
-      offerJs['$key'] = value;
-    });
+    if(offer is Map<dynamic, dynamic>){
+      offer.forEach((key, value) {
+        offerJs['$key'] = value;
+      });
+    }
     await rtcService.setRemoteDescription(offerJs);
     await rtcService.createAnswer();
 
