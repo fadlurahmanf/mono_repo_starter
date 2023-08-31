@@ -4,5 +4,7 @@ class MappDioConstant {
   MappDioConstant._();
 
   static const IDENTITY_DIO = 'IDENTITY_DIO';
+  static const PAGINATION_DIO = 'PAGINATION_DIO';
   static const IDENTITY_BASE_OPTIONS = 'IDENTITY_BASE_OPTIONS';
+  static const PAGINATION_BASE_OPTIONS = 'PAGINATION_BASE_OPTIONS';
 }

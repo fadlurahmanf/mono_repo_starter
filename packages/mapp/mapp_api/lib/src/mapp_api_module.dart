@@ -13,32 +13,53 @@ class MappApiModule extends ApiModule {
 
   @override
   Future<void> registerBaseOption(GetIt c) async {
-    c.registerLazySingleton<BaseOptions>(
-      () => BaseOptions(
-        baseUrl: '${settings.baseUrl}/identity-service/',
-        connectTimeout: settings.connectTimeout,
-        receiveTimeout: settings.receiveTimeout,
-        sendTimeout: settings.sendTimeout,
-      ),
-      instanceName: MappDioConstant.IDENTITY_BASE_OPTIONS,
-    );
+    c
+      ..registerLazySingleton<BaseOptions>(
+        () => BaseOptions(
+          baseUrl: '${settings.baseUrl}/identity-service/',
+          connectTimeout: settings.connectTimeout,
+          receiveTimeout: settings.receiveTimeout,
+          sendTimeout: settings.sendTimeout,
+        ),
+        instanceName: MappDioConstant.IDENTITY_BASE_OPTIONS,
+      )
+      ..registerLazySingleton<BaseOptions>(
+        () => BaseOptions(
+          baseUrl: 'https://api.slingacademy.com/',
+          connectTimeout: settings.connectTimeout,
+          receiveTimeout: settings.receiveTimeout,
+          sendTimeout: settings.sendTimeout,
+        ),
+        instanceName: MappDioConstant.PAGINATION_BASE_OPTIONS,
+      );
   }
 
   @override
   Future<void> registerDio(GetIt c) async {
-    c.registerLazySingleton<Dio>(
-        () => abstractDio(
-              c.get<BaseOptions>(instanceName: MappDioConstant.IDENTITY_BASE_OPTIONS),
-              interceptors: [],
-            ),
-        instanceName: MappDioConstant.IDENTITY_DIO);
+    c
+      ..registerLazySingleton<Dio>(
+          () => abstractDio(
+                c.get<BaseOptions>(instanceName: MappDioConstant.IDENTITY_BASE_OPTIONS),
+                interceptors: [],
+              ),
+          instanceName: MappDioConstant.IDENTITY_DIO)
+      ..registerLazySingleton<Dio>(
+          () => abstractDio(
+                c.get<BaseOptions>(instanceName: MappDioConstant.PAGINATION_BASE_OPTIONS),
+                interceptors: [],
+              ),
+          instanceName: MappDioConstant.PAGINATION_DIO);
   }
 
   @override
   Future<void> registerApi(GetIt c) async {
-    c.registerLazySingleton<IIdentityApi>(() => IdentityApi(
-          dio: c.get<Dio>(instanceName: MappDioConstant.IDENTITY_DIO),
-        ));
+    c
+      ..registerLazySingleton<IIdentityApi>(() => IdentityApi(
+            dio: c.get<Dio>(instanceName: MappDioConstant.IDENTITY_DIO),
+          ))
+      ..registerLazySingleton<IPaginationApi>(() => PaginationApi(
+            dio: c.get<Dio>(instanceName: MappDioConstant.PAGINATION_DIO),
+          ));
   }
 
   Dio abstractDio(BaseOptions options, {required List<Interceptor> interceptors}) {

@@ -9,7 +9,7 @@ class IdentityApi implements IIdentityApi {
 
   IdentityApi({required this.dio});
 
-  static const String generateGuestTokenPath = '/guest/session/create';
+  static const String generateGuestTokenPath = 'guest/session/create';
 
   @override
   Future<GuestTokenResponse> generateGuestToken(GuestTokenRequest request) async {

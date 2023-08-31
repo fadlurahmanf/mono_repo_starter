@@ -18,4 +18,4 @@ scripts:
   mappPubGet:
     run: melos exec --ignore="km_*,km,sapp" "flutter clean && flutter pub get"
   mappGenResp:
-    run: melos exec --ignore="core_fremote_config,core_sqflite,km_*,km,mapp,mapp_example,mapp_fake,mapp_shared,sapp" "flutter pub run build_runner build --delete-conflicting-outputs"
+    run: melos exec --ignore="core_sqflite,core_face_detection,core_encrypt,core_camera,core_fcm,core_firebase_database,core_platform,core_locator,core_ui,core_remote_config,km_*,km,mapp,mapp_example,mapp_fake,mapp_shared,mapp_fcm,mapp_firebase_database,sapp" "flutter pub run build_runner build --delete-conflicting-outputs"

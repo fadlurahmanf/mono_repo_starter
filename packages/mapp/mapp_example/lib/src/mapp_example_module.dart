@@ -1,8 +1,13 @@
 import 'package:core_config/config.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mapp_api/mapp_api.dart';
 import 'package:mapp_example/src/_index.dart';
+import 'package:mapp_example/src/domain/repositories/i_pagination_repository.dart';
+import 'package:mapp_example/src/domain/repositories/pagination_repository.dart';
 import 'package:mapp_example/src/presentation/crypto/salsa_screen.dart';
 import 'package:mapp_example/src/presentation/locator/_index.dart';
+import 'package:mapp_example/src/presentation/pagination/bloc/pagination_bloc.dart';
+import 'package:mapp_example/src/presentation/pagination/pagination_screen.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/manual_call_bloc.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/video_call_bloc.dart';
 import 'package:mapp_example/src/presentation/rtc/list_room_screen.dart';
@@ -14,9 +19,11 @@ class MappExampleModule extends BaseModule {
   @override
   Future<void> registerDependency(GetIt c) async {
     c
+      ..registerLazySingleton<IPaginationRepository>(() => PaginationRepository(paginationApi: c.get<IPaginationApi>()))
       ..registerFactory<VideoCallBloc>(() => VideoCallBloc())
       ..registerFactory<ManualCallBloc>(
-          () => ManualCallBloc(videoCallRemoteDataSource: c.get<IVideoCallRemoteDataSource>()));
+          () => ManualCallBloc(videoCallRemoteDataSource: c.get<IVideoCallRemoteDataSource>()))
+      ..registerFactory<PaginationBloc>(() => PaginationBloc(paginationRepository: c.get<IPaginationRepository>()));
   }
 }
 
@@ -87,6 +94,11 @@ class MappExampleRoute extends RouteModule {
           moduleType: MappExampleRoute,
           screenType: ManualCallScreen,
           page: (context) => const ManualCallScreen().wrap(context),
+        ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: PaginationScreen,
+          page: (context) => const PaginationScreen().wrap(context),
         ),
       ];
 }

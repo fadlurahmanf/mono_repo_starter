@@ -109,6 +109,16 @@ class _ExampleScreenState extends State<ExampleScreen> {
               },
               subtitle: Text('List Room RTC'),
             ),
+            ListTile(
+              leading: Icon(Icons.featured_play_list_outlined),
+              trailing: Icon(Icons.touch_app),
+              title: Text('PAGINATION'),
+              isThreeLine: true,
+              onTap: () async {
+                context.pushNamed('MappExampleRoute', 'PaginationScreen');
+              },
+              subtitle: Text('Go To Pagination'),
+            ),
           ],
         ),
         // child: Column(
