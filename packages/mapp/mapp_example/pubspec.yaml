@@ -35,6 +35,8 @@ dependencies:
     path: ../mapp_config
   mapp_firebase_database:
     path: ../mapp_firebase_database
+  mapp_shared:
+    path: ../mapp_shared
   mapp_storage:
     path: ../mapp_storage
 

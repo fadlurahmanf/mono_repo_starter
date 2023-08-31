@@ -119,6 +119,16 @@ class _ExampleScreenState extends State<ExampleScreen> {
               },
               subtitle: Text('Go To Pagination'),
             ),
+            ListTile(
+              leading: Icon(Icons.featured_play_list_outlined),
+              trailing: Icon(Icons.touch_app),
+              title: Text('CTU PAGINATION'),
+              isThreeLine: true,
+              onTap: () async {
+                context.pushNamed('MappExampleRoute', 'CtuPaginationScreen');
+              },
+              subtitle: Text('Go To CTU Pagination'),
+            ),
           ],
         ),
         // child: Column(

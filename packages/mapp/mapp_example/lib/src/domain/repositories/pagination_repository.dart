@@ -9,10 +9,27 @@ class PaginationRepository implements IPaginationRepository {
   PaginationRepository({required this.paginationApi});
 
   @override
-  Future<Either<Exception, BasePaginationResponse<List<PaginationItemResponse>>>> getUsers({required int offset, required int limit}) async {
+  Future<Either<Exception, BasePaginationResponse<List<PaginationItemResponse>>>> getUsers(
+      {required int offset, required int limit}) async {
     try {
       final res = await paginationApi.getUsers(offset: offset, limit: limit);
       return right(res);
+    } on Exception catch (e) {
+      return left(e);
+    }
+  }
+
+  @override
+  Future<Either<Exception, CtuBasePaginationResponse<List<CtuItemPaginationResponse>>>> ctuGetPagination({
+    required int offset,
+  }) async {
+    try {
+      final res = await paginationApi.getCtuPagination(offset: offset);
+      if (res.data != null) {
+        return right(res.data!);
+      } else {
+        throw Exception();
+      }
     } on Exception catch (e) {
       return left(e);
     }

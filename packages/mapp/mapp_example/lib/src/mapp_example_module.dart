@@ -7,6 +7,7 @@ import 'package:mapp_example/src/domain/repositories/pagination_repository.dart'
 import 'package:mapp_example/src/presentation/crypto/salsa_screen.dart';
 import 'package:mapp_example/src/presentation/locator/_index.dart';
 import 'package:mapp_example/src/presentation/pagination/bloc/pagination_bloc.dart';
+import 'package:mapp_example/src/presentation/pagination/ctu_pagination_screen.dart';
 import 'package:mapp_example/src/presentation/pagination/pagination_screen.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/manual_call_bloc.dart';
 import 'package:mapp_example/src/presentation/rtc/bloc/video_call_bloc.dart';
@@ -100,5 +101,10 @@ class MappExampleRoute extends RouteModule {
           screenType: PaginationScreen,
           page: (context) => const PaginationScreen().wrap(context),
         ),
+    AppGetPage(
+      moduleType: MappExampleRoute,
+      screenType: CtuPaginationScreen,
+      page: (context) => const CtuPaginationScreen().wrap(context),
+    ),
       ];
 }

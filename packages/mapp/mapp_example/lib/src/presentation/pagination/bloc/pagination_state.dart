@@ -5,9 +5,15 @@ class PaginationState with _$PaginationState {
   const factory PaginationState({
     required int offset,
     LoadPaginationState? loadPaginationState,
+
+    required List<GroupedItems<CtuItemPaginationResponse>> grouped,
+    required int ctuOffset,
+    bool? isLastPage,
+    bool? isFirstTime,
+    CtuLoadPaginationState? ctuLoadPaginationState,
   }) = _PaginationState;
 
-  factory PaginationState.initialize() => const PaginationState(offset: 900);
+  factory PaginationState.initialize() => const PaginationState(offset: 900, ctuOffset: 0, grouped: []);
 }
 
 abstract class LoadPaginationState {}
@@ -25,3 +31,7 @@ class LoadPaginationSuccess extends LoadPaginationState {
 }
 
 class LoadPaginationFailed extends LoadPaginationState {}
+
+enum CtuLoadPaginationState {
+  idle, success, loading, failed
+}
