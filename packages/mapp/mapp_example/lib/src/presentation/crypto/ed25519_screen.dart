@@ -26,6 +26,10 @@ class _Ed25519ScreenState extends State<Ed25519Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: const Text('Crypto ED25519'),
+      ),
       body: SizedBox.expand(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

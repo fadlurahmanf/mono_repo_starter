@@ -19,6 +19,8 @@ class RsaScreen extends StatefulWidget with WrapperState {
 class _RsaScreenState extends State<RsaScreen> {
   String encrypted = '';
   String decrypted = '';
+  String signature = '';
+  bool? isVerify;
 
   String privateKey = '';
   String publicKey = '';
@@ -27,7 +29,8 @@ class _RsaScreenState extends State<RsaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Example RSA"),
+        backgroundColor: Colors.blue,
+        title: const Text('Crypto RSA'),
       ),
       body: SizedBox.expand(
         child: SingleChildScrollView(
@@ -72,6 +75,33 @@ class _RsaScreenState extends State<RsaScreen> {
                   });
                 },
                 child: const Text('DECRYPT'),
+              ),
+              Text('SIGNATURE: $signature'),
+              ElevatedButton(
+                onPressed: () {
+                  final res = context.get<ICryptoRSARepository>().generateSignature(
+                    privateKey: context.get<ICryptoRSARepository>().getPrivateKey(privateKey),
+                    plainText: 'PLAIN_TEXT',
+                  );
+                  setState(() {
+                    signature = res;
+                  });
+                },
+                child: const Text('GENERATE SIGNATURE'),
+              ),
+              Text('IS VERIFY: $isVerify'),
+              ElevatedButton(
+                onPressed: () {
+                  final res = context.get<ICryptoRSARepository>().verifySignature(
+                    publicKey: context.get<ICryptoRSARepository>().getPublicKey(publicKey),
+                    plainText: 'PLAIN_TEXT',
+                    base64Signature: signature,
+                  );
+                  setState(() {
+                    isVerify = res;
+                  });
+                },
+                child: const Text('VERIFY SIGNATURE'),
               ),
             ],
           ),

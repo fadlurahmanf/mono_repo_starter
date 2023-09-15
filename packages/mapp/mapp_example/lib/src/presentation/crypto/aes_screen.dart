@@ -24,7 +24,7 @@ class _AesScreenState extends State<AesScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('Crypto AES'),
+        title: const Text('Crypto AES'),
       ),
       body: SizedBox.expand(
         child: Column(
