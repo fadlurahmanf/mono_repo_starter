@@ -22,12 +22,16 @@ class _AesScreenState extends State<AesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Crypto AES'),
+      ),
       body: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('GENERATED 16 KEY: $generatedKey'),
+            Text('GENERATED ${generatedKey.length} KEY: $generatedKey'),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -35,6 +39,22 @@ class _AesScreenState extends State<AesScreen> {
                 });
               },
               child: const Text('GENERATE 16 KEY'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  generatedKey = context.get<ICryptoAESRepository>().generateRandomKey(24);
+                });
+              },
+              child: const Text('GENERATE 24 KEY'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  generatedKey = context.get<ICryptoAESRepository>().generateRandomKey(32);
+                });
+              },
+              child: const Text('GENERATE 32 KEY'),
             ),
             Text('ENCRYPTED TEXT: $encrypted'),
             ElevatedButton(

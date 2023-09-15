@@ -1,5 +1,6 @@
 import 'package:core_applink/applink.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core_config/config.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,10 @@ class _MaterialAppState extends State<_MaterialApp> {
   @override
   void initState() {
     super.initState();
+    const uiOverlay = SystemUiOverlayStyle.dark;
+    SystemChrome.setSystemUIOverlayStyle(uiOverlay.copyWith(
+      statusBarColor: Colors.white,
+    ));
     if (AppFactory.I.defaultLocale != null) {
       Get.updateLocale(AppFactory.I.defaultLocale!);
     }
