@@ -43,6 +43,7 @@ cd forks && cd alice && pwd && ls \
   && cd .. && cd mapp_firebase_database && pwd && ls \
   && flutter clean && flutter pub get \
   && cd .. && cd mapp_onboarding && pwd && ls \
+  && flutter clean && flutter pub get \
   && flutter pub run build_runner build --delete-conflicting-outputs \
   && flutter clean && flutter pub get \
   && cd .. && cd mapp_shared && pwd && ls \
