@@ -1,0 +1,1 @@
+export 'i_mapp_sqflite_storage.dart';

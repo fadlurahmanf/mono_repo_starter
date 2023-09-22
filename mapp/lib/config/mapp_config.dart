@@ -1,32 +1,49 @@
-import 'package:core/core.dart';
+import 'package:core_camera/camera.dart';
+import 'package:core_config/config.dart';
+import 'package:core_encrypt/encrypt.dart';
+import 'package:core_face_detection/face_detection.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mapp/config/mapp_api_module.dart';
-import 'package:mapp/config/mapp_api_settings.dart';
-import 'package:mapp/config/mapp_app_module.dart';
-import 'package:mapp/config/mapp_app_settings.dart';
-import 'package:mapp/config/mapp_localization_settings.dart';
+import 'package:mapp_api/mapp_api.dart';
+import 'package:mapp_fcm/mapp_fcm.dart';
+import 'package:mapp_firebase_database/mapp_firebase_database.dart';
 import 'package:mapp_onboarding/mapp_onboarding.dart';
 import 'package:mapp_shared/mapp_shared.dart';
 import 'package:mapp_storage/mapp_storage.dart';
+import 'package:mapp_config/mapp_config.dart';
+import 'package:core_applink/applink.dart';
+import 'package:mapp_example/mapp_example.dart';
+import 'package:core_locator/locator.dart';
 
 final _devRouteModules = <RouteModule>[
-  MappOnBoardingRoutes(),
+  MappConfigRoute(),
+  MappOnBoardingRoute(),
+  MappExampleRoute(),
 ];
 
 final _devModules = <BaseModule>[
-  MappAppDevModule(settings: MappAppDevSettings()),
-  MappLocalizationDevModule(),
+  AppLinkModule(),
+  EncryptModule(),
+  LocatorModule(),
+  MappFirebaseModule(),
+  MappFCMModule(),
+  MappFirebaseDatabaseModule(),
+  CameraModule(),
+  FaceDetectionModule(),
+  MappDevConfigModule(),
+  MappDevLocalizationModule(),
   MappShared(),
   MappStorage(),
-  MappApiModule(
+  MappApiDevModule(
     settings: MappApiDevSettings(),
   ),
+  MappConfigModule(),
+  MappOnBoarding(),
+  MappExampleModule(),
 ];
 
 final devSetting = AppRunnerSetting(
   c: GetIt.I,
-  appModuleSettings: AppModuleSettings(
-    routeModules: _devRouteModules,
-    childModules: _devModules,
-  ),
+  childModules: _devModules,
+  routeModules: _devRouteModules,
+  app: const MappApp(),
 );
