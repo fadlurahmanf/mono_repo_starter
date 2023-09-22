@@ -18,6 +18,10 @@ class _SwitchLanguageScreenState extends State<SwitchLanguageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: const Text('Switch Language'),
+      ),
       body: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

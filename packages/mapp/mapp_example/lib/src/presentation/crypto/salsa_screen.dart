@@ -23,7 +23,8 @@ class _SalsaScreenState extends State<SalsaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Example RSA"),
+        backgroundColor: Colors.blue,
+        title: Text("Example SALSA"),
       ),
       body: SizedBox.expand(
         child: SingleChildScrollView(

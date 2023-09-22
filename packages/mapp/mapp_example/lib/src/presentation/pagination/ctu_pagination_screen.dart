@@ -80,7 +80,17 @@ class _CtuPaginationScreenState extends State<CtuPaginationScreen> {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(key),
+              Container(
+                color: Colors.grey,
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                alignment: Alignment.center,
+                child: Text(
+                  key,
+                  style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+                ),
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

@@ -5,8 +5,8 @@
         <entry key="_fe_analyzer_shared">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-63.0.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-64.0.0/lib" />
             </list>
           </value>
@@ -36,8 +36,8 @@
         <entry key="analyzer">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-5.13.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.1.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-5.13.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.2.0/lib" />
             </list>
           </value>
@@ -369,8 +369,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.0.2/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.0.1/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.1.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/ffi-2.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -587,8 +587,8 @@
         <entry key="freezed">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.4.1/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.4.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.4.1/lib" />
             </list>
           </value>
         </entry>
@@ -938,8 +938,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.0.27/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.0.19/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.1.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.0.19/lib" />
             </list>
           </value>
         </entry>
@@ -947,8 +947,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.4/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.3/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.3/lib" />
             </list>
           </value>
         </entry>
@@ -956,8 +956,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.7/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.7/lib" />
             </list>
           </value>
         </entry>
@@ -965,8 +965,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.6/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.1/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -974,8 +974,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.6/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.6/lib" />
             </list>
           </value>
         </entry>
@@ -1394,8 +1394,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.37/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.17/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.17/lib" />
             </list>
           </value>
         </entry>
@@ -1486,8 +1486,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.0.5/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-4.1.4/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-5.0.6/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/win32-4.1.4/lib" />
             </list>
           </value>
         </entry>
@@ -1495,8 +1495,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-1.0.1/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-0.2.0+1/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-1.0.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/xdg_directories-0.2.0+1/lib" />
             </list>
           </value>
         </entry>
