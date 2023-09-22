@@ -24,7 +24,7 @@ jobs:
           echo ${{ secrets.BASE64_KEYSTORE }} | base64 -d > keystore.jks
           pwd
           ls
-          cd ../..
+          cd ..
           pwd
           ls
           echo "" > signing.properties
@@ -35,6 +35,7 @@ jobs:
           pwd
           ls
           cat signing.properties
+          cd ../..
       - name: Checkout Flutter
         uses: subosito/flutter-action@v2
         with:
