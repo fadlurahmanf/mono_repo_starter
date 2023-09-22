@@ -46,6 +46,7 @@ jobs:
           ls
           sh mapp_setup.sh
           cd mapp
+          pwd
           ls
           flutter build apk -t lib/main_dev.dart --release --flavor dev --split-debug-info=build/flutter_mapping
           - name: Upload Apk To Firebase Distribution
