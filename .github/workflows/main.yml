@@ -22,14 +22,17 @@ jobs:
         run: |
           cd mapp/android/app
           echo ${{ secrets.BASE64_KEYSTORE }} | base64 -d > keystore.jks
+          pwd
           ls
           cd ../..
+          pwd
           ls
           echo "" > signing.properties
           echo "release.keystore=keystore.jks" >> signing.properties
           echo "release.keystore.alias=${{ vars.KEYSTORE_ALIAS }}" >> signing.properties
           echo "release.keystore.keyPassword=${{ secrets.KEYSTORE_PASSWORD }}" >> signing.properties
           echo "release.keystore.storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> signing.properties
+          pwd
           ls
           cat signing.properties
       - name: Checkout Flutter
