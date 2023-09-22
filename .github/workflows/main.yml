@@ -50,7 +50,6 @@ jobs:
           pwd
           ls
           flutter build apk -t lib/main_dev.dart --release --flavor dev --split-debug-info=build/flutter_mapping
-          - name: Upload Apk To Firebase Distribution
       - name: Upload APK to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
