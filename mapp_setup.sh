@@ -49,5 +49,7 @@ cd forks && cd alice && pwd && ls \
   && cd .. && cd mapp_storage && pwd && ls \
   && flutter clean && flutter pub get \
   && flutter pub run build_runner build --delete-conflicting-outputs \
-  && cd .. && cd .. && cd ..
+  && cd .. && cd .. && cd .. && cd mapp \
+  && flutter clean && flutter pub get \
+  && cd ..
 
