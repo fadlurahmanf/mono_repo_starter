@@ -26,3 +26,6 @@ jobs:
           flutter doctor -v
           ls
           sh mapp_setup.sh
+          cd mapp
+          ls
+          flutter build apk -t lib/main_dev.dart --release --flavor dev --split-debug-info=build/flutter_mapping
