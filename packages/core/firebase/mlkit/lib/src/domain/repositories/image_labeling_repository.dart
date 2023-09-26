@@ -1,30 +1,21 @@
 import 'dart:io';
 
-import 'package:core_mlkit/src/domain/repositories/i_object_detector_repository.dart';
+import 'package:core_mlkit/src/domain/repositories/i_image_labeling_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 
-class ObjectDetectorRepository implements IObjectDetectorRepository {
+class ImageLabelingRepository implements IImageLabelingRepository {
   @override
   Future<void> processImage({
-    required ObjectDetector objectDetector,
+    required ImageLabeler imageLabeler,
     required InputImage inputImage,
-    required Function(String label, double confidence) onDetectObject,
+    required Function(String label, double confidence) onDetectLabel,
   }) async {
-    print("MASUK PROCESS IMAGE");
-    final objects = await objectDetector.processImage(inputImage);
-    print("MASUK OBJECTS: ${objects.length}");
-    for (var element in objects) {
-      print("MASUK ELEMENT: ${element.labels.length}");
-      print("MASUK TOP: ${element.boundingBox.top}");
-      print("MASUK LEFT: ${element.boundingBox.left}");
-      print("MASUK RIGHT: ${element.boundingBox.right}");
-      for (var label in element.labels) {
-        print("MASUK LABEL: ${label.text} & CONFIDENCE: ${label.confidence}");
-        onDetectObject(label.text, label.confidence);
-      }
+    final labels = await imageLabeler.processImage(inputImage);
+    for (var element in labels) {
+      onDetectLabel(element.label, element.confidence);
     }
   }
 

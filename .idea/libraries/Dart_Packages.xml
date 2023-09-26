@@ -502,6 +502,7 @@
         <entry key="flutter">
           <value>
             <list>
+              <option value="$USER_HOME$/FlutterDev/flutter/packages/flutter/lib" />
               <option value="$USER_HOME$/fvm/versions/3.10.6/packages/flutter/lib" />
             </list>
           </value>
@@ -559,6 +560,7 @@
         <entry key="flutter_test">
           <value>
             <list>
+              <option value="$USER_HOME$/FlutterDev/flutter/packages/flutter_test/lib" />
               <option value="$USER_HOME$/fvm/versions/3.10.6/packages/flutter_test/lib" />
             </list>
           </value>
@@ -573,6 +575,7 @@
         <entry key="flutter_web_plugins">
           <value>
             <list>
+              <option value="$USER_HOME$/FlutterDev/flutter/packages/flutter_web_plugins/lib" />
               <option value="$USER_HOME$/fvm/versions/3.10.6/packages/flutter_web_plugins/lib" />
             </list>
           </value>
@@ -690,10 +693,10 @@
             </list>
           </value>
         </entry>
-        <entry key="google_mlkit_object_detection">
+        <entry key="google_mlkit_image_labeling">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_object_detection-0.10.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_image_labeling-0.9.0/lib" />
             </list>
           </value>
         </entry>
@@ -1212,6 +1215,7 @@
         <entry key="sky_engine">
           <value>
             <list>
+              <option value="$USER_HOME$/FlutterDev/flutter/bin/cache/pkg/sky_engine/lib" />
               <option value="$USER_HOME$/fvm/versions/3.10.6/bin/cache/pkg/sky_engine/lib" />
             </list>
           </value>
@@ -1647,7 +1651,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_fonts-5.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_commons-0.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_face_detection-0.8.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_object_detection-0.10.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_mlkit_image_labeling-0.9.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/graphs-2.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.1.0/lib" />
@@ -1813,6 +1817,10 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/xml-6.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/yaml-3.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/yaml_edit-2.1.1/lib" />
+      <root url="file://$USER_HOME$/FlutterDev/flutter/bin/cache/pkg/sky_engine/lib" />
+      <root url="file://$USER_HOME$/FlutterDev/flutter/packages/flutter/lib" />
+      <root url="file://$USER_HOME$/FlutterDev/flutter/packages/flutter_test/lib" />
+      <root url="file://$USER_HOME$/FlutterDev/flutter/packages/flutter_web_plugins/lib" />
       <root url="file://$USER_HOME$/fvm/versions/3.10.6/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/fvm/versions/3.10.6/packages/flutter/lib" />
       <root url="file://$USER_HOME$/fvm/versions/3.10.6/packages/flutter_test/lib" />
