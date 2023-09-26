@@ -1,1 +1,1 @@
-export 'face_detection_screen.dart';
+export 'face_detector_screen.dart';

@@ -6,11 +6,11 @@ import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:core_ui/ui.dart';
 
-class FaceDetectionScreen extends StatefulWidget with WrapperState {
-  const FaceDetectionScreen({super.key});
+class ObjectDetectorScreen extends StatefulWidget with WrapperState {
+  const ObjectDetectorScreen({super.key});
 
   @override
-  State<FaceDetectionScreen> createState() => _FaceDetectionScreenState();
+  State<ObjectDetectorScreen> createState() => _ObjectDetectorScreenState();
 
   @override
   Widget wrap(BuildContext context) {
@@ -18,12 +18,15 @@ class FaceDetectionScreen extends StatefulWidget with WrapperState {
   }
 }
 
-class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsBindingObserver {
+class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with WidgetsBindingObserver {
   late CameraController cameraController;
   late CameraDescription cameraDescription;
   final FaceDetector faceDetector = FaceDetector(
     options: FaceDetectorOptions(
-        enableClassification: true, enableLandmarks: true, performanceMode: FaceDetectorMode.accurate),
+      enableClassification: true,
+      enableLandmarks: true,
+      performanceMode: FaceDetectorMode.accurate,
+    ),
   );
 
   @override
@@ -76,7 +79,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
             width: double.infinity,
             margin: EdgeInsets.only(left: 20, right: 20, bottom: 200),
             padding: EdgeInsets.all(10),
-            child: Text(result, style: TextStyle(color: Colors.black), textAlign: TextAlign.center,),
+            child: Text(
+              result,
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
           ),
         )
       ],
@@ -121,7 +128,8 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
                 debugPrint("MASUK LEFT EYE: $left");
                 debugPrint("MASUK RIGHT EYE: $right");
                 setState(() {
-                  result = 'RIGHT EYE OPEN PROBABILITY: $right\nLEFT EYE OPEN PROBABILITY: $left\nSMILING PROBABILITY: $smile';
+                  result =
+                      'RIGHT EYE OPEN PROBABILITY: $right\nLEFT EYE OPEN PROBABILITY: $left\nSMILING PROBABILITY: $smile';
                 });
               },
             );

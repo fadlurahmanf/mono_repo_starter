@@ -58,8 +58,8 @@ class MappExampleRoute extends RouteModule {
         ),
         AppGetPage(
           moduleType: MappExampleRoute,
-          screenType: FaceDetectionScreen,
-          page: (context) => const FaceDetectionScreen().wrap(context),
+          screenType: FaceDetectorScreen,
+          page: (context) => const FaceDetectorScreen().wrap(context),
         ),
         AppGetPage(
           moduleType: MappExampleRoute,
