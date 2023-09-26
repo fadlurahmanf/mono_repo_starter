@@ -51,8 +51,8 @@ dependencies:
     path: ../packages/core/encrypt
   core_locator:
     path: ../packages/core/locator
-  core_face_detection:
-    path: ../packages/core/firebase/face_detection
+  core_mlkit:
+    path: ../packages/core/firebase/mlkit
 
   mapp_api:
     path: ../packages/mapp/mapp_api

@@ -532,9 +532,6 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/core/camera/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core/camera/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/core/camera/build" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/face_detection/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/face_detection/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/face_detection/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_mlkit/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_mlkit/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/mapp/mapp_mlkit/.dart_tool" />
@@ -658,6 +655,9 @@
       <excludeFolder url="file://$MODULE_DIR$/km/ios/.symlinks/plugins/permission_handler_apple/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/km/ios/.symlinks/plugins/permission_handler_apple/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/km/ios/.symlinks/plugins/permission_handler_apple/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/mlkit/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/mlkit/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/firebase/mlkit/.pub" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

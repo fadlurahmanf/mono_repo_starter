@@ -1,6 +1,6 @@
 import 'package:core_camera/camera.dart';
 import 'package:core_config/config.dart';
-import 'package:core_face_detection/face_detection.dart';
+import 'package:core_mlkit/core_mlkit.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
@@ -116,11 +116,11 @@ class _FaceDetectorScreenState extends State<FaceDetectorScreen> with WidgetsBin
       isProcessing = true;
       await Future.delayed(const Duration(seconds: 3), () async {
         final inputImage =
-            context.get<IFaceDetectionRepository>().getInputImageFromCamera(image: image, camera: cameraDescription);
+            context.get<IFaceDetectorRepository>().getInputImageFromCamera(image: image, camera: cameraDescription);
         if (inputImage == null) {
           return;
         }
-        await context.get<IFaceDetectionRepository>().processImage(
+        await context.get<IFaceDetectorRepository>().processImage(
               faceDetector: faceDetector,
               inputImage: inputImage,
               onDetectedFace: (smile, left, right) {

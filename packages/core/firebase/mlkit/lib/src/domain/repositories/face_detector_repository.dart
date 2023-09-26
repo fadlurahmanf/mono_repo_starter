@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:core_face_detection/src/domain/repositories/i_face_detection_repository.dart';
+import 'package:core_mlkit/core_mlkit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
 
-class FaceDetectionRepository implements IFaceDetectionRepository {
+class FaceDetectorRepository implements IFaceDetectorRepository {
   @override
   Future<void> processImage({
     required FaceDetector faceDetector,

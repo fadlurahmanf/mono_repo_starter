@@ -188,13 +188,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  core_face_detection:
-    dependency: "direct main"
-    description:
-      path: "../packages/core/firebase/face_detection"
-      relative: true
-    source: path
-    version: "0.0.1"
   core_fcm:
     dependency: transitive
     description:
@@ -220,6 +213,13 @@ packages:
     dependency: "direct main"
     description:
       path: "../packages/core/locator"
+      relative: true
+    source: path
+    version: "0.0.1"
+  core_mlkit:
+    dependency: "direct main"
+    description:
+      path: "../packages/core/firebase/mlkit"
       relative: true
     source: path
     version: "0.0.1"

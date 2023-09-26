@@ -1,7 +1,7 @@
 import 'package:core_camera/camera.dart';
 import 'package:core_config/config.dart';
 import 'package:core_encrypt/encrypt.dart';
-import 'package:core_face_detection/face_detection.dart';
+import 'package:core_mlkit/core_mlkit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapp_api/mapp_api.dart';
 import 'package:mapp_fcm/mapp_fcm.dart';
@@ -28,7 +28,7 @@ final _devModules = <BaseModule>[
   MappFCMModule(),
   MappFirebaseDatabaseModule(),
   CameraModule(),
-  FaceDetectionModule(),
+  CoreMLKitModule(),
   MappDevConfigModule(),
   MappDevLocalizationModule(),
   MappShared(),

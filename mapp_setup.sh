@@ -10,7 +10,7 @@ cd forks && cd alice && pwd && ls \
   && flutter pub run build_runner build --delete-conflicting-outputs \
   && cd .. && cd encrypt && pwd && ls \
   && flutter clean && flutter pub get \
-  && cd .. && cd firebase && cd face_detection && pwd && ls \
+  && cd .. && cd firebase && cd mlkit && pwd && ls \
   && flutter clean && flutter pub get \
   && cd .. && cd fcm && pwd && ls \
   && flutter clean && flutter pub get \

@@ -22,8 +22,8 @@ dependencies:
     path: ../../core/config
   core_encrypt:
     path: ../../core/encrypt
-  core_face_detection:
-    path: ../../core/firebase/face_detection
+  core_mlkit:
+    path: ../../core/firebase/mlkit
   core_locator:
     path: ../../core/locator
   core_ui:

@@ -95,9 +95,9 @@ class _ExampleScreenState extends State<ExampleScreen> {
               title: Text('MLKIT'),
               isThreeLine: true,
               onTap: () async {
-                context.pushNamed('MappExampleRoute', 'FaceDetection');
+                context.pushNamed('MappExampleRoute', 'FaceDetectorScreen');
               },
-              subtitle: Text('Face Detection'),
+              subtitle: Text('Face Detector'),
             ),
             ListTile(
               leading: Icon(Icons.video_call),
