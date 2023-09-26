@@ -50,7 +50,7 @@ class _FaceDetectorScreenState extends State<FaceDetectorScreen> with WidgetsBin
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Face Detection Screen'),
+        title: Text('Face Detector Screen'),
       ),
       body: cameraController.value.isInitialized == true ? _layoutCamera(context) : Container(),
     );

@@ -4,6 +4,7 @@ import 'package:core_mlkit/core_mlkit.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
 import 'package:core_ui/ui.dart';
 
 class ObjectDetectorScreen extends StatefulWidget with WrapperState {
@@ -21,11 +22,11 @@ class ObjectDetectorScreen extends StatefulWidget with WrapperState {
 class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with WidgetsBindingObserver {
   late CameraController cameraController;
   late CameraDescription cameraDescription;
-  final FaceDetector faceDetector = FaceDetector(
-    options: FaceDetectorOptions(
-      enableClassification: true,
-      enableLandmarks: true,
-      performanceMode: FaceDetectorMode.accurate,
+  final ObjectDetector objectDetector = ObjectDetector(
+    options: ObjectDetectorOptions(
+      mode: DetectionMode.stream,
+      classifyObjects: true,
+      multipleObjects: true,
     ),
   );
 
@@ -50,7 +51,7 @@ class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with Widget
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Face Detection Screen'),
+        title: Text('Object Detector Screen'),
       ),
       body: cameraController.value.isInitialized == true ? _layoutCamera(context) : Container(),
     );
@@ -71,7 +72,6 @@ class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with Widget
             ),
           ),
         ),
-        const FaceOverlay(),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -91,11 +91,11 @@ class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with Widget
   }
 
   Future<void> initCamera(BuildContext context) async {
-    final bool isHaveFrontCamera = context.get<ICameraRepository>().isHaveFrontCamera();
-    if (!isHaveFrontCamera) {
+    final bool isHaveRearCamera = context.get<ICameraRepository>().isHaveRearCamera();
+    if (!isHaveRearCamera) {
       return;
     }
-    cameraDescription = context.get<ICameraRepository>().getFrontCamera().first;
+    cameraDescription = context.get<ICameraRepository>().getRearCamera().first;
     cameraController = CameraController(cameraDescription, ResolutionPreset.low);
     cameraController.initialize().then((value) {
       if (!mounted) {
@@ -114,22 +114,21 @@ class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with Widget
         return;
       }
       isProcessing = true;
-      await Future.delayed(const Duration(seconds: 3), () async {
+      await Future.delayed(const Duration(seconds: 1), () async {
+        print("MASUK IS PROCESSING: $isProcessing");
         final inputImage =
-            context.get<IFaceDetectorRepository>().getInputImageFromCamera(image: image, camera: cameraDescription);
+            context.get<IObjectDetectorRepository>().getInputImageFromCamera(image: image, camera: cameraDescription);
         if (inputImage == null) {
           return;
         }
-        await context.get<IFaceDetectorRepository>().processImage(
-              faceDetector: faceDetector,
+        await context.get<IObjectDetectorRepository>().processImage(
+              objectDetector: objectDetector,
               inputImage: inputImage,
-              onDetectedFace: (smile, left, right) {
-                debugPrint("MASUK SMILE: $smile");
-                debugPrint("MASUK LEFT EYE: $left");
-                debugPrint("MASUK RIGHT EYE: $right");
+              onDetectObject: (label, confidence) {
+                print("MASUK LABEL: $label");
+                print("MASUK CONFIDENCE: $confidence");
                 setState(() {
-                  result =
-                      'RIGHT EYE OPEN PROBABILITY: $right\nLEFT EYE OPEN PROBABILITY: $left\nSMILING PROBABILITY: $smile';
+                  result = 'LABEL: $label\nCONFIDENCE: $confidence';
                 });
               },
             );

@@ -100,6 +100,16 @@ class _ExampleScreenState extends State<ExampleScreen> {
               subtitle: Text('Face Detector'),
             ),
             ListTile(
+              leading: Icon(Icons.camera),
+              trailing: Icon(Icons.touch_app),
+              title: Text('MLKIT'),
+              isThreeLine: true,
+              onTap: () async {
+                context.pushNamed('MappExampleRoute', 'ObjectDetectorScreen');
+              },
+              subtitle: Text('Object Detector'),
+            ),
+            ListTile(
               leading: Icon(Icons.video_call),
               trailing: Icon(Icons.touch_app),
               title: Text('WEB RTC'),
