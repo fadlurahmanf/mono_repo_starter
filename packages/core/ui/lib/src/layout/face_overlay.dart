@@ -53,7 +53,8 @@ class _FaceOverlayState extends State<FaceOverlay> {
         child: CustomPaint(
           painter: FacePainter(),
           child: Container(
-            color: Colors.black54,
+            // color: Colors.black54,
+            color: Colors.white,
           ),
         ),
       ),

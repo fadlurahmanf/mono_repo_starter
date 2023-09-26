@@ -38,6 +38,8 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
     super.dispose();
   }
 
+  String result = 'RESULT: ??';
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -67,6 +69,16 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
           ),
         ),
         const FaceOverlay(),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            color: Colors.grey,
+            width: double.infinity,
+            margin: EdgeInsets.only(left: 20, right: 20, bottom: 200),
+            padding: EdgeInsets.all(10),
+            child: Text(result, style: TextStyle(color: Colors.black), textAlign: TextAlign.center,),
+          ),
+        )
       ],
     );
   }
@@ -108,6 +120,9 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> with WidgetsB
                 debugPrint("MASUK SMILE: $smile");
                 debugPrint("MASUK LEFT EYE: $left");
                 debugPrint("MASUK RIGHT EYE: $right");
+                setState(() {
+                  result = 'RIGHT EYE OPEN PROBABILITY: $right\nLEFT EYE OPEN PROBABILITY: $left\nSMILING PROBABILITY: $smile';
+                });
               },
             );
         isProcessing = false;

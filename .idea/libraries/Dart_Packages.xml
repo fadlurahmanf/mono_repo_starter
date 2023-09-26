@@ -5,8 +5,8 @@
         <entry key="_fe_analyzer_shared">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-63.0.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-63.0.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-64.0.0/lib" />
             </list>
           </value>
@@ -36,8 +36,8 @@
         <entry key="analyzer">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-5.13.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.1.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.2.0/lib" />
             </list>
           </value>
@@ -332,8 +332,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.3.2/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.1.2/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.3.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dio-5.1.2/lib" />
             </list>
           </value>
         </entry>
@@ -587,8 +587,8 @@
         <entry key="freezed">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.4.2/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.4.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed-2.4.2/lib" />
             </list>
           </value>
         </entry>
@@ -1031,8 +1031,8 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/platform-3.1.0/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/platform-3.0.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/platform-3.1.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/platform-3.0.0/lib" />
             </list>
           </value>
         </entry>
