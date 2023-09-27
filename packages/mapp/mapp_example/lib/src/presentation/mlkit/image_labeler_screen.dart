@@ -3,13 +3,13 @@ import 'package:core_config/config.dart';
 import 'package:core_mlkit/core_mlkit.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:google_mlkit_object_detection/google_mlkit_object_detection.dart';
+import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 
-class ObjectDetectorScreen extends StatefulWidget with WrapperState {
-  const ObjectDetectorScreen({super.key});
+class ImageLabelerScreen extends StatefulWidget with WrapperState {
+  const ImageLabelerScreen({super.key});
 
   @override
-  State<ObjectDetectorScreen> createState() => _ObjectDetectorScreenState();
+  State<ImageLabelerScreen> createState() => _ImageLabelerScreenState();
 
   @override
   Widget wrap(BuildContext context) {
@@ -17,15 +17,11 @@ class ObjectDetectorScreen extends StatefulWidget with WrapperState {
   }
 }
 
-class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with WidgetsBindingObserver {
+class _ImageLabelerScreenState extends State<ImageLabelerScreen> with WidgetsBindingObserver {
   late CameraController cameraController;
   late CameraDescription cameraDescription;
-  final ObjectDetector objectDetector = ObjectDetector(
-    options: ObjectDetectorOptions(
-      mode: DetectionMode.stream,
-      classifyObjects: true,
-      multipleObjects: true,
-    ),
+  final ImageLabeler imageLabeler = ImageLabeler(
+    options: ImageLabelerOptions(),
   );
 
   @override
@@ -113,18 +109,14 @@ class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with Widget
       }
       isProcessing = true;
       await Future.delayed(const Duration(seconds: 1), () async {
-        final inputImage = context.get<IObjectDetectorRepository>().getInputImageFromCamera(
-              image: image,
-              camera: cameraDescription,
-              deviceOrientation: cameraController.value.deviceOrientation,
-            );
-        print("MASUK INPUT IMAGE ${inputImage != null}");
+        print("MASUK IS PROCESSING: $isProcessing");
+        final inputImage =
+            context.get<IImageLabelingRepository>().getInputImageFromCamera(image: image, camera: cameraDescription);
         if (inputImage == null) {
-          isProcessing = false;
           return;
         }
-        await context.get<IObjectDetectorRepository>().processImage(
-              objectDetector: objectDetector,
+        await context.get<IImageLabelingRepository>().processImage(
+              imageLabeler: imageLabeler,
               inputImage: inputImage,
               onDetectLabel: (label, confidence) {
                 print("MASUK LABEL: $label");
