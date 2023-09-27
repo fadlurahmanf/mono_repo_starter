@@ -6,6 +6,7 @@ import 'package:mapp_example/src/domain/repositories/i_pagination_repository.dar
 import 'package:mapp_example/src/domain/repositories/pagination_repository.dart';
 import 'package:mapp_example/src/presentation/crypto/salsa_screen.dart';
 import 'package:mapp_example/src/presentation/locator/_index.dart';
+import 'package:mapp_example/src/presentation/mlkit/image_labeler_screen.dart';
 import 'package:mapp_example/src/presentation/mlkit/object_detector_screen.dart';
 import 'package:mapp_example/src/presentation/pagination/bloc/pagination_bloc.dart';
 import 'package:mapp_example/src/presentation/pagination/ctu_pagination_screen.dart';
@@ -66,6 +67,11 @@ class MappExampleRoute extends RouteModule {
           moduleType: MappExampleRoute,
           screenType: ObjectDetectorScreen,
           page: (context) => const ObjectDetectorScreen().wrap(context),
+        ),
+        AppGetPage(
+          moduleType: MappExampleRoute,
+          screenType: ImageLabelerScreen,
+          page: (context) => const ImageLabelerScreen().wrap(context),
         ),
         AppGetPage(
           moduleType: MappExampleRoute,

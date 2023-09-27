@@ -71,13 +71,13 @@ class _FaceDetectorScreenState extends State<FaceDetectorScreen> with WidgetsBin
             ),
           ),
         ),
-        const FaceOverlay(),
+        // const FaceOverlay(),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
             color: Colors.grey,
             width: double.infinity,
-            margin: EdgeInsets.only(left: 20, right: 20, bottom: 200),
+            margin: EdgeInsets.only(left: 20, right: 20, bottom: 100),
             padding: EdgeInsets.all(10),
             child: Text(
               result,
