@@ -58,7 +58,6 @@ class ObjectDetectorRepository implements IObjectDetectorRepository {
       throw UnimplementedError();
     }
 
-
     print("MASUK INPUT IMAGE ROTATION: ${inputImageRotation != null}");
     if (inputImageRotation == null) {
       return null;
@@ -72,13 +71,13 @@ class ObjectDetectorRepository implements IObjectDetectorRepository {
     print("MASUK FORMAT: ${format}");
 
     if (format == null ||
+        (Platform.isAndroid && format != InputImageFormat.nv21) ||
         (Platform.isIOS && format != InputImageFormat.bgra8888)) {
       return null;
     }
 
-
     print("MASUK IMAGE PLANES LENGTH: ${image.planes.length}");
-    // if (image.planes.length != 1) return null;
+    if (image.planes.length != 1) return null;
     final plane = image.planes.first;
     return InputImage.fromBytes(
       bytes: plane.bytes,

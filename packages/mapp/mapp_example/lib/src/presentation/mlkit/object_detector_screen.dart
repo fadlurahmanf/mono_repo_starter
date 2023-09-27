@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:core_camera/camera.dart';
 import 'package:core_config/config.dart';
 import 'package:core_mlkit/core_mlkit.dart';
@@ -94,7 +96,18 @@ class _ObjectDetectorScreenState extends State<ObjectDetectorScreen> with Widget
       return;
     }
     cameraDescription = context.get<ICameraRepository>().getRearCamera().first;
-    cameraController = CameraController(cameraDescription, ResolutionPreset.medium);
+    if (Platform.isAndroid) {
+      cameraController = CameraController(
+        cameraDescription,
+        ResolutionPreset.medium,
+        imageFormatGroup: ImageFormatGroup.nv21,
+      );
+    } else {
+      cameraController = CameraController(
+        cameraDescription,
+        ResolutionPreset.medium,
+      );
+    }
     cameraController.initialize().then((value) {
       if (!mounted) {
         return;

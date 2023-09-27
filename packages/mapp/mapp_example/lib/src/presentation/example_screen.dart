@@ -1,5 +1,6 @@
 import 'package:core_config/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ExampleScreen extends StatefulWidget {
   const ExampleScreen({super.key});
@@ -9,6 +10,8 @@ class ExampleScreen extends StatefulWidget {
 }
 
 class _ExampleScreenState extends State<ExampleScreen> {
+  static const platform = MethodChannel('example.com/channel');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
