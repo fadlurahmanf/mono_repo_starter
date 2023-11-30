@@ -2,6 +2,8 @@ import 'package:core_config/config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mapp_api/mapp_api.dart';
 import 'package:mapp_example/src/_index.dart';
+import 'package:mapp_example/src/domain/repositories/example_repository.dart';
+import 'package:mapp_example/src/domain/repositories/i_example_repository.dart';
 import 'package:mapp_example/src/domain/repositories/i_pagination_repository.dart';
 import 'package:mapp_example/src/domain/repositories/pagination_repository.dart';
 import 'package:mapp_example/src/presentation/crypto/salsa_screen.dart';
@@ -23,7 +25,10 @@ class MappExampleModule extends BaseModule {
   Future<void> registerDependency(GetIt c) async {
     c
       ..registerLazySingleton<IPaginationRepository>(() => PaginationRepository(paginationApi: c.get<IPaginationApi>()))
-      ..registerFactory<VideoCallBloc>(() => VideoCallBloc())
+      ..registerLazySingleton<IExampleRepository>(() => ExampleRepository(openviduApi: c.get<OpenviduApi>()))
+      ..registerFactory<VideoCallBloc>(() => VideoCallBloc(
+        exampleRepository: c.get<IExampleRepository>()
+      ))
       ..registerFactory<ManualCallBloc>(
           () => ManualCallBloc(videoCallRemoteDataSource: c.get<IVideoCallRemoteDataSource>()))
       ..registerFactory<PaginationBloc>(() => PaginationBloc(paginationRepository: c.get<IPaginationRepository>()));

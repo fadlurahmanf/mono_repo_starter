@@ -133,6 +133,16 @@ class _ExampleScreenState extends State<ExampleScreen> {
               subtitle: Text('List Room RTC'),
             ),
             ListTile(
+              leading: Icon(Icons.video_call),
+              trailing: Icon(Icons.touch_app),
+              title: Text('OPEN VIDU WEB RTC'),
+              isThreeLine: true,
+              onTap: () async {
+                context.pushNamed('MappExampleRoute', 'CallerScreen');
+              },
+              subtitle: Text('Caller Screen'),
+            ),
+            ListTile(
               leading: Icon(Icons.featured_play_list_outlined),
               trailing: Icon(Icons.touch_app),
               title: Text('PAGINATION'),

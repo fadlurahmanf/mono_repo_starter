@@ -31,6 +31,15 @@ class MappApiModule extends ApiModule {
           sendTimeout: settings.sendTimeout,
         ),
         instanceName: MappDioConstant.PAGINATION_BASE_OPTIONS,
+      )
+      ..registerLazySingleton<BaseOptions>(
+        () => BaseOptions(
+          baseUrl: 'https://vc.bankmas.my.id/',
+          connectTimeout: settings.connectTimeout,
+          receiveTimeout: settings.receiveTimeout,
+          sendTimeout: settings.sendTimeout,
+        ),
+        instanceName: MappDioConstant.OPENVIDU_BASE_OPTIONS,
       );
   }
 
@@ -48,7 +57,13 @@ class MappApiModule extends ApiModule {
                 c.get<BaseOptions>(instanceName: MappDioConstant.PAGINATION_BASE_OPTIONS),
                 interceptors: [],
               ),
-          instanceName: MappDioConstant.PAGINATION_DIO);
+          instanceName: MappDioConstant.PAGINATION_DIO)
+      ..registerLazySingleton<Dio>(
+          () => abstractDio(
+                c.get<BaseOptions>(instanceName: MappDioConstant.OPENVIDU_BASE_OPTIONS),
+                interceptors: [],
+              ),
+          instanceName: MappDioConstant.OPENVIDU_DIO);
   }
 
   @override
@@ -59,6 +74,9 @@ class MappApiModule extends ApiModule {
           ))
       ..registerLazySingleton<IPaginationApi>(() => PaginationApi(
             dio: c.get<Dio>(instanceName: MappDioConstant.PAGINATION_DIO),
+          ))
+      ..registerLazySingleton<IOpenviduApi>(() => OpenviduApi(
+            dio: c.get<Dio>(instanceName: MappDioConstant.OPENVIDU_DIO),
           ));
   }
 
