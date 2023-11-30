@@ -25,7 +25,7 @@ class MappExampleModule extends BaseModule {
   Future<void> registerDependency(GetIt c) async {
     c
       ..registerLazySingleton<IPaginationRepository>(() => PaginationRepository(paginationApi: c.get<IPaginationApi>()))
-      ..registerLazySingleton<IExampleRepository>(() => ExampleRepository(openviduApi: c.get<OpenviduApi>()))
+      ..registerLazySingleton<IExampleRepository>(() => ExampleRepository(openviduApi: c.get<IOpenviduApi>()))
       ..registerFactory<VideoCallBloc>(() => VideoCallBloc(
         exampleRepository: c.get<IExampleRepository>()
       ))

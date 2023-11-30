@@ -23,6 +23,20 @@ Future<T> handleResponse<T>({
   }
 }
 
+Future<T> handleViduResponse<T>({
+  required Future<Response<dynamic>> Function() onRequest,
+  required T Function(Map<String, dynamic>) onResponseMap,
+}) async {
+  try {
+    final request = await onRequest();
+    return onResponseMap(request.data as Map<String, dynamic>);
+  } on DioException catch (e) {
+    throw Exception();
+  } on Exception catch (e) {
+    throw Exception();
+  }
+}
+
 Future<BasePaginationResponse<T>> handlePaginationResponse<T>({
   required Future<Response<dynamic>> Function() onRequest,
   required T Function(Iterable) onResponseMap,

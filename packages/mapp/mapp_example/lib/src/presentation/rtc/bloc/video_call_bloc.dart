@@ -22,5 +22,16 @@ class VideoCallBloc extends Bloc<VideoCallEvent, VideoCallState> {
     });
   }
 
-  Future<void> _onInitializeConnection(_InitializeConnection event, Emitter<VideoCallState> emit) async {}
+  Future<void> _onInitializeConnection(_InitializeConnection event, Emitter<VideoCallState> emit) async {
+    try {
+      emit(state.copyWith(initializeConnectionState: InitializeConnectionIdle()));
+      final res = await exampleRepository.initializeConnection();
+      res.fold(
+        (l) => emit(state.copyWith(initializeConnectionState: InitializeConnectionFailed())),
+        (r) => emit(state.copyWith(initializeConnectionState: InitializeConnectionSuccess(connectionResponse: r))),
+      );
+    } on Exception catch (e) {
+      emit(state.copyWith(initializeConnectionState: InitializeConnectionFailed()));
+    }
+  }
 }
