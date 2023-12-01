@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:mapp_example/src/data/dto/model/openvidu_remote_participant.dart';
 import 'package:mapp_example/src/data/dto/model/openvidu_rtc_ice_candidate.dart';
 
 Map<String, dynamic> configuration = {
@@ -94,7 +95,8 @@ class RTCService {
   late int _idJoinRoom;
   late int _idPublishVideo;
   String? _localUserId;
-  final List<Map<String, dynamic>> _iceCandidatesParams = <Map<String, dynamic>>[];
+  final List<Map<String, dynamic>> iceCandidatesParams = <Map<String, dynamic>>[];
+  final Map<String, OpenviduRemoteParticipant> remoteParticipants = {};
 
   int sendJson(String method, {Map<String, dynamic>? params}) {
     final dict = <String, dynamic>{};
@@ -145,20 +147,29 @@ class RTCService {
         _localUserId = result[JsonConstants.id];
 
         if (result.containsKey(JsonConstants.value)) {
-          final values = (result[JsonConstants.value] as List<dynamic>).map((e){
+          final values = (result[JsonConstants.value] as List<dynamic>).map((e) {
             final jsonString = json.encode(e);
             return json.decode(jsonString) as Map<String, dynamic>;
-          });
+          }).toList();
           if (values.isNotEmpty) {
             final value = values.first;
             if (value.containsKey(JsonConstants.streams)) {
-              final streams = (value[JsonConstants.streams] as List<dynamic>).map((e){
+              final streams = (value[JsonConstants.streams] as List<dynamic>).map((e) {
                 final jsonString = json.encode(e);
                 return json.decode(jsonString) as Map<String, dynamic>;
-              });
+              }).toList();
+
               if (streams.isNotEmpty) {
                 final stream = streams.first;
               }
+
+              for (final iceCandidate in iceCandidatesParams) {
+                iceCandidate[JsonConstants.endpointName] = result['id'];
+                iceCandidate[JsonConstants.id] = result['id'];
+                sendJson(JsonConstants.iceCandidate, params: iceCandidate);
+              }
+
+              addParticipantAlreadyInRoom(values, streams);
             }
           }
         }
@@ -223,6 +234,7 @@ class RTCService {
       };
       // debugPrint('MASUK_LOCAL PEER ON ICE CANDIDATE: $iceCandidateParams');
       sendJson(JsonConstants.onIceCandidate, params: iceCandidateParams);
+      iceCandidatesParams.add(iceCandidateParams);
     };
 
     localPeerConnection.onIceGatheringState = (state) {
@@ -288,6 +300,48 @@ class RTCService {
     if (isLocal) {
       localPeerConnection.addCandidate(iceCandidateParams);
     }
+  }
+
+  void addParticipantAlreadyInRoom(List<Map<String, dynamic>> values, List<Map<String, dynamic>> streams) {
+    if (values.isNotEmpty && streams.isNotEmpty) {
+      final value = values.first;
+      final stream = streams.first;
+
+      final remoteParticipantId = '${value[JsonConstants.id]}';
+      final metaData = value[JsonConstants.metadata];
+      final isVideoActive = value[JsonConstants.videoActive];
+      final isAudioActive = value[JsonConstants.audioActive];
+
+      final remoteParticipant = OpenviduRemoteParticipant(
+        id: remoteParticipantId,
+        streamId: stream[JsonConstants.id],
+        isVideoActive: isVideoActive,
+        isAudioActive: isAudioActive,
+      );
+
+      remoteParticipants[remoteParticipantId] = remoteParticipant;
+      createRemotePeerConnection(remoteParticipant).then((value){
+
+      });
+
+      debugPrint('MASUK VALUE: $value');
+      debugPrint('MASUK STREAM: $stream');
+    }
+  }
+
+  Future<RTCPeerConnection> createRemotePeerConnection(OpenviduRemoteParticipant remoteParticipant) async {
+    final remotePeerConnection = await createPeerConnection(configuration, offerSdpConstraints);
+    remotePeerConnection.onIceCandidate = (candidate){
+      final iceCandidateParams = <String, dynamic>{
+        'sdpMid': candidate.sdpMid,
+        'sdpMLineIndex': candidate.sdpMLineIndex,
+        'endpointName': remoteParticipant.streamId,
+        'candidate': candidate.candidate,
+      };
+      debugPrint('MASUK_REMOTE PEER CONNECTION: $iceCandidatesParams');
+      sendJson(JsonConstants.iceCandidate, params: iceCandidateParams);
+    };
+    return remotePeerConnection;
   }
 }
 
