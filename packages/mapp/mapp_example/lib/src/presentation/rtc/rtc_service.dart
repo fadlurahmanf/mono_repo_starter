@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:mapp_example/src/data/dto/model/openvidu_rtc_ice_candidate.dart';
 
 Map<String, dynamic> configuration = {
   'sdpSemantics': 'plan-b',
@@ -23,8 +24,10 @@ final Map<String, dynamic> offerSdpConstraints = {
 enum RTCState {
   initializeWebSocket,
   createdPeerConnection,
+  createdLocalOffer,
   localStreamAdded,
   webSocketDone,
+  parsingHandleResultError,
   webSocketError,
 }
 
@@ -40,11 +43,17 @@ class RTCService {
   late WebSocket webSocket;
   late String sessionId;
   late String sessionToken;
+  late String secret;
 
-  Future<void> init({required String sessionId, required String sessionToken}) async {
+  Future<void> init({
+    required String sessionId,
+    required String sessionToken,
+    required String secret,
+  }) async {
     try {
       this.sessionId = sessionId;
-      this.sessionToken = sessionId;
+      this.sessionToken = sessionToken;
+      this.secret = secret;
       webSocket =
           await WebSocket.connect('wss://vc.bankmas.my.id:443/openvidu?sessionId=$sessionId&token=$sessionToken');
       debugPrint('CONNECT TO: wss://vc.bankmas.my.id:443/openvidu?sessionId=$sessionId&token=$sessionToken');
@@ -82,6 +91,10 @@ class RTCService {
   }
 
   int _internalId = 1;
+  late int _idJoinRoom;
+  late int _idPublishVideo;
+  String? _localUserId;
+  final List<Map<String, dynamic>> _iceCandidatesParams = <Map<String, dynamic>>[];
 
   int sendJson(String method, {Map<String, dynamic>? params}) {
     final dict = <String, dynamic>{};
@@ -94,7 +107,18 @@ class RTCService {
     updateInternalId();
     final jsonString = json.encode(dict);
     webSocket.add(jsonString);
+    if (isOnWhitelistedSendJson(method)) {
+      debugPrint('◤◢◤◢◤◢◤◢◤◢◤ SEND MESSAGE TO SOCKET METHOD: $method --> $jsonString | ◤◢◤◢◤◢◤◢◤◢◤');
+    }
     return _internalId - 1;
+  }
+
+  bool isOnWhitelistedSendJson(String method) {
+    if (method == JsonConstants.publishVideo) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void updateInternalId() {
@@ -102,8 +126,52 @@ class RTCService {
   }
 
   Future<void> onMessage(Map<String, dynamic> message) async {
-    if (isOnWhiteListedOnMessage(message)) {
-      debugPrint('◤◢◤◢◤◢◤◢◤◢◤  ON_MESSAGE_FROM_SOCKET : $message : ◤◢◤◢◤◢◤◢◤◢◤ ');
+    if (message.containsKey(JsonConstants.result)) {
+      if (isOnWhiteListedOnMessage(message)) {
+        debugPrint('◤◢◤◢◤◢◤◢◤◢◤  RESULT ON_MESSAGE_FROM_SOCKET : $message : ◤◢◤◢◤◢◤◢◤◢◤ ');
+      }
+      handleResult(id: message[JsonConstants.id], message: message, result: message[JsonConstants.result]);
+    } else if (message.containsKey(JsonConstants.method)) {
+      if (isOnWhiteListedOnMessage(message)) {
+        debugPrint('◤◢◤◢◤◢◤◢◤◢◤  METHOD ON_MESSAGE_FROM_SOCKET : $message : ◤◢◤◢◤◢◤◢◤◢◤ ');
+      }
+      handleMethod(method: message[JsonConstants.method], params: message[JsonConstants.params]);
+    }
+  }
+
+  void handleResult({required int id, required Map<String, dynamic> message, required Map<String, dynamic> result}) {
+    try {
+      if (id == _idJoinRoom) {
+        _localUserId = result[JsonConstants.id];
+
+        if (result.containsKey(JsonConstants.value)) {
+          final values = (result[JsonConstants.value] as List<dynamic>).map((e){
+            final jsonString = json.encode(e);
+            return json.decode(jsonString) as Map<String, dynamic>;
+          });
+          if (values.isNotEmpty) {
+            final value = values.first;
+            if (value.containsKey(JsonConstants.streams)) {
+              final streams = (value[JsonConstants.streams] as List<dynamic>).map((e){
+                final jsonString = json.encode(e);
+                return json.decode(jsonString) as Map<String, dynamic>;
+              });
+              if (streams.isNotEmpty) {
+                final stream = streams.first;
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint('ERROR PARSING HANDLE RESULT: $e');
+      onRtcCallback(RTCState.parsingHandleResultError);
+    }
+  }
+
+  void handleMethod({required String method, required Map<String, dynamic> params}) {
+    if (method == JsonConstants.iceCandidate) {
+      onIceCandidateMethod(params: params);
     }
   }
 
@@ -112,6 +180,12 @@ class RTCService {
       if (message.containsKey(JsonConstants.result)) {
         final resultJson = message[JsonConstants.result] as Map<String, dynamic>;
         if (resultJson[JsonConstants.value] == 'pong') {
+          return false;
+        } else {
+          return true;
+        }
+      } else if (message.containsKey(JsonConstants.method)) {
+        if (message[JsonConstants.method] == JsonConstants.iceCandidate) {
           return false;
         } else {
           return true;
@@ -128,7 +202,7 @@ class RTCService {
   late MediaStream localStream;
 
   Future<RTCPeerConnection> createLocalPeerConnection() async {
-    debugPrint('MASUK_CREATE LOCAL PEER CONNECTION');
+    // debugPrint('MASUK_CREATE LOCAL PEER CONNECTION');
     localPeerConnection = await createPeerConnection(configuration, offerSdpConstraints);
     localStream = await navigator.mediaDevices.getUserMedia({
       'audio': true,
@@ -141,8 +215,14 @@ class RTCService {
     }
 
     localPeerConnection.onIceCandidate = (candidate) {
-      debugPrint('MASUK_LOCAL PEER ON ICE CANDIDATE');
-      sendJson(JsonConstants.onIceCandidate, params: candidate.toMap());
+      final iceCandidateParams = <String, dynamic>{
+        'sdpMid': candidate.sdpMid,
+        'sdpMLineIndex': candidate.sdpMLineIndex,
+        'endPointName': _localUserId,
+        'candidate': candidate.candidate,
+      };
+      // debugPrint('MASUK_LOCAL PEER ON ICE CANDIDATE: $iceCandidateParams');
+      sendJson(JsonConstants.onIceCandidate, params: iceCandidateParams);
     };
 
     localPeerConnection.onIceGatheringState = (state) {
@@ -154,12 +234,60 @@ class RTCService {
     onRtcCallback(RTCState.localStreamAdded);
 
     onRtcCallback(RTCState.createdPeerConnection);
-
+    _idJoinRoom = sendJson(
+      JsonConstants.joinRoom,
+      params: {
+        JsonConstants.metadata: '{"clientData": "MOBILE CLIENT"}',
+        'secret': secret,
+        'platform': Platform.isAndroid ? 'Android' : 'iOS',
+        // 'dataChannels': 'false',
+        'session': sessionId,
+        'token': sessionToken,
+      },
+    );
     return localPeerConnection;
+  }
+
+  late RTCSessionDescription localOffer;
+
+  Future<RTCSessionDescription> createLocalOffer() async {
+    debugPrint('MASUK_CREATE LOCAL PEER CONNECTION');
+    localOffer = await localPeerConnection.createOffer({'offerToReceiveVideo': 1});
+    await localPeerConnection.setLocalDescription(localOffer);
+    _idPublishVideo = sendJson(
+      JsonConstants.publishVideo,
+      params: {
+        'audioOnly': 'false',
+        'hasAudio': 'true',
+        'doLoopback': 'false',
+        'hasVideo': 'true',
+        'audioActive': 'true',
+        'videoActive': 'true',
+        'typeOfVideo': 'CAMERA',
+        'frameRate': '30',
+        'videoDimensions': '{"width": 320, "height": 240}',
+        'sdpOffer': localOffer.sdp
+      },
+    );
+    onRtcCallback(RTCState.createdLocalOffer);
+    return localOffer;
   }
 
   Future<void> dispose() async {
     webSocket.close();
+  }
+
+  void onIceCandidateMethod({required Map<String, dynamic> params}) {
+    final iceCandidateParams = OpenviduRTCIceCandidate(
+        candidate: params['candidate'],
+        sdpMid: params['sdpMid'],
+        sdpMLineIndex: params['sdpMLineIndex'],
+        endpointName: params['endpointName']);
+    // debugPrint('MASUK_ON ICE CANDIDATE METHOD: ${iceCandidateParams.toMap()}');
+    final isLocal = params[JsonConstants.senderConnectionId] == _localUserId;
+    if (isLocal) {
+      localPeerConnection.addCandidate(iceCandidateParams);
+    }
   }
 }
 

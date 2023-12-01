@@ -49,11 +49,17 @@ class _CallerScreenState extends State<CallerScreen> {
           case RTCState.createdPeerConnection:
             Get.snackbar('RTC STATE', 'createdPeerConnection');
             break;
+          case RTCState.createdLocalOffer:
+            Get.snackbar('RTC STATE', 'createdLocalOffer');
+            break;
           case RTCState.localStreamAdded:
             Get.snackbar('RTC STATE', 'localStreamAdded');
             break;
           case RTCState.webSocketDone:
             Get.snackbar('RTC STATE', 'webSocketDone');
+            break;
+          case RTCState.parsingHandleResultError:
+            Get.snackbar('RTC STATE', 'parsingHandleResultError');
             break;
           case RTCState.webSocketError:
             Get.snackbar('RTC STATE', 'webSocketError');
@@ -72,6 +78,14 @@ class _CallerScreenState extends State<CallerScreen> {
   @override
   void dispose() {
     // context.get<IVideoCallRemoteDataSource>().videoCallRef.child('rooms').child(roomId).remove();
+    localStream?.getTracks().forEach((element) {
+      element.stop();
+    });
+    remoteStream?.getTracks().forEach((element) {
+      element.stop();
+    });
+    localStream?.dispose();
+    remoteStream?.dispose();
     unawaited(localRenderer.dispose());
     unawaited(remoteRenderer.dispose());
     unawaited(rtcService.dispose());
@@ -126,6 +140,7 @@ class _CallerScreenState extends State<CallerScreen> {
                         ),
                       ),
                       Text('CON_ID: $connectionId'),
+                      Text('SES_TOKEN: $sessionToken'),
                       SizedBox(
                         height: 5.h,
                       ),
@@ -133,18 +148,20 @@ class _CallerScreenState extends State<CallerScreen> {
                         onPressed: () async {
                           context.read<VideoCallBloc>().add(const VideoCallEvent.initializeConnection());
                         },
-                        child: const Text('INIT CONNECTION THROUGH API'),
+                        child: const Text('INIT CONNECTION THROUGH API 1'),
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          rtcService.init(sessionId: sessionId, sessionToken: sessionToken);
+                          rtcService.init(sessionId: sessionId, sessionToken: sessionToken, secret: 'QkFOS01BUzIwMjIK');
                         },
-                        child: const Text('INIT RTC SERVICE'),
+                        child: const Text('INIT RTC SERVICE 2'),
                       ),
-                      // ElevatedButton(
-                      //   onPressed: () async {},
-                      //   child: const Text('ADD CANDIDATE 7'),
-                      // ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          rtcService.createLocalOffer();
+                        },
+                        child: const Text('CREATED LOCAL OFFER 3'),
+                      ),
                       // ElevatedButton(
                       //   onPressed: () async {},
                       //   child: const Text('MUTE'),

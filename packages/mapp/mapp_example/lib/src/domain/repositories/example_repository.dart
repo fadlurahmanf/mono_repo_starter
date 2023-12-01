@@ -12,7 +12,7 @@ class ExampleRepository implements IExampleRepository {
   @override
   Future<Either<Exception, ConnectionResponse>> initializeConnection() async {
     try {
-      return right(await openviduApi.initializeConnection(sessionId: 'cool-aqua-porpoise'));
+      return right(await openviduApi.initializeConnection(sessionId: 'toxic-plum-porcupine'));
     } on Exception catch (e) {
       return left(e);
     }
