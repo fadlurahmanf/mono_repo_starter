@@ -40,39 +40,44 @@ class _CallerScreenState extends State<CallerScreen> {
     localRenderer.initialize();
     remoteRenderer.initialize();
 
-    rtcService = RTCService(
-      onRtcCallback: (state) {
-        switch (state) {
-          case RTCState.initializeWebSocket:
-            Get.snackbar('RTC STATE', 'initializeWebSocket');
-            break;
-          case RTCState.createdPeerConnection:
-            Get.snackbar('RTC STATE', 'createdPeerConnection');
-            break;
-          case RTCState.createdLocalOffer:
-            Get.snackbar('RTC STATE', 'createdLocalOffer');
-            break;
-          case RTCState.localStreamAdded:
-            Get.snackbar('RTC STATE', 'localStreamAdded');
-            break;
-          case RTCState.webSocketDone:
-            Get.snackbar('RTC STATE', 'webSocketDone');
-            break;
-          case RTCState.parsingHandleResultError:
-            Get.snackbar('RTC STATE', 'parsingHandleResultError');
-            break;
-          case RTCState.webSocketError:
-            Get.snackbar('RTC STATE', 'webSocketError');
-            break;
-        }
-      },
-      onLocalStream: (stream) {
-        setState(() {
-          localStream = stream;
-          localRenderer.srcObject = localStream;
-        });
-      },
-    );
+    rtcService = RTCService(onRtcCallback: (state) {
+      switch (state) {
+        case RTCState.initializeWebSocket:
+          Get.snackbar('RTC STATE', 'initializeWebSocket');
+          break;
+        case RTCState.createdPeerConnection:
+          Get.snackbar('RTC STATE', 'createdPeerConnection');
+          break;
+        case RTCState.createdLocalOffer:
+          Get.snackbar('RTC STATE', 'createdLocalOffer');
+          break;
+        case RTCState.localStreamAdded:
+          Get.snackbar('RTC STATE', 'localStreamAdded');
+          break;
+        case RTCState.remoteStreamAdded:
+          Get.snackbar('RTC STATE', 'remoteStreamAdded');
+          break;
+        case RTCState.webSocketDone:
+          Get.snackbar('RTC STATE', 'webSocketDone');
+          break;
+        case RTCState.parsingHandleResultError:
+          Get.snackbar('RTC STATE', 'parsingHandleResultError');
+          break;
+        case RTCState.webSocketError:
+          Get.snackbar('RTC STATE', 'webSocketError');
+          break;
+      }
+    }, onLocalStream: (stream) {
+      setState(() {
+        localStream = stream;
+        localRenderer.srcObject = localStream;
+      });
+    }, onRemoteStream: (stream) {
+      setState(() {
+        remoteStream = stream;
+        remoteRenderer.srcObject = remoteStream;
+      });
+    });
   }
 
   @override
@@ -152,7 +157,12 @@ class _CallerScreenState extends State<CallerScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          rtcService.init(sessionId: sessionId, sessionToken: sessionToken, secret: 'QkFOS01BUzIwMjIK');
+                          rtcService.init(
+                            sessionId: sessionId,
+                            connectionId: connectionId,
+                            sessionToken: sessionToken,
+                            secret: 'QkFOS01BUzIwMjIK',
+                          );
                         },
                         child: const Text('INIT RTC SERVICE 2'),
                       ),
